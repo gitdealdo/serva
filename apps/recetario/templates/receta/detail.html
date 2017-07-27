@@ -1,0 +1,151 @@
+{% extends 'base/base_back.html' %}
+{% load crispy_forms_tags %}
+
+{% comment %}
+{% load  app_security %}
+{% load i18n l10n humanize %}
+{% endcomment %}
+
+{% block breadcrumbs %}
+  <a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
+  &rsaquo;
+  <a href="{% url 'recetario:receta_list' %}">{{ opts.verbose_name_plural }}</a>
+  &rsaquo; {{ receta }}
+{% endblock breadcrumbs %}
+
+{% block content_title %}
+{{ opts.verbose_name_plural|capfirst }} | <small>{{ title }}</small>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class="btn-toolbar btn-toolbar-top">
+  <div class="row">
+    <div class="btn-actions">
+      <a href="{% url 'recetario:receta_edit' receta.pk %}" class="btn btn-primary text-bold" title="Editar {{opts.verbose_name}}">
+        <i class="fa fa-pencil"></i>
+        <span class="hidden-xs"> Editar {{opts.verbose_name}}</span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-5 text-center">
+        {% if receta.imagen %}
+        <img src="{{receta.imagen.url}}" alt="..." width="400px" height="400px" class="img-thumbnail img-responsive">
+        {% else %}
+        <span class="label label-info">Sin imagen aún</span>
+        {% endif %}
+        <h5>
+          <span class="label label-primary">{{receta.porcion}} Porciones</span>
+        </h5>
+      </div>
+      <div class="col-md-7">
+        <p>{{ receta.descripcion }}</p>
+        <h4 class="text-danger">Ingredientes <span class="badge">{{receta.ingrediente_set.count}}</span>
+          <span class="label">
+            <a href="#addform" data-toggle="modal">
+              <span class="fa fa-plus"></span>
+            </a>
+          </span>
+        </h4>
+        <table class="table table-hover">
+          <tbody>
+            {% for d in receta.ingrediente_set.all %}
+            <tr>
+              <td>{{d.producto}}</td>
+              <td>{{d.cantidad}}</td>
+              <td>{{d.producto.unidad.simbolo}}</td>
+              <td>
+                <a href="javascript:eliminar({'id':'{{d.id}}','nombre':'{{d.producto}}'})" 
+                class="text-bold" title="Eliminar {{d}}" rel="tooltip">
+                  <i class="fa fa-trash-o fa-lg" style="color:red;"></i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <h4 class="text-danger">Preparación </h4>
+        <p>{{receta.preparacion}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <h3 class="text-primary"><strong> {{receta}}</strong></h3>
+  </div>
+</div>
+
+<div class="modal fade" id="addform">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Agregar ingrediente</h4>
+      </div>
+      <form action="" method="POST">
+      {% csrf_token %}
+      <div class="modal-body">
+        <div class="form-group">
+          <select name="producto" id="id_producto" class="form-control select2" style="width: 100%;" required>
+            {% for d in productos %}
+              <option value="{{d.id}}">{{d.nombre}} ({{d.unidad.simbolo}})</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="id_cantidad">Cantidad</label>
+          <input type="number" class="form-control" name="cantidad" id="id_cantidad" placeholder="Ingrese cantidad" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm flipInY animated" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-danger">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Confirme eliminar</h4>
+      </div>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="modal-body">
+          <input type="hidden" name="ingrediente_id" id="delete_id" value="">
+          <p>Estás a punto de eliminar <strong class="regname"></strong>, este procedimiento es irreversible.</p>
+          <p>¿Quieres proceder?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger">Continuar</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block customjs %}
+<script>
+
+  $('#modal_confirmar').on('show.bs.modal', function (event) {
+    $('.modal .modal-dialog').attr('class', 'modal-dialog modal-sm flipInY animated');
+  })
+
+  function eliminar (arg) {
+    console.warn(arg);
+    $('#confirm-delete').modal('show');
+    $('#delete_id').val(arg.id);
+    $('.regname').text(arg.nombre);
+  }
+
+</script>
+{% endblock customjs %}

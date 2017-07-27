@@ -1,0 +1,170 @@
+{% extends 'base/base_back.html' %}
+
+{% load i18n app_security %}
+{% load l10n humanize %}
+
+
+{% block breadcrumbs %}
+  <a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
+  &rsaquo; {{opts.verbose_name_plural}}
+{% endblock breadcrumbs %}
+
+{% block content_title %}
+{{ opts.verbose_name_plural|capfirst }} | <small>{{ title }}</small>
+{% endblock content_title %}
+
+{% block content %}
+
+  <script type="text/javascript">
+  $(function() {
+      $('table').kgrid({
+          form_data : ['{{f}}', '{{q}}'],
+          form_to   : '{% url "venta:menu_list" %}?f={{f}}&q={{q}}',
+          order_attr: 'class=""',
+          order_to  : '{% url "venta:menu_list" %}?f={{f}}&q={{q}}',
+      });
+  });
+  </script>
+
+  <div class="btn-toolbar btn-toolbar-top">
+      <div class="row">
+          <div class="btn-actions">
+              <a href="javascript:agregar()" class="btn
+                  btn-primary text-bold" title="Agregar {{opts.verbose_name}}">
+                  <i class="fa fa-plus">
+                  </i>
+                  <span class="hidden-xs"> Agregar {{opts.verbose_name}}
+                  </span>
+              </a>
+          </div>
+      </div>
+  </div>
+
+    <div class="container-overflow">
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th class="" data-search="tipo_menu" data-order="tipo_menu">Menu</th>
+                    <th class="" data-search="costo" data-order="costo">Costo</th>
+                    <th class="" data-search="fecha" data-order="fecha">Fecha</th>
+                    <th class="btn-actions col-block text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in object_list %}
+                <tr>
+                    <td>
+                        {% if is_paginated %}
+                            {{ page_obj.start_index|add:forloop.counter0 }}
+                        {% else %}
+                            {{ forloop.counter }}
+                        {% endif %}
+                    </td>
+                    <td>{{ d.tipo_menu }}</td>
+                    <td>{{ d.costo }}</td>
+                    <td>{{ d.fecha }}</td>
+                    <td class="text-center">
+                       <a href="javascript:editar({'id':'{{d.id}}','nombre':'{{d.nombre}}'})" class="btn btn-info btn-sm text-bold" title="Cambiar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-edit"></i></a>
+                       <a href="javascript:eliminar({'id':'{{d.id}}','nombre':'{{d.nombre}}'})" class="btn btn-danger btn-sm text-bold" title="Eliminar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-trash-o"></i></a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+   <div  class="row" >
+    {% if is_paginated %}
+    {% load paginator %}
+    {% paginator %}
+    {% else %}
+    <div class="col-md-12" >
+        <ul class="breadcrumbpag" >
+            {{ object_list.count }}
+            {% ifequal object_list.count 1 %}
+                {{ opts.verbose_name|capfirst }}
+            {% else %}{{ opts.verbose_name_plural|title }}
+            {% endifequal %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+
+<div class="modal fade" id="form">
+  <div class="modal-dialog modal-sm flipInY animated">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><i class="fa fa-info"></i> Formulario {{opts.verbose_name}}</h4>
+      </div>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="id_tipo_menu" id="id_tipo_menu" value="">
+        <div class="modal-body">
+        	<p>Aún no implementado</p>
+        	{% comment %}
+          <div class="form-group">
+            <label for="nombre"></label>
+            <input type="text" name="nombre" class="form-control" id="nombre">
+          </div>
+        	{% endcomment %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" disabled>Guardar</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm flipInY animated" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-danger">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Confirme eliminar</h4>
+      </div>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="modal-body">
+          <input type="hidden" name="delete_id" id="delete_id" value="">
+          <p>Estás a punto de eliminar <strong class="regname"></strong>, este procedimiento es irreversible.</p>
+          <p>¿Quieres proceder?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger" disabled>Continuar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block customjs %}
+<script>
+  function agregar () {
+    $('#id_tipo_menu').val('');
+    $('#nombre').val('');
+    $('#form').modal('show');
+  }
+  function editar (arg) {
+    $('#form').modal('show');
+    $('#nombre').val(arg.nombre);
+    $('#id_tipo_menu').val(arg.id);
+  }
+  function eliminar (arg) {
+    console.warn(arg);
+    $('#confirm-delete').modal('show');
+    $('#delete_id').val(arg.id);
+    $('.regname').text(arg.nombre);
+  }
+
+</script>
+{% endblock customjs %}

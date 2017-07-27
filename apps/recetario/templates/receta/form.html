@@ -1,0 +1,53 @@
+{% extends 'base/base_back.html' %}
+
+{% load i18n crispy_forms_tags %}
+{% load l10n %}
+
+{% block breadcrumbs %}
+<a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
+&rsaquo;
+<a href="{% url 'recetario:receta_list' %}">{{ opts.verbose_name_plural }}</a>
+{% if receta %}
+  &rsaquo;
+  <a href="{% url 'recetario:receta_detail' receta.pk %}">{{ receta }}</a>
+{% endif %}
+&rsaquo; {{ title }}
+{% endblock breadcrumbs %}
+
+{% block content_title %}
+    <div class="container">
+      {{ opts.verbose_name|capfirst }} | <small>{{ title }}</small>
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Formulario {{ opts.verbose_name }}</h4>
+  </div>
+  <div class="panel-body">
+    {% crispy form %}
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block extrajs %}    
+    {{ block.super }}
+
+  <script type="text/javascript">
+    $(function () {
+      $('#id_imagen').fileinput({
+        showUpload: false,
+        showRemove: false,
+        initialCaption: '{{ form.imagen.value }}',
+        initialPreview: ['<img src="{{ MEDIA_URL }}{{ form.imagen.value }}" width="165px" height="120px">',],
+        browseClass: 'btn btn-warning',
+        browseLabel: '<span class="hidden-xs">{% trans "Subir Foto" %}</span>',
+        browseIcon: '<i class="btn-icon-only glyphicon glyphicon-facetime-picture"></i>',
+      });
+      $("[data-toggle=tooltip]").tooltip();
+      $('#id_fecha_nac').datetimepicker({format: 'YYYY-MM-DD'});
+    });
+  </script>
+{% endblock extrajs %}

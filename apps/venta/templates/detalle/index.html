@@ -1,0 +1,137 @@
+{% extends 'base/base_back.html' %}
+{% comment %}
+  
+{% load i18n crispy_forms_tags %}
+{% load l10n %}
+{% endcomment %}
+
+{% block breadcrumbs %}
+<a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
+{% comment %}
+&rsaquo;
+<a href="{% url 'recetario:receta_list' %}">{{ opts.verbose_name_plural }}</a>
+{% endcomment %}
+&rsaquo; {{ title }}
+{% endblock breadcrumbs %}
+
+{% block content_title %}
+    <div class="container">
+      {{ opts.verbose_name |capfirst }} de menu | <small>{{ title }}</small>
+      <small class="pull-right">{% now "D d M, Y" %}</small>      
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="sr-only" for="tipo_menu">Tipo de menu</label>
+          <select class="form-control" id="tipo_menu">
+            {% for d in tipo_menus %}
+              <option value="{{d.id}}">{{d.nombre}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h4 class="text-center">Formulario menu</h4>
+      </div>
+    </div>
+
+    <form action="javascript:agregar()" class="form-inline text-center" id="myform" role="form">
+      <div class="form-group">
+        <label class="sr-only" for="receta">Recetas</label>
+        <select name="receta" class="form-control select2" id="receta">
+          {% for d in recetas %}
+            <option value="{{d.id}}">{{d.nombre}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="porcion">Porción</label>
+        <input type="number" name="porcion" class="form-control" placeholder="Ingrese porción" required>
+      </div>
+      <button type="submit" class="btn btn-primary"><i class="fa fa-download"></i>
+      <span class="hidden-xs"> Agregar</span></button>
+    </form>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Receta</th>
+            <th>Proción</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block extrajs %}    
+    {{ block.super }}
+{% endblock extrajs %}
+
+{% block customjs %}
+  <script>
+  var lista = [];
+  function agregar () {
+    var obj = getFormObj2('myform');
+    obj['receta_nombre'] = $("#receta option:selected").text();
+    console.log(obj);
+    lista.push(obj);
+    listar(lista);
+  }
+
+  function listar (list) {
+    var htm = '';
+    for (var i = 0; i < list.length; i++) {
+      htm += '<tr>'      
+      htm += '<td>'+(i+1)+'</td>';      
+      htm += '<td>'+list[i].receta_nombre+'</td>';      
+      htm += '<td>'+list[i].porcion+'</td>';      
+      htm += '<td><a href="javascript:quitar('+i+')"><i class="fa fa-remove fa-lg"></i></a></td>';      
+      htm += '</tr>'      
+    }
+    $("tbody").html(htm);
+  }
+
+  function quitar (i) {
+    lista.splice(i, 1);
+    listar(lista);
+  }
+/********Metodos*******/
+  function getFormObj(formId) {
+    var formParams = {};
+    $('#' + formId)
+      .serializeArray()
+      .forEach(function(item) {
+        if (formParams[item.name]) {
+          formParams[item.name] = [formParams[item.name]];
+          formParams[item.name].push(item.value)
+        } else {
+          formParams[item.name] = item.value
+        }
+      });
+    return formParams;
+  }
+  function getFormObj2(formId) {
+    var res = {};
+    $("#"+formId+" input, #"+formId+" select, #"+formId+" textarea").each(function(i, obj) {
+        res[obj.name] = $(obj).val();
+    })
+    return res;
+  }
+/********Metodos*******/
+
+  </script>  
+{% endblock customjs %}
