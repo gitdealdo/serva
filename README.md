@@ -1,1 +1,1 @@
-# Backend Manager for Django by Pacifi
+# Based on backengo
