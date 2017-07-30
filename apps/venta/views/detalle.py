@@ -24,7 +24,7 @@ class DetalleTemplateView(generic.TemplateView):
     model = Detalle
     template_name = 'detalle/index.html'
 
-    @method_decorator(permission_resource_required)
+    # @method_decorator(permission_resource_required)
     def dispatch(self, request, *args, **kwargs):
         return super(DetalleTemplateView, self).dispatch(request, *args, **kwargs)
 

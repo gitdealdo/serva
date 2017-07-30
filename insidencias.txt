@@ -1,0 +1,6 @@
+* agregar richtext en formulario crear receta f=preparacion
+* agregar opción guardar y configurar receta
+
+* realizar la pagina principal con las recetas
+* Realizar gestion de usuarios
+* mejorar el tema

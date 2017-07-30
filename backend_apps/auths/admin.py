@@ -86,7 +86,8 @@ class PersonAdmin(admin.ModelAdmin):
 
 admin.site.register(Person, PersonAdmin)
 
-admin.site.register(User, MyUserAdmin)
+# admin.site.register(User, MyUserAdmin)
+admin.site.register(User)
 admin.site.register(ContentType)
 admin.site.register(Permission, PermissionAdmin)
 admin.site.register(Menu)

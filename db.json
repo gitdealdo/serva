@@ -1,0 +1,1512 @@
+[
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "auths",
+    "model": "person"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "auths",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "auths",
+    "model": "menu"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "blog",
+    "model": "post"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "blog",
+    "model": "comment"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "recetario",
+    "model": "receta"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "recetario",
+    "model": "tipo"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "recetario",
+    "model": "ingrediente"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 14,
+  "fields": {
+    "app_label": "recetario",
+    "model": "categoria"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 15,
+  "fields": {
+    "app_label": "recetario",
+    "model": "unidad"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 16,
+  "fields": {
+    "app_label": "recetario",
+    "model": "producto"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 17,
+  "fields": {
+    "app_label": "venta",
+    "model": "tipomenu"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 18,
+  "fields": {
+    "app_label": "venta",
+    "model": "menu"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 19,
+  "fields": {
+    "app_label": "venta",
+    "model": "detalle"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 20,
+  "fields": {
+    "app_label": "recetario",
+    "model": "recetario"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 21,
+  "fields": {
+    "app_label": "backend",
+    "model": "menu"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 22,
+  "fields": {
+    "app_label": "backend",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 23,
+  "fields": {
+    "app_label": "backend",
+    "model": "user"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "00bupxupz7zbkv85e9f3h905tufp0dxs",
+  "fields": {
+    "session_data": "Y2U3YjY1MWRkYzRkNTUxYjdmYzNlMTkxNTZkYzJhYWY4NzgzMjE5Mjp7Il9hdXRoX3VzZXJfaWQiOiIwZGE5M2EwZS00ZDZmLTRmYWUtYTc0NC02N2IyYmRlNjU3YmUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaGFzaCI6ImZlYjUyM2RhOTU5ODg0YjZlN2UxY2Y4YmIyZDVjNWYyZjI5YWJmODcifQ==",
+    "expire_date": "2017-08-13T00:11:49.474Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6v23v7n7zf3jcq4g873afwhgz41lybkx",
+  "fields": {
+    "session_data": "MThmZjRkYjRmMDZkNmFjM2YzYzlmYWI2ODRhMTdiMjMyY2Q0ZTgyNjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjBkYTkzYTBlLTRkNmYtNGZhZS1hNzQ0LTY3YjJiZGU2NTdiZSIsIl9hdXRoX3VzZXJfaGFzaCI6ImZlYjUyM2RhOTU5ODg0YjZlN2UxY2Y4YmIyZDVjNWYyZjI5YWJmODcifQ==",
+    "expire_date": "2017-08-11T23:35:27.977Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "toaxj8ilm3hujy70so6c24a91tsgtd7v",
+  "fields": {
+    "session_data": "ZmI0OTcyNWVkYzc4YTI0ZjUzYWM5ZTJiZTUxMjQ0ZDdmZjQ1NzFiYTp7Il9hdXRoX3VzZXJfaGFzaCI6ImZlYjUyM2RhOTU5ODg0YjZlN2UxY2Y4YmIyZDVjNWYyZjI5YWJmODciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIwZGE5M2EwZS00ZDZmLTRmYWUtYTc0NC02N2IyYmRlNjU3YmUifQ==",
+    "expire_date": "2017-08-13T02:50:03.920Z"
+  }
+},
+{
+  "model": "recetario.tipo",
+  "pk": "f4c90b52-ef71-4e7a-a033-256e41b0a7cd",
+  "fields": {
+    "nombre": "Cereales"
+  }
+},
+{
+  "model": "recetario.unidad",
+  "pk": "0623358b-152e-4e63-b82e-52fd6ef06b58",
+  "fields": {
+    "nombre": "Kilogramo",
+    "simbolo": "Kg"
+  }
+},
+{
+  "model": "recetario.producto",
+  "pk": "442b144b-4acd-4dff-9654-07edda775c09",
+  "fields": {
+    "nombre": "Arroz",
+    "descripcion": "",
+    "cantidad": 45,
+    "tipo": "f4c90b52-ef71-4e7a-a033-256e41b0a7cd",
+    "unidad": "0623358b-152e-4e63-b82e-52fd6ef06b58",
+    "costo": "2.50"
+  }
+},
+{
+  "model": "recetario.producto",
+  "pk": "a7ec4f0f-4851-49db-a3f3-3d0e371312d1",
+  "fields": {
+    "nombre": "Papa amarilla",
+    "descripcion": "",
+    "cantidad": 50,
+    "tipo": "f4c90b52-ef71-4e7a-a033-256e41b0a7cd",
+    "unidad": "0623358b-152e-4e63-b82e-52fd6ef06b58",
+    "costo": "1.50"
+  }
+},
+{
+  "model": "recetario.categoria",
+  "pk": "47c41136-426f-4d1f-8165-4d1667b59d16",
+  "fields": {
+    "nombre": "Principal"
+  }
+},
+{
+  "model": "venta.tipomenu",
+  "pk": "2bbf0fe4-66aa-4a86-9424-f8281bf120e0",
+  "fields": {
+    "nombre": "Desayuno"
+  }
+},
+{
+  "model": "venta.tipomenu",
+  "pk": "8ee17f22-0df6-4f02-8bff-5a52e727aa0d",
+  "fields": {
+    "nombre": "Almuerzo"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 62,
+  "fields": {
+    "name": "producto_control",
+    "content_type": 16,
+    "codename": "producto"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 63,
+  "fields": {
+    "name": "receta_control",
+    "content_type": 11,
+    "codename": "receta"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 64,
+  "fields": {
+    "name": "menu_control",
+    "content_type": 21,
+    "codename": "menu"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 65,
+  "fields": {
+    "name": "permission_control",
+    "content_type": 22,
+    "codename": "permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 66,
+  "fields": {
+    "name": "user_control",
+    "content_type": 23,
+    "codename": "user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 67,
+  "fields": {
+    "name": "unidad_control",
+    "content_type": 15,
+    "codename": "unidad"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 68,
+  "fields": {
+    "name": "categoria_control",
+    "content_type": 14,
+    "codename": "categoria"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 69,
+  "fields": {
+    "name": "tipo_control",
+    "content_type": 12,
+    "codename": "tipo"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 70,
+  "fields": {
+    "name": "tipo_menu_control",
+    "content_type": 17,
+    "codename": "tipomenu"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 71,
+  "fields": {
+    "name": "venta_menu_control",
+    "content_type": 18,
+    "codename": "menu"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 72,
+  "fields": {
+    "name": "detalle_control",
+    "content_type": 19,
+    "codename": "detalle"
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "nutricion",
+    "permissions": [
+      68,
+      62,
+      63,
+      69,
+      67,
+      71,
+      70
+    ]
+  }
+},
+{
+  "model": "auths.user",
+  "pk": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+  "fields": {
+    "password": "pbkdf2_sha256$36000$QNtPOpt0juRe$82VHb9MvfDtZ8ZzLPrv1HS8IEfxG2DB8WOPUpqtCYt8=",
+    "last_login": "2017-07-30T02:50:03.836Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2017-07-28T23:35:14.959Z",
+    "person": null,
+    "updated_at": "2017-07-28T23:35:14.999Z",
+    "created_at": "2017-07-28T23:35:14.999Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.user",
+  "pk": "ab42a680-42cc-4da0-bd12-58c1de7b83ed",
+  "fields": {
+    "password": "pbkdf2_sha256$36000$DAumFIJ2t8gP$YS6xqhzOuh8tivdhVYZnDzWQFYZDuoCG3Zc5O1++BBg=",
+    "last_login": "2017-07-30T01:58:06.399Z",
+    "is_superuser": false,
+    "username": "gladis",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2017-07-30T01:29:10Z",
+    "person": null,
+    "updated_at": "2017-07-30T01:36:45.073Z",
+    "created_at": "2017-07-30T01:29:10.900Z",
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "0c60656d-7aaf-4190-ba20-6784a6c2af2f",
+  "fields": {
+    "title": "Users",
+    "url": "backend/user/list",
+    "pos": 2,
+    "icon": "fa fa-users",
+    "is_active": true,
+    "description": "",
+    "permission": 66,
+    "parent": "16c5842d-699c-4859-80bc-7fe4c75fa032",
+    "created_at": "2017-07-30T00:30:26.047Z",
+    "updated_at": "2017-07-30T00:31:37.096Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "16c5842d-699c-4859-80bc-7fe4c75fa032",
+  "fields": {
+    "title": "Backend",
+    "url": "#",
+    "pos": 1,
+    "icon": "fa fa-universal-access",
+    "is_active": true,
+    "description": "",
+    "permission": null,
+    "parent": null,
+    "created_at": "2017-07-28T23:37:57.878Z",
+    "updated_at": "2017-07-30T00:41:13.765Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "2023351a-30a8-4840-ae50-3a7254ec43f9",
+  "fields": {
+    "title": "Venta",
+    "url": "#",
+    "pos": 1,
+    "icon": "fa fa-credit-card-alt",
+    "is_active": true,
+    "description": "",
+    "permission": null,
+    "parent": null,
+    "created_at": "2017-07-30T01:05:31.578Z",
+    "updated_at": "2017-07-30T01:05:31.790Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "2cb59460-8e19-4207-838a-99f91641ef4b",
+  "fields": {
+    "title": "Permissions",
+    "url": "backend/permission/list",
+    "pos": 2,
+    "icon": "fa fa-linux",
+    "is_active": true,
+    "description": "",
+    "permission": 65,
+    "parent": "16c5842d-699c-4859-80bc-7fe4c75fa032",
+    "created_at": "2017-07-30T00:29:12.770Z",
+    "updated_at": "2017-07-30T00:29:12.945Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "31502a2c-a846-4a79-9f9d-8c10e9cfa4d1",
+  "fields": {
+    "title": "Tipo",
+    "url": "recetario/tipo/lista",
+    "pos": 3,
+    "icon": "fa fa-bars",
+    "is_active": true,
+    "description": "",
+    "permission": 69,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T01:00:54.386Z",
+    "updated_at": "2017-07-30T01:24:49.176Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "33ef6fe7-4dca-4cb4-8703-556a9c4345df",
+  "fields": {
+    "title": "Unidad",
+    "url": "recetario/unidad/lista",
+    "pos": 1,
+    "icon": "fa fa-hand-o-up",
+    "is_active": true,
+    "description": "",
+    "permission": 67,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T00:59:10.564Z",
+    "updated_at": "2017-07-30T01:21:16.762Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "4b8f2256-381e-4d41-9e92-e847ec7199a4",
+  "fields": {
+    "title": "Tipo menu",
+    "url": "venta/tipomenu/lista",
+    "pos": 2,
+    "icon": "fa fa-tumblr-square",
+    "is_active": true,
+    "description": "",
+    "permission": 70,
+    "parent": "2023351a-30a8-4840-ae50-3a7254ec43f9",
+    "created_at": "2017-07-30T01:11:33.535Z",
+    "updated_at": "2017-07-30T01:11:33.713Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "64d07e67-429e-4a22-b174-7b56b1f5fdbe",
+  "fields": {
+    "title": "Productos",
+    "url": "recetario/producto/lista",
+    "pos": 4,
+    "icon": "fa fa-apple",
+    "is_active": true,
+    "description": "",
+    "permission": 62,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T00:44:27.480Z",
+    "updated_at": "2017-07-30T01:25:20.836Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "67806e8d-f4db-4c67-9e3b-263c056cf40a",
+  "fields": {
+    "title": "Venta",
+    "url": "venta/detalle/index",
+    "pos": 3,
+    "icon": "fa fa-lemon-o",
+    "is_active": true,
+    "description": "",
+    "permission": 72,
+    "parent": "2023351a-30a8-4840-ae50-3a7254ec43f9",
+    "created_at": "2017-07-30T03:25:22.433Z",
+    "updated_at": "2017-07-30T03:25:22.653Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "7b83c6e7-46a3-4e4b-80c8-b3e31b4655bd",
+  "fields": {
+    "title": "Menus",
+    "url": "venta/menu/lista",
+    "pos": 2,
+    "icon": "fa fa-medium",
+    "is_active": true,
+    "description": "",
+    "permission": 71,
+    "parent": "2023351a-30a8-4840-ae50-3a7254ec43f9",
+    "created_at": "2017-07-30T01:09:39.614Z",
+    "updated_at": "2017-07-30T01:09:39.813Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "97ad665a-8c22-480c-a204-086a4b1c6ed8",
+  "fields": {
+    "title": "Categoria",
+    "url": "recetario/categoria/lista",
+    "pos": 2,
+    "icon": "fa fa-cc",
+    "is_active": true,
+    "description": "",
+    "permission": 68,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T01:02:03.664Z",
+    "updated_at": "2017-07-30T01:02:03.853Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+  "fields": {
+    "title": "Recetario",
+    "url": "#",
+    "pos": 1,
+    "icon": "fa fa-cutlery",
+    "is_active": true,
+    "description": "",
+    "permission": null,
+    "parent": null,
+    "created_at": "2017-07-30T00:35:01.841Z",
+    "updated_at": "2017-07-30T00:35:02.191Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "d21b6f2a-49fe-44bc-b016-5caeb5d57dc1",
+  "fields": {
+    "title": "Menus",
+    "url": "backend/menu/list",
+    "pos": 2,
+    "icon": "fa fa-meetup",
+    "is_active": true,
+    "description": "",
+    "permission": 64,
+    "parent": "16c5842d-699c-4859-80bc-7fe4c75fa032",
+    "created_at": "2017-07-30T00:25:19.789Z",
+    "updated_at": "2017-07-30T01:20:51.170Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "f4d5498f-02c8-4a10-90b2-4b99c7221258",
+  "fields": {
+    "title": "Recetas",
+    "url": "recetario/receta/lista",
+    "pos": 5,
+    "icon": "fa fa-spoon",
+    "is_active": true,
+    "description": "",
+    "permission": 63,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T00:39:19.137Z",
+    "updated_at": "2017-07-30T01:25:46.414Z"
+  }
+},
+{
+  "model": "recetario.receta",
+  "pk": "1f8a56df-253b-4068-996c-907c0fb46bd9",
+  "fields": {
+    "nombre": "Arroz con huevo",
+    "categoria": "47c41136-426f-4d1f-8165-4d1667b59d16",
+    "descripcion": "",
+    "porcion": 5,
+    "preparacion": "Granear arroz",
+    "imagen": "recetas/IMG-20161202-WA0007_zT96EBW.jpeg",
+    "costo": "0.00",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2017-07-29T23:45:42.534Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "1",
+    "object_repr": "admin | log entry | Can add log entry",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2017-07-29T23:45:42.624Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "2",
+    "object_repr": "admin | log entry | Can change log entry",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2017-07-29T23:45:42.708Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "3",
+    "object_repr": "admin | log entry | Can delete log entry",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2017-07-29T23:45:42.791Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "4",
+    "object_repr": "auth | group | Can add group",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2017-07-29T23:45:42.882Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "5",
+    "object_repr": "auth | group | Can change group",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2017-07-29T23:45:42.965Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "6",
+    "object_repr": "auth | group | Can delete group",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.052Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "7",
+    "object_repr": "auth | permission | Can add permission",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.143Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "8",
+    "object_repr": "auth | permission | Can change permission",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.227Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "9",
+    "object_repr": "auth | permission | Can delete permission",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.310Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "24",
+    "object_repr": "auths | Menu | Can add Menu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.393Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "25",
+    "object_repr": "auths | Menu | Can change Menu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.476Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "26",
+    "object_repr": "auths | Menu | Can delete Menu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.560Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "28",
+    "object_repr": "auths | Menu | Can get menu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.644Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "27",
+    "object_repr": "auths | Menu | Can list menu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.726Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "16",
+    "object_repr": "auths | Persona | Can add Persona",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.810Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "17",
+    "object_repr": "auths | Persona | Can change Persona",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.882Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "18",
+    "object_repr": "auths | Persona | Can delete Persona",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2017-07-29T23:45:43.957Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "19",
+    "object_repr": "auths | User | Can add User",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.032Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "20",
+    "object_repr": "auths | User | Can change User",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.107Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "21",
+    "object_repr": "auths | User | Can delete User",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.182Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "23",
+    "object_repr": "auths | User | Can get user",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.265Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "22",
+    "object_repr": "auths | User | Can list user",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.348Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "32",
+    "object_repr": "blog | Comment | Can add Comment",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.432Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "33",
+    "object_repr": "blog | Comment | Can change Comment",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.515Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "34",
+    "object_repr": "blog | Comment | Can delete Comment",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.640Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "29",
+    "object_repr": "blog | Post | Can add Post",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.717Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "30",
+    "object_repr": "blog | Post | Can change Post",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.809Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "31",
+    "object_repr": "blog | Post | Can delete Post",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2017-07-29T23:45:44.909Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "10",
+    "object_repr": "contenttypes | content type | Can add content type",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.001Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "11",
+    "object_repr": "contenttypes | content type | Can change content type",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.084Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "12",
+    "object_repr": "contenttypes | content type | Can delete content type",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.167Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "44",
+    "object_repr": "recetario | Categoria | Can add Categoria",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.250Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "45",
+    "object_repr": "recetario | Categoria | Can change Categoria",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.326Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "46",
+    "object_repr": "recetario | Categoria | Can delete Categoria",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.409Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "41",
+    "object_repr": "recetario | Ingrediente | Can add Ingrediente",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.492Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "42",
+    "object_repr": "recetario | Ingrediente | Can change Ingrediente",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.575Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "43",
+    "object_repr": "recetario | Ingrediente | Can delete Ingrediente",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.684Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "50",
+    "object_repr": "recetario | Producto | Can add Producto",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.767Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "51",
+    "object_repr": "recetario | Producto | Can change Producto",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.875Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "52",
+    "object_repr": "recetario | Producto | Can delete Producto",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2017-07-29T23:45:45.958Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "35",
+    "object_repr": "recetario | Receta | Can add Receta",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.051Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "36",
+    "object_repr": "recetario | Receta | Can change Receta",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.142Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "37",
+    "object_repr": "recetario | Receta | Can delete Receta",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.233Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "38",
+    "object_repr": "recetario | Tipo | Can add Tipo",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.307Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "39",
+    "object_repr": "recetario | Tipo | Can change Tipo",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.391Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "40",
+    "object_repr": "recetario | Tipo | Can delete Tipo",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.525Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "47",
+    "object_repr": "recetario | Unidad | Can add Unidad",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.608Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "48",
+    "object_repr": "recetario | Unidad | Can change Unidad",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.691Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "49",
+    "object_repr": "recetario | Unidad | Can delete Unidad",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.775Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "13",
+    "object_repr": "sessions | session | Can add session",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.866Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "14",
+    "object_repr": "sessions | session | Can change session",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2017-07-29T23:45:46.991Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "15",
+    "object_repr": "sessions | session | Can delete session",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.066Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "59",
+    "object_repr": "venta | Detalle | Can add Detalle",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.149Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "60",
+    "object_repr": "venta | Detalle | Can change Detalle",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.224Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "61",
+    "object_repr": "venta | Detalle | Can delete Detalle",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.316Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "56",
+    "object_repr": "venta | Menu | Can add Menu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.408Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "57",
+    "object_repr": "venta | Menu | Can change Menu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.508Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "58",
+    "object_repr": "venta | Menu | Can delete Menu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.591Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "53",
+    "object_repr": "venta | TipoMenu | Can add TipoMenu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.691Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "54",
+    "object_repr": "venta | TipoMenu | Can change TipoMenu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2017-07-29T23:45:47.782Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 3,
+    "object_id": "55",
+    "object_repr": "venta | TipoMenu | Can delete TipoMenu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2017-07-30T01:29:10.907Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 7,
+    "object_id": "ab42a680-42cc-4da0-bd12-58c1de7b83ed",
+    "object_repr": "gladis",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2017-07-30T01:35:00.679Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 2,
+    "object_id": "1",
+    "object_repr": "nutricion",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2017-07-30T01:35:20.626Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 7,
+    "object_id": "ab42a680-42cc-4da0-bd12-58c1de7b83ed",
+    "object_repr": "gladis",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2017-07-30T01:36:45.103Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 7,
+    "object_id": "ab42a680-42cc-4da0-bd12-58c1de7b83ed",
+    "object_repr": "gladis",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"is_staff\"]}}]"
+  }
+}
+]

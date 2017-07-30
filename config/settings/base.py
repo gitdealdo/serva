@@ -131,7 +131,7 @@ FIXTURE_DIRS = (
     os.path.join(BASE_DIR, 'fixtures'),
 )
 
-PER_PAGE = 6
+PER_PAGE = 12
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 

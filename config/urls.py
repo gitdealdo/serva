@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.i18n import JavaScriptCatalog
 # from backend_apps.access.views import home
-from apps.venta.views.detalle import DetalleTemplateView
+from apps.recetario.views.receta import RecetaListView
 
 # from django.views.i18n import javascript_catalog  # Deprecado desde la
 # version 1.10 y eliminado 2.0
@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^blog/', include('apps.blog.urls', namespace='blog')),
     url(r'^recetario/', include('apps.recetario.urls', namespace='recetario')),
     url(r'^venta/', include('apps.venta.urls', namespace='venta')),
-    url(r'^$', DetalleTemplateView.as_view(), name='home')
+    url(r'^$', RecetaListView.as_view(), name='home')
 
 
 ]

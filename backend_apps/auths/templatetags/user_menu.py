@@ -11,7 +11,7 @@ from django import template
 from backend_apps.utils.security import UserToken
 
 
-from django.template.defaultfilters import stringfilter
+# from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
 from django.contrib import messages
@@ -23,10 +23,7 @@ register = template.Library()
 
 @register.simple_tag
 def get_info(request):
-    """
-    Obtiene 
-
-    """
+    """Obtiene"""
     info = "Serva"
     if UserToken.get_headquar_id(request.session):
         try:

@@ -1,0 +1,46 @@
+-----dumpdata command-------
+
+dumpdata for basic database dump
+
+./manage.py dumpdata > db.json
+
+dumpdata for backup specific app
+
+./manage.py dumpdata admin > admin.json
+
+dumpdata for backup specific table
+
+./manage.py dumpdata admin.logentry > logentry.json
+
+    Following command will dump the content in django auth.user table
+
+./manage.py dumpdata auth.user > user.json
+
+dumpdata (--exclude)
+
+    You can use --exclude option to specify apps/tables which don't need being dumped
+
+    Following command will dump the whole database with out including auth.permission table content
+
+./manage.py dumpdata --exclude auth.permission > db.json
+
+dumpdata (--indent)
+
+    By default, dumpdata will output all data on a single line. It isn’t easy for humans to read
+
+    You can use the --indent option to pretty-print the output with a number of indentation spaces
+
+./manage.py dumpdata auth.user --indent 2 > user.json
+
+IntegrityError: Problem installing fixture 'shipping_fixture.json': Could not load     
+contenttypes.ContentType(pk=2)
+
+An easy way out -
+
+python manage.py dumpdata --exclude=contenttypes --exclude=auth.Permission > initial_data.json
+
+loaddata command
+
+    This command can be use to load the fixtures(database dumps) into database
+
+./manage.py loaddata user.json

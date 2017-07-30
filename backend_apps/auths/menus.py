@@ -53,8 +53,10 @@ class Menus:
         if not request.user.is_superuser:
             try:
                 print("no es superuser")
-                groups = list(col['id'] for col in Group.objects.values('id').filter(user=user))
-                permission_list = Permission.objects.filter(group__in=groups).distinct()
+                groups = list(col['id'] for col in Group.objects.values(
+                    'id').filter(user=user))
+                permission_list = Permission.objects.filter(
+                    group__in=groups).distinct()
                 print(permission_list)
 
             except:
@@ -188,24 +190,27 @@ class Menus:
         Metodo para renderizar el menu de dispositivos moviles
     """
         html = ''
+        print("==============")
         route = request.path
+        print(Menus.menu_list)
         if Menus.menu_list:
             html = html + '<ul class="nav navbar-nav">\n'
             for main in Menus.menu_list:
-                text = '%s<b class="caret"></b>' % capfirst(_("%s" % main.title))
+                text = '%s<b class="caret"></b>' % capfirst(
+                    _("%s" % main.title))
                 html = html + '<li class="dropdown">\n'
                 html = html + Menus.linkphone('#', text, main.icon)
                 if main.title in Menus.menu_item_list:
                     html = html + '<ul class="dropdown-menu">\n'
                     for item in Menus.menu_item_list[main.title]:
-                        active = ('active' if item.url.strip("/") == route.strip("/") else '')
+                        active = ('active' if item.url.strip(
+                            "/") == route.strip("/") else '')
                         html = html + '<li class="%s">%s</li>\n' % (
                             active, Menus.link(item.url, item.title, item.icon))
                     html = html + '</ul>\n'
                 html = html + '</li>\n'
             html = html + '</ul>\n'
 
-        print("==============")
         print(html)
         print("==============")
         return html
