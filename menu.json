@@ -1,0 +1,226 @@
+[
+{
+  "model": "auths.menu",
+  "pk": "0c60656d-7aaf-4190-ba20-6784a6c2af2f",
+  "fields": {
+    "title": "Users",
+    "url": "backend/user/list",
+    "pos": 2,
+    "icon": "fa fa-users",
+    "is_active": true,
+    "description": "",
+    "permission": 66,
+    "parent": "16c5842d-699c-4859-80bc-7fe4c75fa032",
+    "created_at": "2017-07-30T00:30:26.047Z",
+    "updated_at": "2017-07-30T00:31:37.096Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "16c5842d-699c-4859-80bc-7fe4c75fa032",
+  "fields": {
+    "title": "Backend",
+    "url": "#",
+    "pos": 1,
+    "icon": "fa fa-universal-access",
+    "is_active": true,
+    "description": "",
+    "permission": null,
+    "parent": null,
+    "created_at": "2017-07-28T23:37:57.878Z",
+    "updated_at": "2017-07-30T00:41:13.765Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "2023351a-30a8-4840-ae50-3a7254ec43f9",
+  "fields": {
+    "title": "Venta",
+    "url": "#",
+    "pos": 1,
+    "icon": "fa fa-credit-card-alt",
+    "is_active": true,
+    "description": "",
+    "permission": null,
+    "parent": null,
+    "created_at": "2017-07-30T01:05:31.578Z",
+    "updated_at": "2017-07-30T01:05:31.790Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "2cb59460-8e19-4207-838a-99f91641ef4b",
+  "fields": {
+    "title": "Permissions",
+    "url": "backend/permission/list",
+    "pos": 2,
+    "icon": "fa fa-linux",
+    "is_active": true,
+    "description": "",
+    "permission": 65,
+    "parent": "16c5842d-699c-4859-80bc-7fe4c75fa032",
+    "created_at": "2017-07-30T00:29:12.770Z",
+    "updated_at": "2017-07-30T00:29:12.945Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "31502a2c-a846-4a79-9f9d-8c10e9cfa4d1",
+  "fields": {
+    "title": "Tipo",
+    "url": "recetario/tipo/lista",
+    "pos": 3,
+    "icon": "fa fa-bars",
+    "is_active": true,
+    "description": "",
+    "permission": 69,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T01:00:54.386Z",
+    "updated_at": "2017-07-30T01:24:49.176Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "33ef6fe7-4dca-4cb4-8703-556a9c4345df",
+  "fields": {
+    "title": "Unidad",
+    "url": "recetario/unidad/lista",
+    "pos": 1,
+    "icon": "fa fa-hand-o-up",
+    "is_active": true,
+    "description": "",
+    "permission": 67,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T00:59:10.564Z",
+    "updated_at": "2017-07-30T01:21:16.762Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "4b8f2256-381e-4d41-9e92-e847ec7199a4",
+  "fields": {
+    "title": "Tipo menu",
+    "url": "venta/tipomenu/lista",
+    "pos": 2,
+    "icon": "fa fa-tumblr-square",
+    "is_active": true,
+    "description": "",
+    "permission": 70,
+    "parent": "2023351a-30a8-4840-ae50-3a7254ec43f9",
+    "created_at": "2017-07-30T01:11:33.535Z",
+    "updated_at": "2017-07-30T01:11:33.713Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "64d07e67-429e-4a22-b174-7b56b1f5fdbe",
+  "fields": {
+    "title": "Productos",
+    "url": "recetario/producto/lista",
+    "pos": 4,
+    "icon": "fa fa-apple",
+    "is_active": true,
+    "description": "",
+    "permission": 62,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T00:44:27.480Z",
+    "updated_at": "2017-07-30T01:25:20.836Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "67806e8d-f4db-4c67-9e3b-263c056cf40a",
+  "fields": {
+    "title": "Venta",
+    "url": "venta/detalle/index",
+    "pos": 3,
+    "icon": "fa fa-lemon-o",
+    "is_active": true,
+    "description": "",
+    "permission": 72,
+    "parent": "2023351a-30a8-4840-ae50-3a7254ec43f9",
+    "created_at": "2017-07-30T03:25:22.433Z",
+    "updated_at": "2017-07-30T03:25:22.653Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "7b83c6e7-46a3-4e4b-80c8-b3e31b4655bd",
+  "fields": {
+    "title": "Menus",
+    "url": "venta/menu/lista",
+    "pos": 2,
+    "icon": "fa fa-medium",
+    "is_active": true,
+    "description": "",
+    "permission": 71,
+    "parent": "2023351a-30a8-4840-ae50-3a7254ec43f9",
+    "created_at": "2017-07-30T01:09:39.614Z",
+    "updated_at": "2017-07-30T01:09:39.813Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "97ad665a-8c22-480c-a204-086a4b1c6ed8",
+  "fields": {
+    "title": "Categoria",
+    "url": "recetario/categoria/lista",
+    "pos": 2,
+    "icon": "fa fa-cc",
+    "is_active": true,
+    "description": "",
+    "permission": 68,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T01:02:03.664Z",
+    "updated_at": "2017-07-30T01:02:03.853Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+  "fields": {
+    "title": "Recetario",
+    "url": "#",
+    "pos": 1,
+    "icon": "fa fa-cutlery",
+    "is_active": true,
+    "description": "",
+    "permission": null,
+    "parent": null,
+    "created_at": "2017-07-30T00:35:01.841Z",
+    "updated_at": "2017-07-30T00:35:02.191Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "d21b6f2a-49fe-44bc-b016-5caeb5d57dc1",
+  "fields": {
+    "title": "Menus",
+    "url": "backend/menu/list",
+    "pos": 2,
+    "icon": "fa fa-meetup",
+    "is_active": true,
+    "description": "",
+    "permission": 64,
+    "parent": "16c5842d-699c-4859-80bc-7fe4c75fa032",
+    "created_at": "2017-07-30T00:25:19.789Z",
+    "updated_at": "2017-07-30T01:20:51.170Z"
+  }
+},
+{
+  "model": "auths.menu",
+  "pk": "f4d5498f-02c8-4a10-90b2-4b99c7221258",
+  "fields": {
+    "title": "Recetas",
+    "url": "recetario/receta/lista",
+    "pos": 5,
+    "icon": "fa fa-spoon",
+    "is_active": true,
+    "description": "",
+    "permission": 63,
+    "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
+    "created_at": "2017-07-30T00:39:19.137Z",
+    "updated_at": "2017-07-30T01:25:46.414Z"
+  }
+}
+]
