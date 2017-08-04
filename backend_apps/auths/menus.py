@@ -190,9 +190,7 @@ class Menus:
         Metodo para renderizar el menu de dispositivos moviles
     """
         html = ''
-        print("==============")
         route = request.path
-        print(Menus.menu_list)
         if Menus.menu_list:
             html = html + '<ul class="nav navbar-nav">\n'
             for main in Menus.menu_list:
@@ -211,8 +209,6 @@ class Menus:
                 html = html + '</li>\n'
             html = html + '</ul>\n'
 
-        print(html)
-        print("==============")
         return html
 
     # Método para listar los items en el sidebar
