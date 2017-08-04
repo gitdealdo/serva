@@ -404,29 +404,6 @@
   }
 },
 {
-  "model": "auths.user",
-  "pk": "ab42a680-42cc-4da0-bd12-58c1de7b83ed",
-  "fields": {
-    "password": "pbkdf2_sha256$36000$DAumFIJ2t8gP$YS6xqhzOuh8tivdhVYZnDzWQFYZDuoCG3Zc5O1++BBg=",
-    "last_login": "2017-07-30T01:58:06.399Z",
-    "is_superuser": false,
-    "username": "gladis",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2017-07-30T01:29:10Z",
-    "person": null,
-    "updated_at": "2017-07-30T01:36:45.073Z",
-    "created_at": "2017-07-30T01:29:10.900Z",
-    "groups": [
-      1
-    ],
-    "user_permissions": []
-  }
-},
-{
   "model": "auths.menu",
   "pk": "0c60656d-7aaf-4190-ba20-6784a6c2af2f",
   "fields": {
@@ -1507,6 +1484,19 @@
     "object_repr": "gladis",
     "action_flag": 2,
     "change_message": "[{\"changed\": {\"fields\": [\"is_staff\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2017-08-04T21:13:04.567Z",
+    "user": "0da93a0e-4d6f-4fae-a744-67b2bde657be",
+    "content_type": 7,
+    "object_id": "ab42a680-42cc-4da0-bd12-58c1de7b83ed",
+    "object_repr": "gladis",
+    "action_flag": 3,
+    "change_message": ""
   }
 }
 ]
