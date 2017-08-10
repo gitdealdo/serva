@@ -26,7 +26,7 @@ class RecetaListView(generic.ListView):
     template_name = 'receta/list.html'
     paginate_by = settings.PER_PAGE
 
-    @method_decorator(permission_resource_required)
+    # @method_decorator(permission_resource_required)
     def dispatch(self, request, *args, **kwargs):
         return super(RecetaListView, self).dispatch(request, *args, **kwargs)
 

@@ -38,7 +38,8 @@
 
 
                 <div class="page-header">
-                    <h3>{% block content_title %}{% endblock content_title %}</h3>
+                    <h3>{% block content_title %}{% endblock content_title %} <small class="pull-right">{% now "D d M, Y" %}</small></h3>
+
                 </div>
                 {% block messages %}
                     {% load notify %}
@@ -79,7 +80,9 @@
 
 
     {% if DEBUG %}
-        <script src="{% static 'jquery/jquery2.1.4.min.js' %}"></script>
+        {% comment %}
+        <script src="{% static 'jquery/jquery2.js' %}"></script>
+        {% endcomment %}
     {% endif %}
 
 {% endblock extrajs %}

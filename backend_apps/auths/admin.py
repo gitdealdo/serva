@@ -78,13 +78,13 @@ class MyUserAdmin(UserAdmin):
         return qs
 
 
-class PersonAdmin(admin.ModelAdmin):
-    search_fields = ('first_name', 'last_name',)
-    list_display = (
-        'first_name', 'last_name', 'identity_type', 'identity_num',)
+# class PersonAdmin(admin.ModelAdmin):
+#     search_fields = ('first_name', 'last_name',)
+#     list_display = (
+#         'first_name', 'last_name', 'identity_type', 'identity_num',)
 
 
-admin.site.register(Person, PersonAdmin)
+admin.site.register(Person)
 
 # admin.site.register(User, MyUserAdmin)
 admin.site.register(User)

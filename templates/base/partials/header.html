@@ -140,11 +140,11 @@
             <li><a href="{% url 'access:login' %}" data-toggle="modal">{% trans 'Log in'|truncatechars:10 %}</a></li>
             {% else %}
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Logued as' %}<i
-                        class="fa fa-user"></i> {{ user }} <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Logued as' %}
+                  <img src="{{user.person.photo.url}}" width="20" height="20" alt="{{ user }}" class="img-circle"> {{ user }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li class="divider visible-xs"></li>
-                    <li><a href="#">Actionx</a></li>
+                    <li><a href="{% url 'backend:user_profile' %}">{% trans 'My profile' %}</a></li>
                     <li class="divider visible-xs"></li>
                     <li><a href="#">Another action</a></li>
                     <li class="divider visible-xs"></li>

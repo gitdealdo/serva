@@ -27,12 +27,11 @@ from apps.recetario.views.receta import RecetaListView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
     # http://stackoverflow.com/questions/19625102/django-javascript-translation-not-working
+    url(r'^summernote/', include('django_summernote.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript_catalog'),
-    url(r'^backend/', include('backend_apps.auths.urls',
-                              namespace='backend')),  # Backend
+    url(r'^backend/', include('backend_apps.auths.urls', namespace='backend')),
     url(r'^access/', include('backend_apps.access.urls', namespace='access')),
     # url(r'^$', home, name='home'),
 

@@ -1,0 +1,97 @@
+{% extends "base/base_back.html" %}
+{% load i18n l10n %}
+
+{% block breadcrumbs %}
+  <a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> {% trans "Home" %}</a>
+  &rsaquo;
+  {{title}}
+
+{% endblock breadcrumbs %}
+
+{% block content_title %}
+    {{ opts.verbose_name|capfirst }}|
+    <small>{{ title }}</small>
+{% endblock content_title %}
+
+{% block content %}
+
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#profile" data-toggle="tab">{% trans 'Profile' %}</a></li>
+    <li role="presentation"><a href="#edit" class="edita" data-toggle="tab">{% trans 'Edit' %}</a></li>
+    <li role="presentation"><a href="{% url 'backend:change_password' %}">{% trans 'Change password' %}</a></li>
+  </ul> 
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="profile">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="thumbnail">
+            <img src="{{user.person.photo.url}}" width="280" height="350" alt="{{user.first_name}}">
+            <div class="caption">
+              <h4 class="text-center text-primary">({{user}})</h4>
+              <ul class="list-group">
+                {% with user.groups.first as group %}
+                {% if group.name == 'nutricion' %}
+                <li class="list-group-item"><i class="fa fa-fire fa-lg"></i> Recetas <span class="badge">{{user.receta_set.count}}</span></li>
+                {% endif %}
+                {% endwith %}
+                <li class="list-group-item"><i class="fa fa-leaf fa-lg"></i> Item 2 <span class="badge">2</span></li>
+                <li class="list-group-item"><i class="fa fa-cog fa-lg"></i> Item 3<span class="badge">2</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-9">
+              <h3>{{user.person | capfirst }}</h3>
+              <blockquote>
+                {{user.person.about | safe}}
+                <footer>I'm someone famous in <cite title="...">...</cite></footer>
+              </blockquote>
+            </div>
+            <div class="col-md-3">
+                <div class="list-group">
+                  <a href="#" class="list-group-item active">
+                    <h5 class="list-group-item-heading">{{user.person.identity_type}}</h5>
+                    <p class="list-group-item-text">{{user.person.identity_num}}</p>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <h5 class="list-group-item-heading">{% trans "birth date" %}</h5>
+                    <p class="list-group-item-text">{{user.person.birth_date}}</p>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <h5 class="list-group-item-heading">{% trans "address" %}</h5>
+                    <p class="list-group-item-text">{{user.person.address}}</p>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <h5 class="list-group-item-heading">{% trans "joined" %}</h5>
+                    <p class="list-group-item-text">{{user.created_at}}</p>
+                  </a>
+                </div>
+            </div>
+          </div>
+          <div class="well well-sm">
+            <i class="fa fa-google fa-lg"></i>: <span class="label label-default"> {{user.email}}</span>
+            <i class="fa fa-phone fa-lg"></i>: <span class="label label-default"> {{user.person.cellphone}}</span>
+          </div>
+        </div>
+      </div>      
+    </div>
+    <div class="tab-pane fade" id="edit">
+    </div>
+  </div>
+
+  <script>
+    $(document).on('shown.bs.tab', '.edita', function(e) {
+      e.preventDefault();
+      console.log(e.target);
+      var _url = '{% url "backend:user_update" user.pk %}';
+      $.get(_url, function(htm) {
+        $("#edit").html(htm);
+        $('form').attr('action', _url);
+      });
+    });
+
+  </script>
+
+{% endblock content %}

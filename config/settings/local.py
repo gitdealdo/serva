@@ -2,8 +2,9 @@ from .base import *
 
 INSTALLED_APPS += [
     "coverage",
-    'debug_toolbar',
+    "debug_toolbar",
     "docutils",
+    "django_extensions",
 ]
 
 MIDDLEWARE += [
@@ -33,7 +34,6 @@ if DEBUG:
             return True
         return False
 
-
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': 'config.settings.local.show_toolbar',
     }
@@ -41,3 +41,8 @@ if DEBUG:
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+GRAPH_MODELS = {
+    'all_applications': True,
+    'group_models': True,
+}

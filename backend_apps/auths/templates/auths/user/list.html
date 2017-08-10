@@ -1,10 +1,10 @@
 {% extends "base/base_back.html" %}
-
-{% load i18n %}
-{% load l10n %}
+{% load i18n l10n %}
 
 {% block breadcrumbs %}
-    <a href="">{% trans 'Home' %}</a>
+    <a href="{% url 'home' %}">{% trans 'Home' %}</a>
+    &rsaquo;
+    <a href="{% url 'backend:user_list' %}">{{ opts.verbose_name_plural|capfirst }}</a>
     &rsaquo; {{ title }}
 {% endblock breadcrumbs %}
 
@@ -29,13 +29,14 @@
     <div class="btn-toolbar btn-toolbar-top">
         <div class="row">
             <div class="btn-actions">
-                <a href="/sad/user/create/" class="btn btn-primary text-bold"
+                <a href="{% url 'backend:user_person_create' %}" class="btn btn-primary text-bold"
                    title="{% trans 'Add' %} {% trans 'user' %}"><i class="fa fa-plus"></i> <span
                         class="hidden-xs"> {% trans 'Add' %}</span></a>
-
-                <a href="/sad/user/person_search/" class="btn btn-success text-bold"
+{% comment %}
+                <a href="{% url 'backend:user_create' %}" class="btn btn-success text-bold"
                    title="{% trans 'Add' %} {% trans 'from' %} {% trans 'user' %}"><i class="fa fa-plus"></i> <span
                         class="hidden-xs"> {% trans 'Add' %} {% trans 'from' %} {% trans 'Person' %}</span></a>
+{% endcomment %}
 
             </div>
         </div>
@@ -71,8 +72,8 @@
                             class="label label-{{ d.is_superuser|yesno:'primary,info' }}">{{ d.is_superuser|yesno:'SUPERUSER,user' }}</span>
                     </td>
                     <td><span class="label label-{{ d.is_superuser|yesno:'primary,info' }}">{{ d.username }}</span></td>
-                    <td>{{ d.person.first_name }} </td>
-                    <td>{{ d.person.last_name }} </td>
+                    <td>{{ d.first_name }} </td>
+                    <td>{{ d.last_name }} </td>
                     <td>{{ d.person.get_identity_type_display }}{{ d.person.identity_num|add:'' }}</td>
                     <td>{{ d.email }}</td>
                     <td>{{ d.status }} -
@@ -107,7 +108,7 @@
 
                         {% endif %}
 
-                        <a href="/sad/user/delete/{{ d.pk }}/"
+                        <a href="{% url 'backend:user_delete' d.pk %}"
                            class="btn btn-danger btn-sm js-confirm text-bold"
                            msg-title="{% trans 'Delete' %} {% trans 'user' %}?."
                            msg="{% trans 'Are you sure?' %}<br/>{% trans 'Remember that this operation can not be reversed.' %}"

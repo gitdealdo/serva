@@ -21,13 +21,16 @@ class Person(models.Model):
     )
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    first_name = models.CharField("Firs Name", max_length=50)
-    last_name = models.CharField("Last Name", max_length=100)
-    identity_type = models.CharField(max_length=15, choices=IDENTITY_TYPE_CHOICES, default=DNI)
-    identity_num = models.CharField(max_length=20, error_messages={'unique': "eeeee ee"})
+    # first_name = models.CharField("Firs Name", max_length=50)
+    identity_type = models.CharField(
+        max_length=15, choices=IDENTITY_TYPE_CHOICES, default=DNI)
+    identity_num = models.CharField(
+        max_length=20, error_messages={'unique': "eeeee ee"})
     photo = models.ImageField(upload_to='persons', blank=True, null=True)
-    email = models.EmailField()
+    cellphone = models.CharField(max_length=15, blank=True, null=True)
+    about = models.TextField(blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
+    address = models.CharField("Address", max_length=100)
 
     updated_at = models.DateTimeField("Updated at", auto_now=True)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
@@ -37,7 +40,7 @@ class Person(models.Model):
         verbose_name_plural = "Personas"
 
     def __str__(self):
-        return '%s %s (%s)' % (self.first_name, self.last_name, self.national_id_doc)
+        return '%s, %s' % (self.user.first_name, self.user.last_name)
 
 
 class User(AbstractUser):
@@ -45,7 +48,8 @@ class User(AbstractUser):
     Curtom User.
     """
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    person = models.OneToOneField(Person, verbose_name="Person", blank=True, null=True)
+    person = models.OneToOneField(
+        Person, verbose_name="Person", blank=True, null=True)
     updated_at = models.DateTimeField("Updated at", auto_now=True)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
@@ -68,11 +72,14 @@ class Menu(models.Model):
     title = models.CharField(u'Título', max_length=50)
     url = models.CharField(max_length=150, default='#')
     pos = models.IntegerField('Position', default=1)
-    icon = models.CharField('Icon', max_length=50, null=True, blank=True, default='')
+    icon = models.CharField('Icon', max_length=50,
+                            null=True, blank=True, default='')
     is_active = models.BooleanField(default=True)
     description = models.TextField(blank=True, null=True)
-    permission = models.ForeignKey(Permission, verbose_name="permission", null=True, blank=True)
-    parent = models.ForeignKey('self', verbose_name='Parent', null=True, blank=True)
+    permission = models.ForeignKey(
+        Permission, verbose_name="permission", null=True, blank=True)
+    parent = models.ForeignKey(
+        'self', verbose_name='Parent', null=True, blank=True)
 
     created_at = models.DateTimeField('Created at', auto_now_add=True)
     updated_at = models.DateTimeField('Updated at', auto_now=True)

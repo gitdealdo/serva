@@ -1,0 +1,17 @@
+{% load  crispy_forms_tags %}
+{% load i18n l10n %}
+  {% crispy form %}
+  <script type="text/javascript">
+    $(function () {
+      $('#id_photo').fileinput({
+        showUpload: false,
+        showRemove: false,
+        initialCaption: '{{ form.photo.value }}',
+        initialPreview: ['<img src="{{ MEDIA_URL }}{{ form.photo.value }}" width="165px" height="120px">',],
+        browseClass: 'btn btn-warning',
+        browseLabel: '<span class="hidden-xs">{% trans "Subir Foto" %}</span>',
+        browseIcon: '<i class="btn-icon-only glyphicon glyphicon-facetime-picture"></i>',
+      });
+      $('#id_birth_date').datetimepicker({format: 'YYYY-MM-DD'});
+    });
+  </script>

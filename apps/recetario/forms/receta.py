@@ -3,6 +3,7 @@ from crispy_forms.helper import FormHelper, Layout
 from crispy_forms.layout import Field, Div, Row  # , HTML
 from crispy_forms.bootstrap import FormActions  # , TabHolder, Tab, \
 # PrependedAppendedText, PrependedText
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 from backend_apps.utils.forms import smtSave, btnCancel, btnReset
 from ..models.receta import Receta
@@ -20,12 +21,11 @@ class RecetaForm(forms.ModelForm):
         self.fields['porcion'].help_text = u'<small class="help-error"></small> %s' % (u' ')
         self.fields['categoria'].help_text = u'<small class="help-error"></small> %s' % (u' ')
         self.fields['descripcion'].help_text = u'<small class="help-error"></small> %s' % (u' ')
-        self.fields['preparacion'].help_text = u'<small class="help-error"></small> %s' % (u' ')
-
         self.fields['nombre'].widget.attrs = {'placeholder': 'Ingrese nombre de la receta'}
         self.fields['porcion'].widget.attrs = {'placeholder': 'Ingrese porciones'}
         self.fields['descripcion'].widget.attrs = {'rows': 2, }
-        self.fields['preparacion'].widget.attrs = {'rows': 6, }
+        self.fields['preparacion'].widget = SummernoteWidget(
+            attrs={'width': '100%', 'height': '25em'})
 
         self.helper = FormHelper()
         self.helper.form_class = 'js-validate form-vertical'
@@ -36,11 +36,11 @@ class RecetaForm(forms.ModelForm):
             Row(
                 Div(Field('nombre', css_class='input-required'),
                     Field('porcion', css_class='input-required'),
+                    Field('descripcion', ),
                     Field('categoria', ),
                     Field('imagen', ),
                     css_class='col-md-6'),
-                Div(Field('descripcion', ),
-                    Field('preparacion', css_class="input-required"),
+                Div(Field('preparacion', css_class="input-required"),
                     css_class='col-md-6'),
             ),
 
