@@ -12,7 +12,7 @@ from backend_apps.utils.security import get_dep_objects
 
 
 from ..models import User, Person
-from ..forms.user import UserForm, UserPersonForm, reset_form
+from ..forms.user import UserForm, UserPersonForm, PasswordChangeCustomForm
 from django.contrib.auth import (
     authenticate,
     get_user_model,
@@ -172,7 +172,7 @@ class UserPersonUpdateView(generic.UpdateView):
 def change_password(request):
 
     if request.method == 'POST':
-        form = reset_form(request.POST)
+        form = PasswordChangeCustomForm(request.POST)
         if form.is_valid():
             newpassword = form.cleaned_data['newpassword1']
             username = request.user.username
@@ -196,7 +196,7 @@ def change_password(request):
             return render(request, 'auths/user/reset_password.html', {
                 'error': 'You have entered old password', 'form': form})
     else:
-        form = reset_form()
+        form = PasswordChangeCustomForm()
     # content = RequestContext(request, {'form': form})
     return render(request, 'auths/user/reset_password.html', {'form': form},)
 

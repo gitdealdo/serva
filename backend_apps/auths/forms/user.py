@@ -18,30 +18,6 @@ from ..models import Person
 User = get_user_model()
 
 
-# class UserLoginForm(forms.Form):
-#     username = forms.CharField(widget=forms.TextInput(
-#         attrs={'placeholder': "Ingrese usuario"}), label='Usuario')
-#     password = forms.CharField(widget=forms.PasswordInput(
-#         attrs={'placeholder': "Ingrese contraseña"}), label=u'Contraseña')
-
-#     def clean(self, *args, **kwargs):
-#         username = self.cleaned_data.get("username")
-#         password = self.cleaned_data.get("password")
-
-#         # user_qs = User.objects.filter(username=username)
-#         # if user_qs.count() == 1:
-#         #     user = user_qs.first()
-#         if username and password:
-#             user = authenticate(username=username, password=password)
-#             if not user:
-#                 raise forms.ValidationError("This user does not exist")
-#             if not user.check_password(password):
-#                 raise forms.ValidationError("Incorrect passsword")
-#             if not user.is_active:
-#                 raise forms.ValidationError("This user is not longer active.")
-#         return super(UserLoginForm, self).clean(*args, **kwargs)
-
-
 class UserForm(UserCreationForm):
     class Meta:
         model = User
@@ -225,52 +201,7 @@ class UserPersonForm(forms.ModelForm):
         )
 
 
-# class UserForm(UserCreationForm):
-#     class Meta:
-#         model = User
-#         fields = ('username', 'person', 'email',)
-
-#     def __init__(self, *args, **kwargs):
-#         super(UserForm, self).__init__(*args, **kwargs)
-
-#         self.fields['grupo'] = forms.ModelChoiceField(
-#             queryset=Group.objects.all(), initial=0)
-
-#         self.fields['acept'] = forms.BooleanField(
-#             label=capfirst(
-#                 _(u'I accept the Terms of Service and Privacy Policy.')),
-#             required=True,
-#             help_text=u'<small class="help-error"></small> %s' % _(
-#                 u' '),
-#         )
-
-#         self.helper = FormHelper()
-#         self.helper.form_class = 'js-validate form-vertical'
-#         self.helper.layout = Layout(
-#             Row(
-#                 Div(
-#                     Field('username', autofocus=True,
-#                           css_class='input-required'),
-#                     Field('password1',),
-#                     Field('password2',),
-#                     css_class='col-md-6'),
-#                 Div(
-#                     Field('email',),
-#                     Field('person', css_class='select2'),
-#                     Field('grupo',),
-#                     Field('acept',),
-#                     css_class='col-md-6'),
-#             ),
-#             FormActions(
-#                 Submit('submit', _('Sign up'),
-#                        css_class='btn-success'),
-#                 btnCancel(),
-#                 css_class='pull-right'
-#             ),
-#         )
-
-
-# class PasswordChangeCustomForm(PasswordChangeForm):
+# class PasswordChangeForm(PasswordChangeForm):
 #     error_css_class = 'has-error'
 #     error_messages = {'password_incorrect': "Contraseña incorrecta"}
 #     old_password = forms.CharField(required=True, widget=forms.PasswordInput(
@@ -284,7 +215,7 @@ class UserPersonForm(forms.ModelForm):
 #     error_messages={'required': 'Το συνθηματικό δε μπορεί να είναι κενό'})
 
 
-class reset_form(forms.Form):
+class PasswordChangeCustomForm(forms.Form):
 
     oldpassword = forms.CharField(max_length=20, widget=forms.PasswordInput(
         attrs={'placeholder': 'Ingrese contraseña anterior',
@@ -301,20 +232,3 @@ class reset_form(forms.Form):
             if self.cleaned_data['newpassword1'] != self.cleaned_data['newpassword2']:
                 raise forms.ValidationError(_("The two password fields did not match."))
         return self.cleaned_data
-
-
-# class ChangePassword(forms.Form):
-#     old_password = forms.PasswordField()
-#     new_password = forms.PasswordField()
-#     reenter_password = forms.PasswordField()
-
-#     def clean(self):
-#         new_password = self.cleaned_data.get('new_password')
-#         reenter_password = self.cleaned_data.get('reenter_password')
-#         # similarly old_password
-#         if new_password and new_password != reenter_password or new_password == old_password:
-#             # raise error
-#             # get the user object and check from old_password list if any one matches
-#             # with the new password raise error(read whole answer you would know)
-#             return None
-#         return self.cleaned_data  # don't forget this.
