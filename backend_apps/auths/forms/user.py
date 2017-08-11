@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.models import Group
 from backend_apps.utils.forms import smtSave, btnCancel, btnReset
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm  # UserChangeForm
+from django.contrib.auth.forms import UserCreationForm  # , PasswordChangeForm, UserChangeForm
 # _*_ coding: utf-8 _*_
 # from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _

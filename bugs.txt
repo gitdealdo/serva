@@ -1,1 +1,3 @@
 En crear usuario datetimepiker, accept
+Formulario actualizar usuario
+photo no carga

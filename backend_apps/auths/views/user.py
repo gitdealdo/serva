@@ -127,7 +127,7 @@ class UserTemplateView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(UserTemplateView, self).get_context_data(**kwargs)
-        # print(serializers.serialize('json',[self.request.user.person,]))
+        print(serializers.serialize('json', [self.request.user.person, ]))
         context['opts'] = self.model._meta
         context['title'] = ('My %s') % capfirst('profile')
         return context
