@@ -121,7 +121,7 @@ class RecetaUpdateView(generic.UpdateView):
     model = Receta
     template_name = 'receta/form.html'
     form_class = RecetaForm
-    success_url = reverse_lazy('recetario:receta_list')
+    success_url = reverse_lazy('recetario:receta_detail')
 
     @method_decorator(permission_resource_required)
     def dispatch(self, request, *args, **kwargs):
@@ -135,6 +135,8 @@ class RecetaUpdateView(generic.UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        self.success_url = reverse_lazy('recetario:receta_detail',
+                                        kwargs={'pk': self.kwargs['pk']})
 
         msg = _('%(name)s "%(obj)s" fue cambiado satisfactoriamente.') % {
             'name': capfirst(force_text(self.model._meta.verbose_name)),

@@ -52,7 +52,6 @@ class UserPersonCreateView(generic.CreateView):
         person = Person(
             identity_type=form.cleaned_data['identity_type'],
             identity_num=form.cleaned_data['identity_num'],
-            photo=form.cleaned_data['photo'],
             cellphone=form.cleaned_data['cellphone'],
             birth_date=form.cleaned_data['birth_date'],
             address=form.cleaned_data['address'],
@@ -200,6 +199,19 @@ def change_password(request):
     # content = RequestContext(request, {'form': form})
     return render(request, 'auths/user/reset_password.html', {'form': form},)
 
+
+class UserActivateTemplateView(generic.TemplateView):
+    # template_name = "TEMPLATE_NAME"
+
+    def get(self, request, *args, **kwargs):
+        u = User.objects.get(id=self.kwargs['pk'])
+        if u.is_active:
+            u.is_active = False
+            u.save()
+        else:
+            u.is_active = True
+            u.save()
+        return HttpResponseRedirect(reverse("backend:user_list"))
 
 # class UserCreateView(generic.CreateView):
 #     u"""Crea usuario."""

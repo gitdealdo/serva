@@ -26,12 +26,14 @@
 
 <div class="btn-toolbar btn-toolbar-top">
   <div class="row">
+  {% if user.is_authenticated %}      
     <div class="btn-actions">
       <a href="{% url 'recetario:receta_add' %}" class="btn btn-primary text-bold" title="Agregar {{opts.verbose_name}}">
         <i class="fa fa-plus"></i>
         <span class="hidden-xs"> Agregar {{opts.verbose_name}}</span>
       </a>
     </div>
+  {% endif %}
   </div>
 </div>
 

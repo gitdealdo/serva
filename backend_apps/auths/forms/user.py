@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.models import Group
-from backend_apps.utils.forms import smtSave, btnCancel, btnReset
+from backend_apps.utils.forms import smtSave, btnCancel  # , btnReset
 from django.contrib.auth.forms import UserCreationForm  # , PasswordChangeForm, UserChangeForm
 # _*_ coding: utf-8 _*_
 # from django.utils.translation import ugettext
@@ -12,7 +12,7 @@ from crispy_forms.helper import FormHelper, Layout
 from crispy_forms.layout import Field, Submit, Div, Row
 # PrependedText,  AppendedText,PrependedAppendedText
 from crispy_forms.bootstrap import FormActions, TabHolder, Tab
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from django_summernote.widgets import SummernoteWidget  # , SummernoteInplaceWidget
 from ..models import Person
 
 User = get_user_model()
@@ -65,12 +65,12 @@ class UserForm(UserCreationForm):
         )
         self.fields['grupo'] = forms.ModelChoiceField(
             label='Rol', queryset=Group.objects.all(), initial=0)
-        self.fields['photo'] = forms.ImageField(
-            label=capfirst(_(u'Photo')), required=False,
-            initial='persons/user.png',
-            help_text=u'<small class="help-error"></small> %s' % _(
-                u'Available formats are JPG, GIF, and PNG.'),
-        )
+        # self.fields['photo'] = forms.ImageField(
+        #     label=capfirst(_(u'Photo')), required=False,
+        #     initial='persons/user.png',
+        #     help_text=u'<small class="help-error"></small> %s' % _(
+        #         u'Available formats are JPG, GIF, and PNG.'),
+        # )
         self.fields['acept'] = forms.BooleanField(
             label=capfirst(
                 _(u'I accept the Terms of Service and Privacy Policy.')),
@@ -102,7 +102,6 @@ class UserForm(UserCreationForm):
                 Div(
                     Field('cellphone',),
                     Field('address',),
-                    Field('photo'),
                     Field('acept',),
                     css_class='col-md-4'),
             ),

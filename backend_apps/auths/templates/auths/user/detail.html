@@ -30,7 +30,7 @@
               <h4 class="text-center text-primary">({{user}})</h4>
               <ul class="list-group">
                 {% with user.groups.first as group %}
-                {% if group.name == 'nutricion' %}
+                {% if group.name == 'NUTRICION' %}
                 <li class="list-group-item"><i class="fa fa-fire fa-lg"></i> Recetas <span class="badge">{{user.receta_set.count}}</span></li>
                 {% endif %}
                 {% endwith %}

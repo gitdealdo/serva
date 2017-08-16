@@ -23,15 +23,10 @@
 {% block extrajs %}
     {{ block.super }}
 
-    <script type="text/javascript">
-        $(function () {
-            $("#id_permission").on('change', function () {
-                var recurso = $('option:selected', this).text();
-                $("#id_url").val(recurso.replace("/\./g", '/'));
-                $("#id_url").val(recurso.replace('/*', '/'));
+<script type="text/javascript">
+  $(function () {
+    $('#id_birth_date').datetimepicker({format: 'YYYY-MM-DD'});
+  });
+</script>
 
-                $("#id_url").val(recurso.replace('_', '/') + "/");
-            });
-        });
-    </script>
 {% endblock extrajs %}

@@ -61,7 +61,7 @@
             </thead>
             <tbody>
             {% for d in object_list %}
-                <tr class="{{ d.is_active|yesno:',danger' }}">
+                <tr class="{{ d.is_active|yesno:',warning' }}">
                     <td>{% if is_paginated %}
                         {{ page_obj.start_index|add:forloop.counter0 }}
                     {% else %}
@@ -84,6 +84,7 @@
 
 
                     <td class="text-center">
+                        {% comment %}
                         <a href="/sad/user/detail/{{ d.pk }}/" class="btn btn-warning btn-sm text-bold"
                            title="{% trans 'Detail' %} {% trans 'user' %}" rel="tooltip"><i
                                 class="btn-icon-only fa fa-eye"></i></a>
@@ -91,17 +92,18 @@
                         <a href="/sad/user/update/{{ d.pk }}/" class="btn btn-info btn-sm text-bold"
                            title="{% trans 'Change' %} {% trans 'user' %}" rel="tooltip"><i
                                 class="btn-icon-only fa fa-edit"></i></a>
+                        {% endcomment %}
 
                         {% if d.is_active %}
 
-                            <a href="/sad/user/state/ina/{{ d.pk }}/"
+                            <a href="{% url 'backend:user_activate' d.pk %}"
                                class="btn btn-success btn-sm text-bold"
                                title="{% trans 'inactivate'|capfirst %} {% trans 'user' %}" rel="tooltip"><i
                                     class="btn-icon-only fa fa-flag"></i></a>
 
                         {% else %}
 
-                            <a href="/sad/user/state/rea/{{ d.pk }}/"
+                            <a href="{% url 'backend:user_activate' d.pk %}"
                                class="btn btn-info btn-sm text-bold"
                                title="{% trans 'reactivate'|capfirst %} {% trans 'user' %}" rel="tooltip"><i
                                     class="btn-icon-only fa fa-flag"></i></a>

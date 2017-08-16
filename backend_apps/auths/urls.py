@@ -3,7 +3,7 @@ from django.conf.urls import url
 from backend_apps.auths.views.menu import MenuUpdateActiveView, \
     MenuUpdateView, MenuDeleteView
 from .views.user import UserListView, UserPersonCreateView, UserDeleteView,\
-    UserTemplateView, UserPersonUpdateView, change_password
+    UserTemplateView, UserPersonUpdateView, change_password, UserActivateTemplateView
 from .views.menu import (MenuListView, MenuCreateView)
 from .views.permission import PermissionCreateView,\
     PermissionDeleteView, PermissionListView, PermissionUpdateView
@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^user/(?P<pk>[^/]+)/update/$', UserPersonUpdateView.as_view(),
         name='user_update'),
     url(r'^user/change_password/$', change_password, name='change_password'),
+    url(r'^user/(?P<pk>[^/]+)/activate/$', UserActivateTemplateView.as_view(), name='user_activate'),
 
     # Menu
     url(r'^menu/list/$', MenuListView.as_view(), name='menu_list'),

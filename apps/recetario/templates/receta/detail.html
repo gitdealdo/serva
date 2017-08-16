@@ -21,12 +21,14 @@
 
 <div class="btn-toolbar btn-toolbar-top">
   <div class="row">
+  {% if user.is_authenticated %}
     <div class="btn-actions">
       <a href="{% url 'recetario:receta_edit' receta.pk %}" class="btn btn-primary text-bold" title="Editar {{opts.verbose_name}}">
         <i class="fa fa-pencil"></i>
         <span class="hidden-xs"> Editar {{opts.verbose_name}}</span>
       </a>
     </div>
+  {% endif %}
   </div>
 </div>
 <div class="panel panel-default">
@@ -34,7 +36,7 @@
     <div class="row">
       <div class="col-md-5 text-center">
         {% if receta.imagen %}
-        <img src="{{receta.imagen.url}}" alt="..." width="400px" height="400px" class="img-thumbnail img-responsive">
+        <img src="{{receta.imagen.url}}" alt="{{receta}}" width="400px" height="400px" class="img-thumbnail img-responsive">
         {% else %}
         <span class="label label-info">Sin imagen aún</span>
         {% endif %}
@@ -45,11 +47,11 @@
       <div class="col-md-7">
         <p>{{ receta.descripcion }}</p>
         <h4 class="text-danger">Ingredientes <span class="badge">{{receta.ingrediente_set.count}}</span>
-          <span class="label">
-            <a href="#addform" data-toggle="modal">
-              <span class="fa fa-plus"></span>
-            </a>
-          </span>
+          {% if user.is_authenticated %}
+          <a href="#addform" data-toggle="modal" rel="tooltip" title="Agregar ingredientes">
+            <span class="fa fa-plus"></span>
+          </a>
+          {% endif %}
         </h4>
         <table class="table table-hover">
           <tbody>

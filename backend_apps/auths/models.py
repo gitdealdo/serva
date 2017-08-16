@@ -26,7 +26,7 @@ class Person(models.Model):
         max_length=15, choices=IDENTITY_TYPE_CHOICES, default=DNI)
     identity_num = models.CharField(
         max_length=20, error_messages={'unique': "eeeee ee"})
-    photo = models.ImageField(upload_to='persons', blank=True, null=True)
+    photo = models.ImageField(upload_to='persons', default='persons/user.png')
     cellphone = models.CharField(max_length=15, blank=True, null=True)
     about = models.TextField(blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
