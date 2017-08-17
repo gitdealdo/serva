@@ -1,24 +1,18 @@
 {% load i18n user_menu %}
-
-<div class="navbar navbar-inverse navbar-fixed-top"> <!--navbar-default-->
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="offcanvas"
-                data-target=".navbar-offcanvas" data-canvas="body">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <div class='navbar-brand'>
-            <ul class="navbar-brand2">
-                <li class="dropdown">
-                  <a href="{% url 'home' %}" class="dropdown-toggle " data-toggle="dropdown">
-                    <i class="fa fa-cutlery fa-lg"></i> {% get_info request %}
-                  </a>
-                </li>
-            </ul>
-        </div>
-
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar"> <!--navbar-default-->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navbar-offcanvas" data-canvas="body">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class='navbar-brand'>
+      <a href="{% url 'home' %}" class="dropdown-toggle " data-toggle="dropdown">
+        <i class="fa fa-cutlery fa-lg"></i> {% get_info request %}
+      </a>
     </div>
+
+  </div>
     <div class="navbar-offcanvas offcanvas">
         <div class="navmenu-brand">
             <a href="{% url 'access:login' %}" class="btn btn-primary" title="{% trans "Log in" %}"><i
@@ -33,67 +27,9 @@
         {% if user.is_authenticated %}
           {% view_menu request %}
         {% endif %}
-        <!--
-    <ul class="nav navbar-nav">
-      <li class="divider visible-xs"></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Space <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu" >
-          <li class="divider visible-xs"></li>
-          <li {% ifequal cmi 'solution' %} class="active" {% endifequal %}>
-            <a href="/space/solution/index/">Solution</a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="divider visible-xs"></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">SAD <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu" >
-          <li class="divider visible-xs"></li>
-          <li {% ifequal cmi 'permission' %} class="active" {% endifequal %}>
-            <a href="/sad/permission/index/">permission</a>
-          </li>
-
-          <li class="divider visible-xs"></li>
-          <li {% ifequal cmi 'group' %} class="active" {% endifequal %}>
-            <a href="/sad/group/index/">group</a>
-          </li>
-
-          <li class="divider visible-xs"></li>
-          <li {% ifequal cmi 'grouppermissions' %} class="active" {% endifequal %}>
-            <a href="/sad/grouppermissions/update/">group permissions</a>
-          </li>
-
-          <li class="divider visible-xs"></li>
-          <li {% ifequal cmi 'module' %} class="active" {% endifequal %}>
-            <a href="/sad/module/index/">module</a>
-          </li>
-
-          <li class="divider visible-xs"></li>
-          <li {% ifequal cmi 'modulesolutions' %} class="active" {% endifequal %}>
-            <a href="/sad/modulesolutions/update/">module solution</a>
-          </li>
-
-          <li class="divider visible-xs"></li>
-          <li {% ifequal cmi 'menu' %} class="active" {% endifequal %}>
-            <a href="/sad/menu/index/">menu</a>
-          </li>
-
-        </ul>
-      </li>
-    </ul>
-    -->
-
 
         <ul class="nav navbar-nav navbar-right hidden-xs">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Theme' %}<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">{% trans 'Inverse' %}</a></li>
-                  <li><a href="#">{% trans "Default" %}</a></li>
-              </ul>
-            </li>
+            
             <li class="divider visible-xs"></li>
             {% if not user.is_authenticated %}
             <li><a href="{% url 'access:login' %}" data-toggle="modal">{% trans 'Log in'|truncatechars:10 %}</a></li>
@@ -111,7 +47,28 @@
             </li>
             {% endif %}
         </ul>
+        <form class="navbar-form navbar-right hidden-xs">
+          <label for="inputTheme">{% trans "Theme" %}</label>
+          <select name="theme" class="form-control" id="inputTheme">
+            <option value="default">{% trans "Default" %}</option>
+            <option value="inverse">{% trans "Inverse" %}</option>
+            <option value="darkblue">{% trans "Darkblue" %}</option>
+            <option value="darkgreen">{% trans "Darkgreen" %}</option>
+            <option value="red">{% trans "Red" %}</option>
+            <option value="yellow">{% trans "Yellow" %}</option>
+            <option value="black">{% trans "Black" %}</option>
+          </select>
+        </form>
+        <script>
+        $("#inputTheme").change(function(e) {
+          e.preventDefault();
+          console.log($(this).val())
+          $("#navbar, #footer").removeClass();
+          $("#navbar").addClass('navbar navbar-fixed-top navbar-'+$(this).val())
+          $("#footer").addClass('navbar navbar-fixed-bottom hidden-xs navbar-'+$(this).val())
 
+        });
+        </script>
         <ul class="nav navbar-nav visible-xs">
             <li class="divider"></li>
             <li><a href="{% url 'backend:user_profile' %}">{% trans "My account" %}</a></li>
@@ -131,7 +88,7 @@
         </ul>
 
     </div><!--/.nav-collapse -->
-</div>
+</nav>
 
 
 <script type="text/javascript">
