@@ -50,6 +50,7 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     person = models.OneToOneField(
         Person, verbose_name="Person", blank=True, null=True)
+    theme = models.CharField(max_length=20, default="default")
     updated_at = models.DateTimeField("Updated at", auto_now=True)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 

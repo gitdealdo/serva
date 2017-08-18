@@ -2,8 +2,7 @@ from django.conf.urls import url
 
 from backend_apps.auths.views.menu import MenuUpdateActiveView, \
     MenuUpdateView, MenuDeleteView
-from .views.user import UserListView, UserPersonCreateView, UserDeleteView,\
-    UserTemplateView, UserPersonUpdateView, change_password, UserActivateTemplateView
+from .views import user
 from .views.menu import (MenuListView, MenuCreateView)
 from .views.permission import PermissionCreateView,\
     PermissionDeleteView, PermissionListView, PermissionUpdateView
@@ -11,17 +10,20 @@ from .views.permission import PermissionCreateView,\
 urlpatterns = [
 
     # User
-    url(r'^user/list/$', UserListView.as_view(), name='user_list'),
-    url(r'^user/create/$', UserPersonCreateView.as_view(),
+    url(r'^user/list/$', user.UserListView.as_view(), name='user_list'),
+    url(r'^user/create/$', user.UserPersonCreateView.as_view(),
         name='user_person_create'),
-    url(r'^user/(?P<pk>[^/]+)/delete/$', UserDeleteView.as_view(),
+    url(r'^user/(?P<pk>[^/]+)/delete/$', user.UserDeleteView.as_view(),
         name='user_delete'),
-    url(r'^user/perfil/$', UserTemplateView.as_view(),
+    url(r'^user/perfil/$', user.UserTemplateView.as_view(),
         name='user_profile'),
-    url(r'^user/(?P<pk>[^/]+)/update/$', UserPersonUpdateView.as_view(),
+    url(r'^user/(?P<pk>[^/]+)/update/$', user.UserPersonUpdateView.as_view(),
         name='user_update'),
-    url(r'^user/change_password/$', change_password, name='change_password'),
-    url(r'^user/(?P<pk>[^/]+)/activate/$', UserActivateTemplateView.as_view(), name='user_activate'),
+    url(r'^user/change_password/$', user.change_password, name='change_password'),
+    url(r'^user/(?P<pk>[^/]+)/activate/$',
+        user.UserActivateTemplateView.as_view(), name='user_activate'),
+    url(r'^user/change_theme/$',
+        user.change_user_theme, name='change_user_theme'),
 
     # Menu
     url(r'^menu/list/$', MenuListView.as_view(), name='menu_list'),

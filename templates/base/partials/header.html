@@ -1,5 +1,5 @@
 {% load i18n user_menu %}
-<nav class="navbar navbar-default navbar-fixed-top" id="navbar"> <!--navbar-default-->
+<nav class="navbar navbar-{% if user.is_authenticated %}{{user.theme}}{% else %}default{% endif %} navbar-fixed-top" id="navbar"> <!--navbar-default-->
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navbar-offcanvas" data-canvas="body">
       <span class="icon-bar"></span>
@@ -11,108 +11,95 @@
         <i class="fa fa-cutlery fa-lg"></i> {% get_info request %}
       </a>
     </div>
-
   </div>
-    <div class="navbar-offcanvas offcanvas">
-        <div class="navmenu-brand">
-            <a href="{% url 'access:login' %}" class="btn btn-primary" title="{% trans "Log in" %}"><i
-                    class="glyphicon glyphicon-log-in"></i>
-                <span>{% trans 'Log in'|truncatechars:10 %}</span>
-            </a>
-            <a href="{% url 'access:login' %}" class="btn btn-info"
-               title="{% trans "Add" %} {% trans "user" %}"><i class="fa fa-plus fa-lg"></i>
-                <span>{% trans 'Sign up'|truncatechars:9 %}</span>
-            </a>
+
+  <div class="navbar-offcanvas offcanvas">
+    <div class="navmenu-brand">
+      <a href="{% url 'access:login' %}" class="btn btn-primary" title="{% trans "Log in" %}">
+        <i class="glyphicon glyphicon-log-in"></i>
+        <span>{% trans 'Log in'|truncatechars:10 %}</span>
+      </a>
+      <a href="{% url 'access:login' %}" class="btn btn-info"
+         title="{% trans "Add" %} {% trans "user" %}">
+         <i class="fa fa-plus fa-lg"></i>
+        <span>{% trans 'Sign up'|truncatechars:9 %}</span>
+      </a>
+    </div>
+    {% if user.is_authenticated %}
+      {% view_menu request %}
+    {% endif %}
+
+    <ul class="nav navbar-nav navbar-right hidden-xs">
+      <li class="divider visible-xs"></li>
+      {% if not user.is_authenticated %}
+      <li><a href="{% url 'access:login' %}">{% trans 'Log in'|truncatechars:10 %}</a></li>
+      {% else %}
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Logued as' %}
+          <img src="{{MEDIA_URL}}{{user.person.photo}}" width="20" height="20" alt="{{ user }}" class="img-circle"> {{ user }} <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="divider"></li>
+          <li><a href="{% url 'backend:user_profile' %}">{% trans 'My profile' %}</a></li>
+          <li class="divider"></li>
+          <li><a href="{% url 'access:logout' %}">{% trans "logout" %}</a></li>
+        </ul>
+      </li>
+      {% endif %}
+    </ul>
+    {% if user.is_authenticated %}
+    <form action="{% url 'backend:change_user_theme' %}" method="POST" class="navbar-form navbar-right hidden-xs">
+      {% csrf_token %}
+      <label for="inputTheme">{% trans "Theme" %}</label>
+      <select name="theme" class="form-control" id="inputTheme" onchange="$(this).closest('form').submit()">
+        <option value="default">{% trans "Default" %}</option>
+        <option value="inverse">{% trans "Inverse" %}</option>
+        <option value="darkblue">{% trans "Darkblue" %}</option>
+        <option value="darkgreen">{% trans "Darkgreen" %}</option>
+        <option value="red">{% trans "Red" %}</option>
+        <option value="yellow">{% trans "Yellow" %}</option>
+        <option value="black">{% trans "Black" %}</option>
+      </select>
+    </form>
+    {% endif %}
+    <ul class="nav navbar-nav visible-xs">
+      <li class="divider"></li>
+      <li><a href="{% url 'backend:user_profile' %}">{% trans "My account" %}</a></li>
+
+      <li class="divider"></li>
+      <li><a href="{% url 'access:logout' %}" class="no-load"><i
+              class="fa fa-pd-expand fa-power-off"></i> {% trans 'Log out' %}</a></li>
+
+      <li class="divider"></li>
+      <li>
+        <div class="text-center">
+          <p style="color: #ccc"><i class="fa fa-tint fa-lg"></i> Backengo
+              &copy; {% now 'Y' %}, asullom.</p>
+          <p style="color: #ccc">{% trans 'All rights reserved.' %}</p>
         </div>
-        {% if user.is_authenticated %}
-          {% view_menu request %}
-        {% endif %}
+      </li>
+    </ul>
 
-        <ul class="nav navbar-nav navbar-right hidden-xs">
-            
-            <li class="divider visible-xs"></li>
-            {% if not user.is_authenticated %}
-            <li><a href="{% url 'access:login' %}" data-toggle="modal">{% trans 'Log in'|truncatechars:10 %}</a></li>
-            {% else %}
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Logued as' %}
-                  <img src="{{MEDIA_URL}}{{user.person.photo}}" width="20" height="20" alt="{{ user }}" class="img-circle"> {{ user }} <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="divider visible-xs"></li>
-                    <li><a href="{% url 'backend:user_profile' %}">{% trans 'My profile' %}</a></li>
-                    <li class="divider visible-xs"></li>
-                    <li class="divider"></li>
-                    <li><a href="{% url 'access:logout' %}">{% trans "logout" %}</a></li>
-                </ul>
-            </li>
-            {% endif %}
-        </ul>
-        <form class="navbar-form navbar-right hidden-xs">
-          <label for="inputTheme">{% trans "Theme" %}</label>
-          <select name="theme" class="form-control" id="inputTheme">
-            <option value="default">{% trans "Default" %}</option>
-            <option value="inverse">{% trans "Inverse" %}</option>
-            <option value="darkblue">{% trans "Darkblue" %}</option>
-            <option value="darkgreen">{% trans "Darkgreen" %}</option>
-            <option value="red">{% trans "Red" %}</option>
-            <option value="yellow">{% trans "Yellow" %}</option>
-            <option value="black">{% trans "Black" %}</option>
-          </select>
-        </form>
-        <script>
-        $("#inputTheme").change(function(e) {
-          e.preventDefault();
-          console.log($(this).val())
-          $("#navbar, #footer").removeClass();
-          $("#navbar").addClass('navbar navbar-fixed-top navbar-'+$(this).val())
-          $("#footer").addClass('navbar navbar-fixed-bottom hidden-xs navbar-'+$(this).val())
-
-        });
-        </script>
-        <ul class="nav navbar-nav visible-xs">
-            <li class="divider"></li>
-            <li><a href="{% url 'backend:user_profile' %}">{% trans "My account" %}</a></li>
-
-            <li class="divider"></li>
-            <li><a href="{% url 'access:logout' %}" class="no-load"><i
-                    class="fa fa-pd-expand fa-power-off"></i> {% trans 'Log out' %}</a></li>
-
-            <li class="divider"></li>
-            <li>
-                <div class="text-center">
-                    <p style="color: #ccc"><i class="fa fa-tint fa-lg"></i> Backengo
-                        &copy; {% now 'Y' %}, asullom.</p>
-                    <p style="color: #ccc">{% trans 'All rights reserved.' %}</p>
-                </div>
-            </li>
-        </ul>
-
-    </div><!--/.nav-collapse -->
+  </div><!--/.nav-collapse -->
 </nav>
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //url = (window.location.hash.lenth >1) ? window.hash : window.location.pathname;
-
-        //url = url.split('create')[0].split('update')[0];
-
-
-        $(".dropdown-menu li").each(function (i) {
-            //$(this).find('li').each(function(i){
-            //if(url==$(this).attr('href')) {
-            //alert($(this).attr('class'));
-            if ($(this).attr('class') == ('active')) {
-                $(this).parent().parent().addClass('active ');//open
-                return false;
-            }
-
-            //});
-        });
-
+      //url = (window.location.hash.lenth >1) ? window.hash : window.location.pathname;
+      //url = url.split('create')[0].split('update')[0];
+      $(".dropdown-menu li").each(function (i) {
+          //$(this).find('li').each(function(i){
+          //if(url==$(this).attr('href')) {
+          //alert($(this).attr('class'));
+        if ($(this).attr('class') == ('active')) {
+          $(this).parent().parent().addClass('active ');//open
+          return false;
+        }
+          //});
+      });
     });
     /** Tooltip **/
     $(function () {
-        $("[rel=tooltip]").tooltip();
+      $("[rel=tooltip]").tooltip();
     });
 </script>

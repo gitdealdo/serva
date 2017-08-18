@@ -213,6 +213,14 @@ class UserActivateTemplateView(generic.TemplateView):
             u.save()
         return HttpResponseRedirect(reverse("backend:user_list"))
 
+
+def change_user_theme(request):
+    if request.method == 'POST':
+        u = request.user
+        u.theme = request.POST.get('theme')
+        u.save()
+    return HttpResponseRedirect(reverse("home"))
+
 # class UserCreateView(generic.CreateView):
 #     u"""Crea usuario."""
 
