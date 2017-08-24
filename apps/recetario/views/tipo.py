@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.conf import settings
 # from django.core import serializers
 from django.utils.encoding import force_text
@@ -73,3 +73,11 @@ class TipoListView(generic.ListView):
             msg = ('Tipo %s creado con éxito' % t)
         messages.success(request, msg)
         return HttpResponseRedirect(reverse('recetario:tipo_list'))
+
+
+def crear_tipo_producto(request):
+    """crear tipo producto por ajax"""
+    if request.method == 'POST':
+        tipo = Tipo.objects.create(nombre=request.POST.get('nombre'))
+        respuesta = {'id': tipo.id, 'nombre': tipo.nombre}
+    return JsonResponse(respuesta)

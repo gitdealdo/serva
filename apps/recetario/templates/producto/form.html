@@ -26,11 +26,88 @@
   </div>
 </div>
 
+<div class="modal fade" id="modal-id">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Nuevo tipo producto</h4>
+            </div>
+            <form action="javascript:save()" id="modal_form" method="POST" role="form">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese nombre">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-unidad">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Nueva unidad</h4>
+            </div>
+            <form action="javascript:guardar_unidad()" id="unidad_form" method="POST" role="form">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese nombre">
+                </div>
+                <div class="form-group">
+                    <label for="simbolo">Simbolo</label>
+                    <input type="text" class="form-control" name="simbolo" id="simbolo" placeholder="Ingrese simbolo">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
 {% block extrajs %}
 {{ block.super }}
 <script type="text/javascript">
+    function save() {
+      var data = {};
+      $.each($('#modal_form').serializeArray(), function(i, field) {
+          data[field.name] = field.value;
+      });
+
+      $.post("{% url 'recetario:crear_tipo_producto' %}", data, function(data, textStatus, xhr) {
+        console.log(data);
+        $("#modal-id").modal('hide');
+        $("#id_tipo").append('<option value="'+data.id+'" selected="">'+data.nombre+'</option>');
+        
+      });
+    }
+
+    function guardar_unidad() {
+      var data = {};
+      $.each($('#unidad_form').serializeArray(), function(i, field) {
+          data[field.name] = field.value;
+      });
+
+      $.post("{% url 'recetario:unidad_crear' %}", data, function(data, textStatus, xhr) {
+        console.log(data);
+        $("#modal-unidad").modal('hide');
+        $("#id_unidad").append('<option value="'+data.id+'" selected="">'+data.nombre+'</option>');
+        
+      });
+    }
 </script>
 {% endblock extrajs %}
 

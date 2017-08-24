@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.conf import settings
 # from django.core import serializers
 from django.utils.encoding import force_text
@@ -78,3 +78,13 @@ class UnidadListView(generic.ListView):
             messages.success(request, 'Unidad %s registrada con éxito' % u)
 
         return HttpResponseRedirect(reverse('recetario:unidad_list'))
+
+
+def crear_unidad(request):
+    """crear unidad por ajax"""
+    if request.method == 'POST':
+        uni = Unidad.objects.create(
+            nombre=request.POST.get('nombre'),
+            simbolo=request.POST.get('simbolo'))
+        respuesta = {'id': uni.id, 'nombre': uni.nombre}
+    return JsonResponse(respuesta)
