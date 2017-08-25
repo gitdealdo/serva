@@ -15,10 +15,7 @@
 {% endblock breadcrumbs %}
 
 {% block content_title %}
-    <div class="container">
       {{ opts.verbose_name |capfirst }} de menu | <small>{{ title }}</small>
-      <small class="pull-right">{% now "D d M, Y" %}</small>      
-    </div>
 {% endblock content_title %}
 
 {% block content %}
@@ -26,13 +23,18 @@
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-2">
-        <div class="form-group">
+        <div class="input-group">
           <label class="sr-only" for="tipo_menu">Tipo de menu</label>
           <select class="form-control" id="tipo_menu">
             {% for d in tipo_menus %}
               <option value="{{d.id}}">{{d.nombre}}</option>
             {% endfor %}
           </select>
+          <span class="input-group-btn">
+            <button type="button" class="btn text-primary" rel="tooltip" data-toggle="modal" data-target="#modal-id" title="Crear nuevo tipo menu">
+              <i class="fa fa-plus"></i>
+            </button>
+          </span>
         </div>
       </div>
       <div class="col-md-8">
@@ -42,7 +44,7 @@
 
     <form action="javascript:agregar()" class="form-inline text-center" id="myform" role="form">
       <div class="form-group">
-        <label class="sr-only" for="receta">Recetas</label>
+        <label class="" for="receta">Recetas</label>
         <select name="receta" class="form-control select2" id="receta">
           {% for d in recetas %}
             <option value="{{d.id}}">{{d.nombre}}</option>
@@ -64,13 +66,37 @@
           <tr>
             <th>#</th>
             <th>Receta</th>
-            <th>Proción</th>
-            <th>Acción</th>
+            <th>Porción</th>
+            <th>Quitar</th>
           </tr>
         </thead>
         <tbody>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-id">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Crear nuevo tipo menu</h4>
+      </div>
+      <form action="javascript:crear_tipo_menu()" id="modal_form" method="POST" role="form">
+      <div class="modal-body">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="">Nombre</label>
+          <input type="text" class="form-control" id="" name="nombre" placeholder="Ingrese tipo menu">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      </form>
     </div>
   </div>
 </div>
@@ -87,7 +113,6 @@
   function agregar () {
     var obj = getFormObj2('myform');
     obj['receta_nombre'] = $("#receta option:selected").text();
-    console.log(obj);
     lista.push(obj);
     listar(lista);
   }
@@ -103,6 +128,14 @@
       htm += '</tr>'      
     }
     $("tbody").html(htm);
+  }
+
+  function crear_tipo_menu () {
+    var data = getFormObj2('modal_form'); 
+    $.post('{% url "venta:crear_tipo_menu" %}', data, function(data, textStatus, xhr) {
+      $("#modal-id").modal('hide');
+      $("#tipo_menu").append('<option value="'+data.id+'" selected="">'+data.nombre+'</option>');
+    });
   }
 
   function quitar (i) {

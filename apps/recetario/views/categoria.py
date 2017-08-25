@@ -4,7 +4,7 @@ from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
-from django.http import HttpResponseRedirect  # , HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
 # from django.core import serializers
 # from django.utils.encoding import force_text
@@ -42,7 +42,8 @@ class CategoriaListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(CategoriaListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
-        context['title'] = _('Select %s to change') % capfirst(self.model._meta.verbose_name)
+        context['title'] = _('Select %s to change') % capfirst(
+            self.model._meta.verbose_name)
         context['o'] = self.o
         context['f'] = self.f
         context['q'] = self.q.replace('/', '-')
@@ -70,3 +71,10 @@ class CategoriaListView(generic.ListView):
             msg = ('Categoria %s creado con éxito' % t)
         messages.success(request, msg)
         return HttpResponseRedirect(reverse('recetario:categoria_list'))
+
+
+def crear_categoria(request):
+    if request.method == 'POST':
+        cat = Categoria.objects.create(nombre=request.POST.get('nombre'))
+        respuesta = {'id': cat.id, 'nombre': cat.nombre}
+    return JsonResponse(respuesta)

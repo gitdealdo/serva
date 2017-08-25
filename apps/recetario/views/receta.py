@@ -1,5 +1,5 @@
 # import json
-from django.core.urlresolvers import reverse_lazy  # , reverse
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
@@ -11,7 +11,8 @@ from django.conf import settings
 from django.utils.encoding import force_text
 from backend_apps.utils.decorators import permission_resource_required
 from backend_apps.utils.forms import empty
-from backend_apps.utils.security import get_dep_objects  # , SecurityKey, UserToken, log_params,
+# , SecurityKey, UserToken, log_params,
+from backend_apps.utils.security import get_dep_objects
 # from decimal import Decimal
 from ..models.receta import Receta
 from ..forms.receta import RecetaForm
@@ -45,7 +46,8 @@ class RecetaListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(RecetaListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
-        context['title'] = _('Select %s to change') % capfirst(self.model._meta.verbose_name)
+        context['title'] = _('Select %s to change') % capfirst(
+            self.model._meta.verbose_name)
         context['o'] = self.o
         context['f'] = self.f
         context['q'] = self.q.replace('/', '-')
@@ -56,14 +58,13 @@ class RecetaCreateView(generic.CreateView):
     model = Receta
     form_class = RecetaForm
     template_name = 'receta/form.html'
-    success_url = reverse_lazy('recetario:receta_list')
 
     @method_decorator(permission_resource_required)
     def dispatch(self, request, *args, **kwargs):
         return super(RecetaCreateView, self).dispatch(request, *args, **kwargs)
 
-    # def get_success_url(self):
-    #     return reverse('icontrol:detalle_producto_add', kwargs={'pk': self.object.pk})
+    def get_success_url(self):
+        return reverse('recetario:receta_detail', kwargs={'pk': self.object.pk})
 
     def get_context_data(self, **kwargs):
         context = super(RecetaCreateView, self).get_context_data(**kwargs)
@@ -121,7 +122,6 @@ class RecetaUpdateView(generic.UpdateView):
     model = Receta
     template_name = 'receta/form.html'
     form_class = RecetaForm
-    success_url = reverse_lazy('recetario:receta_detail')
 
     @method_decorator(permission_resource_required)
     def dispatch(self, request, *args, **kwargs):

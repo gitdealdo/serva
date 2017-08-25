@@ -4,7 +4,7 @@ from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 # from django.contrib import messages
 from django.views import generic
-from django.http import HttpResponseRedirect  # , HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
 # from django.core import serializers
 # from django.utils.encoding import force_text
@@ -42,7 +42,8 @@ class TipoMenuListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(TipoMenuListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
-        context['title'] = _('Select %s to change') % capfirst(self.model._meta.verbose_name)
+        context['title'] = _('Select %s to change') % capfirst(
+            self.model._meta.verbose_name)
         context['o'] = self.o
         context['f'] = self.f
         context['q'] = self.q.replace('/', '-')
@@ -50,16 +51,9 @@ class TipoMenuListView(generic.ListView):
 
     def post(self, request):
 
-        try:
-            nombre = request.POST.get('nombre')
-        except Exception as e:
-            nombre = None
-            raise e
-        try:
-            tipo_menu = request.POST.get('id_tipo_menu')
-        except Exception as e:
-            tipo_menu = None
-            raise e
+        nombre = request.POST.get('nombre', None)
+        tipo_menu = request.POST.get('id_tipo_menu', None)
+
         if tipo_menu and nombre:
             """Actualizar tipo menu"""
             tm = TipoMenu.objects.get(id=tipo_menu)
@@ -74,3 +68,10 @@ class TipoMenuListView(generic.ListView):
 
         # messages.success(request, msg)
         return HttpResponseRedirect(reverse("venta:tipo_menu_list"))
+
+
+def crear_tipo_menu(request):
+    if request.method == 'POST':
+        tm = TipoMenu.objects.create(nombre=request.POST.get('nombre'))
+        respuesta = {'id': tm.id, 'nombre': tm.nombre}
+    return JsonResponse(respuesta)

@@ -1,8 +1,7 @@
 from django import forms
 from crispy_forms.helper import FormHelper, Layout
 from crispy_forms.layout import Field, Div, Row  # , HTML
-from crispy_forms.bootstrap import FormActions  # , TabHolder, Tab, \
-# PrependedAppendedText, PrependedText
+from crispy_forms.bootstrap import FormActions, FieldWithButtons, StrictButton
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 from backend_apps.utils.forms import smtSave, btnCancel, btnReset
@@ -17,15 +16,22 @@ class RecetaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RecetaForm, self).__init__(*args, **kwargs)
 
-        self.fields['nombre'].help_text = u'<small class="help-error"></small> %s' % (u' ')
-        self.fields['porcion'].help_text = u'<small class="help-error"></small> %s' % (u' ')
-        self.fields['categoria'].help_text = u'<small class="help-error"></small> %s' % (u' ')
-        self.fields['descripcion'].help_text = u'<small class="help-error"></small> %s' % (u' ')
-        self.fields['nombre'].widget.attrs = {'placeholder': 'Ingrese nombre de la receta'}
-        self.fields['porcion'].widget.attrs = {'placeholder': 'Ingrese porciones'}
+        self.fields['nombre'].help_text = u'<small class="help-error"></small> %s' % (
+            u' ')
+        self.fields['porcion'].help_text = u'<small class="help-error"></small> %s' % (
+            u' ')
+        self.fields['categoria'].help_text = u'<small class="help-error"></small> %s' % (
+            u' ')
+        self.fields['descripcion'].help_text = u'<small class="help-error"></small> %s' % (
+            u' ')
+        self.fields['nombre'].widget.attrs = {
+            'placeholder': 'Ingrese nombre de la receta'}
+        self.fields['porcion'].widget.attrs = {
+            'placeholder': 'Ingrese porciones'}
+        self.fields['categoria'].label='Categoría de receta'
         self.fields['descripcion'].widget.attrs = {'rows': 2, }
         self.fields['preparacion'].widget = SummernoteWidget(
-            attrs={'width': '100%', 'height': '25em'})
+            attrs={'width': '100%', 'height': '35em'})
 
         self.helper = FormHelper()
         self.helper.form_class = 'js-validate form-vertical'
@@ -37,7 +43,13 @@ class RecetaForm(forms.ModelForm):
                 Div(Field('nombre', css_class='input-required'),
                     Field('porcion', css_class='input-required'),
                     Field('descripcion', ),
-                    Field('categoria', ),
+                    FieldWithButtons('categoria', 
+                        StrictButton("<i class='fa fa-plus'></i>", 
+                            css_class="btn-default", 
+                            rel="tooltip",
+                            title="Agregar categoria",
+                            data_toggle="modal", 
+                            data_target="#modal-id")),
                     Field('imagen', ),
                     css_class='col-md-6'),
                 Div(Field('preparacion', css_class="input-required"),

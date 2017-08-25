@@ -30,6 +30,29 @@
   </div>
 </div>
 
+<div class="modal fade" id="modal-id">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Nuevo categoria de receta</h4>
+      </div>
+      <form action="javascript:guardar_categoria()" id="modal_form" method="POST" role="form">
+      {% csrf_token %}
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="">Nombre</label>
+          <input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre de categoria">
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock content %}
 
 {% block extrajs %}    
@@ -48,5 +71,16 @@
       $("[data-toggle=tooltip]").tooltip();
       $('#id_fecha_nac').datetimepicker({format: 'YYYY-MM-DD'});
     });
+
+    function guardar_categoria() {
+      var data = {};
+      $.each($('#modal_form').serializeArray(), function(i, field) {
+          data[field.name] = field.value;
+      });
+      $.post("{% url 'recetario:categoria_crear' %}", data, function(data, textStatus, xhr) {
+        $("#modal-id").modal('hide');
+        $("#id_categoria").append('<option value="'+data.id+'" selected="">'+data.nombre+'</option>');
+      });
+    }
   </script>
 {% endblock extrajs %}

@@ -7,6 +7,8 @@ urlpatterns = [
 
     url(r'^tipomenu/lista/$', tipo_menu.TipoMenuListView.as_view(),
         name='tipo_menu_list'),
+    url(r'^tipomenu/ajaxcrear/$', tipo_menu.crear_tipo_menu,
+        name='crear_tipo_menu'),
     url(r'^menu/lista/$', menu.MenuListView.as_view(), name='menu_list'),
     url(r'^detalle/index/$', detalle.DetalleTemplateView.as_view(),
         name='detalle_index'),
