@@ -1,0 +1,23 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Ingredientes</caption>
+    <thead>
+      <tr>
+        <th>N°</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Stok</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in object_list %}
+      <tr {% if d.stock != 'suficiente' %}class="warning"{% endif %}>
+        <td>{{forloop.counter}}</td>
+        <td>{{d.producto}}</td>
+        <td>{{d.cantidad}}</td>
+        <td>{{d.stock}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

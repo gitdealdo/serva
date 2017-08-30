@@ -60,20 +60,9 @@
     </form>
   </div>
   <div class="panel-body">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Receta</th>
-            <th>Porción</th>
-            <th>Quitar</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
+  </div>
+  <div class="panel-footer">
+    <button type="button" class="btn btn-success validar">Validar</button>
   </div>
 </div>
 
@@ -114,7 +103,10 @@
     var obj = getFormObj2('myform');
     obj['receta_nombre'] = $("#receta option:selected").text();
     lista.push(obj);
-    listar(lista);
+    $.get('{% url "venta:filtrar_ingredientes" %}', obj, function(data) {
+      $(".panel-body").html(data);
+    });
+    // listar(lista);
   }
 
   function listar (list) {
@@ -143,7 +135,7 @@
     listar(lista);
   }
 /********Metodos*******/
-  function getFormObj(formId) {
+/*  function getFormObj(formId) {
     var formParams = {};
     $('#' + formId)
       .serializeArray()
@@ -156,7 +148,7 @@
         }
       });
     return formParams;
-  }
+  }*/
   function getFormObj2(formId) {
     var res = {};
     $("#"+formId+" input, #"+formId+" select, #"+formId+" textarea").each(function(i, obj) {
@@ -165,6 +157,9 @@
     return res;
   }
 /********Metodos*******/
+  $(".validar").on('click', function(e) {
+    e.preventDefault();
 
+  });
   </script>  
 {% endblock customjs %}

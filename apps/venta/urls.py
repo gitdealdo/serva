@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^menu/lista/$', menu.MenuListView.as_view(), name='menu_list'),
     url(r'^detalle/index/$', detalle.DetalleTemplateView.as_view(),
         name='detalle_index'),
+    url(r'^detalle/ingredientes/$', detalle.IngredienteListView.as_view(),
+        name='filtrar_ingredientes'),
 
     # url(r'^receta/editar/(?P<pk>[^/]+)/$', rec.RecetaUpdateView.as_view(),
     # name = 'receta_edit'),
