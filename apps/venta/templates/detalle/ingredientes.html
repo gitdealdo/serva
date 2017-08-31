@@ -11,11 +11,13 @@
     </thead>
     <tbody>
       {% for d in object_list %}
-      <tr {% if d.stock != 'suficiente' %}class="warning"{% endif %}>
+      <tr {% if d.stock != 'suficiente' %}class="danger"{% endif %}>
         <td>{{forloop.counter}}</td>
         <td>{{d.producto}}</td>
-        <td>{{d.cantidad}}</td>
-        <td>{{d.stock}}</td>
+        <td>{{d.cantidad_total}} {{d.producto.unidad.simbolo}}</td>
+        <td>{{d.producto.cantidad }} {{d.producto.unidad.simbolo}}
+          <span class="label label-{% if d.stock == 'suficiente'%}success{% else %}danger{% endif %}">{{d.stock}}</span>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
