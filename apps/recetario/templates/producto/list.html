@@ -36,6 +36,11 @@ $(function() {
                     <span class="hidden-xs"> Agregar Producto
                     </span>
                 </a>
+                
+                <a class="btn btn-primary" data-toggle="modal" href='#modal-id'>
+                    <i class="fa fa-upload"></i> Importar
+                </a>
+
             </div>
         </div>
     </div>
@@ -46,9 +51,12 @@ $(function() {
                 <tr>
                     <th>#</th>
                     <th class="" data-search="nombre" data-order="nombre">Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Stok minimo</th>
                     <th>Stok</th>
                     <th>Unidad</th>
-                    <th>Costo/Unidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Categoria</th>
                     <th class="btn-actions col-block text-center">Acciones</th>
                 </tr>
             </thead>
@@ -63,9 +71,12 @@ $(function() {
                         {% endif %}
                     </td>
                     <td>{{ d.nombre }}</td>
-                    <td>{{ d.cantidad }}</td>
+                    <td>{{ d.descripcion }}</td>
+                    <td>{{ d.stock_minimo }}</td>
+                    <td>{{ d.stock }}</td>
                     <td>{{ d.unidad }}</td>
                     <td>{{ d.costo }}</td>
+                    <td>{{ d.categoria }}</td>
                     <td class="text-center">
                         <a href="{% url 'recetario:producto_edit' d.pk %}" class="btn btn-info btn-sm text-bold" title="Cambiar producto" rel="tooltip"><i class="btn-icon-only fa fa-edit"></i></a>
                         <a href="{% url 'recetario:producto_delete' d.pk %}" class="btn btn-danger btn-sm js-confirm text-bold" msg-title="Eliminar producto?." msg="Estas seguro que quiere eliminar <br/> Recuerde que esta acción no se puede deshacer." title="Eliminar producto" rel="tooltip"><i class="btn-icon-only fa fa-trash-o"></i></a>
@@ -77,6 +88,26 @@ $(function() {
             </tbody>
         </table>
     </div>
+<div class="modal fade" id="modal-id">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Importar insumos</h4>
+            </div>
+            <form action="{% url 'recetario:upload_file' %}" method="POST" role="form" enctype="multipart/form-data">
+            <div class="modal-body">
+                {% csrf_token %}
+                {{form.as_p}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Enviar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
    <div  class="row" >
     {% if is_paginated %}
     {% load paginator %}
@@ -102,5 +133,14 @@ $(function() {
   $('#modal_confirmar').on('show.bs.modal', function (event) {
     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-sm flipInY animated');
   })
+  $(function () {
+    $('#id_file').fileinput({
+      showUpload: false,
+      showRemove: false,
+      browseClass: 'btn btn-warning',
+      browseLabel: '<span class="hidden-xs">{% trans "Upload file" %}</span>',
+      browseIcon: '<i class="btn-icon-only glyphicon glyphicon-facetime-picture"></i>',
+    });
+  });
 </script>
 {% endblock customjs %}

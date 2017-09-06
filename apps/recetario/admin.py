@@ -12,7 +12,7 @@ class ProductoAdmin(admin.ModelAdmin):
     '''
         Admin View for Producto
     '''
-    list_display = ('nombre', 'tipo', 'unidad',)
+    list_display = ('nombre', 'categoria', 'unidad',)
     list_filter = ('nombre',)
     search_fields = ('nombre',)
 

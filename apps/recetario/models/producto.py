@@ -10,8 +10,9 @@ class Producto(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     nombre = models.CharField(max_length=30)
     descripcion = models.TextField(u"Descripción", blank=True, null=True)
-    cantidad = models.IntegerField(default=0)
-    tipo = models.ForeignKey(Tipo, blank=True)
+    stock_minimo = models.IntegerField(default=0)
+    stock = models.IntegerField(default=0)
+    categoria = models.ForeignKey(Tipo, blank=True)
     unidad = models.ForeignKey(Unidad)
     costo = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
 

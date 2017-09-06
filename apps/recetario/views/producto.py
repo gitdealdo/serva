@@ -15,7 +15,10 @@ from backend_apps.utils.security import log_params, get_dep_objects  # , Securit
 # from decimal import Decimal
 # from ..utils import defaultencode
 from ..models.producto import Producto
-from ..forms.producto import ProductoForm
+from ..models.tipo import Tipo
+from ..models.unidad import Unidad
+from ..forms.producto import ProductoForm, UploadFileForm
+from pyexcel_xlsx import get_data
 
 
 class ProductoListView(generic.ListView):
@@ -44,6 +47,7 @@ class ProductoListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(ProductoListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
+        context['form'] = UploadFileForm()
         context['title'] = _('Select %s to change') % capfirst(self.model._meta.verbose_name)
         context['o'] = self.o
         context['f'] = self.f
@@ -150,93 +154,44 @@ class ProductoDeleteView(generic.DeleteView):
         return self.delete(request, *args, **kwargs)
 
 
-# class ProductoCompleteTemplateView(generic.TemplateView):
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = get_data(request.FILES['file'])
+            insumos = list(data['Hoja1'])
+            del insumos[0]
+            for d in insumos:
+                if not d:
+                    break
+                try:
+                    categoria = Tipo.objects.get(nombre=d[9])
+                except Exception:
+                    categoria = Tipo.objects.create(nombre=d[9])
+                try:
+                    unidad = Unidad.objects.get(nombre=d[4])
+                except Exception:
+                    unidad = Unidad.objects.create(nombre=d[4])
+                try:
+                    producto = Producto.objects.get(nombre=d[2])
+                except Exception:
+                    producto = None
 
-#     def get(self, request, *args, **kwargs):
-
-#         catego = request.GET.get('cat')
-#         if catego:
-#             productos = Producto.objects.filter(
-#                 codigo__icontains=request.GET.get('query')).filter(categoria_id=catego)
-#         else:
-#             productos = Producto.objects.filter(
-#                 codigo__icontains=request.GET.get('query'))
-
-#         data = []
-
-#         for p in productos:
-#             producto_json = {}
-#             prod = "%s" % (p.codigo)
-#             producto_json['label'] = prod
-#             producto_json['value'] = p.id
-#             data.append(producto_json)
-
-#         data_json = json.dumps(data)
-
-#         return HttpResponse(data_json, content_type='application/json')
-
-
-
-
-# class ProductoDetailView(generic.DetailView):
-#     """ProductoDetailView"""
-#     model = Producto
-#     template_name = 'icontrol/producto/detalle.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(ProductoDetailView, self).get_context_data(**kwargs)
-#         context['opts'] = self.model._meta
-#         context['title'] = _('Detalles del %s') % _('producto')
-#         return context
-
-
-# class ProductoFiltrarView(generic.ListView):
-#     """docstring for ProductoFiltrarView"""
-
-#     model = Producto
-#     template_name = "icontrol/producto/productos.html"
-#     context_object_name = "productos"
-#     paginate_by = settings.PER_PAGE
-
-#     @method_decorator(permission_resource_required)
-#     def dispatch(self, request, *args, **kwargs):
-#         return super(ProductoFiltrarView, self).dispatch(request, *args, **kwargs)
-
-#     def get_paginate_by(self, queryset):
-#         if 'all' in self.request.GET:
-#             return None
-#         return generic.ListView.get_paginate_by(self, queryset)
-
-#     def get_context_data(self, **kwargs):
-#         context = super(ProductoFiltrarView, self).get_context_data(**kwargs)
-#         context['opts'] = self.model._meta
-#         context['title'] = _('Select %s to see') % capfirst(_('product'))
-#         context['categorias'] = Categoria.objects.all()
-#         context['marcas'] = Marca.objects.all()
-#         return context
-
-#     def get_queryset(self):
-#         queryset = self.model.objects.all()
-#         try:
-#             categoria = self.request.GET['categoria']
-#             marca = self.request.GET['marca']
-#             modelo = self.request.GET['modelo']
-#             codigo = self.request.GET['codigo']
-#             if categoria and marca and modelo and codigo:
-#                 queryset = queryset.filter(
-#                     categoria=categoria, marca=marca,
-#                     modelo__contains=modelo, codigo__contains=codigo)
-#             elif categoria and marca and modelo:
-#                 queryset = queryset.filter(categoria=categoria, marca=marca,
-#                                            modelo__contains=modelo)
-#             elif categoria and marca:
-#                 queryset = queryset.filter(categoria=categoria, marca=marca)
-#             elif categoria:
-#                 queryset = queryset.filter(categoria=categoria)
-#         except Exception:
-#             categoria = None
-#             marca = None
-#             modelo = None
-#             codigo = None
-#         return queryset
-#         # return self.model.objects.filter(**{column_contains: self.q})
+                if producto:
+                    producto.descripcion = d[3]
+                    producto.stock_minimo = d[5]
+                    producto.stock = d[6]
+                    producto.costo = d[7]
+                    producto.save()
+                else:
+                    p = Producto()
+                    p.nombre = d[2]
+                    p.descripcion = d[3]
+                    p.stock_minimo = d[5]
+                    p.stock = d[6]
+                    p.categoria = categoria
+                    p.unidad = unidad
+                    p.costo = d[7]
+                    p.save()
+            messages.success(request, "Insumos registrados y actualizados con éxito!")
+            return HttpResponseRedirect(reverse('recetario:producto_list'))

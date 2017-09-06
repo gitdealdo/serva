@@ -5,7 +5,7 @@ from django.db import models
 class Unidad(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     nombre = models.CharField(max_length=30)
-    simbolo = models.CharField(u"Símbolo", max_length=10)
+    simbolo = models.CharField(u"Símbolo", max_length=10, default="Und")
 
     class Meta:
         verbose_name = "Unidad"

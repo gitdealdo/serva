@@ -20,6 +20,8 @@ urlpatterns = [
     url(r'^producto/(?P<pk>[^/]+)/eliminar/$',
         producto.ProductoDeleteView.as_view(),
         name='producto_delete'),
+    url(r'^producto/upload/$',
+        producto.upload_file, name='upload_file'),
     url(r'^unidad/lista/$',
         unidad.UnidadListView.as_view(), name='unidad_list'),
     url(r'^unidad/ajaxcrear/$', unidad.crear_unidad, name='unidad_crear'),

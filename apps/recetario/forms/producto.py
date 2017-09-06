@@ -41,10 +41,10 @@ class ProductoForm(forms.ModelForm):
                 Div(Field('nombre', css_class='input-required'),
                     css_class='col-md-6'),
                 Div(FieldWithButtons('tipo',
-                    StrictButton("<i class='fa fa-plus'></i>", css_class="btn-default", rel="tooltip", title="Agregar tipo", data_toggle="modal", data_target="#modal-id")), css_class='col-md-6'),
+                                     StrictButton("<i class='fa fa-plus'></i>", css_class="btn-default", rel="tooltip", title="Agregar tipo", data_toggle="modal", data_target="#modal-id")), css_class='col-md-6'),
                 Div(Field('cantidad', ), css_class='col-md-6'),
                 Div(FieldWithButtons('unidad',
-                    StrictButton("<i class='fa fa-plus'></i>", css_class="btn-default", rel="tooltip", title="Agregar unidad", data_toggle="modal", data_target="#modal-unidad")), css_class='col-md-6'),
+                                     StrictButton("<i class='fa fa-plus'></i>", css_class="btn-default", rel="tooltip", title="Agregar unidad", data_toggle="modal", data_target="#modal-unidad")), css_class='col-md-6'),
                 Div(Field('costo', css_class="input-required"),
                     css_class='col-md-6'),
                 Div(Field('descripcion', ), css_class='col-md-6'),
@@ -56,3 +56,11 @@ class ProductoForm(forms.ModelForm):
                 btnReset(),
             ),
         )
+
+
+class UploadFileForm(forms.Form):
+    # title = forms.CharField(max_length=50)
+    file = forms.FileField()
+    # widgets = {
+    #     'file': forms.FileInput(attrs={'class': 'form-control'}),
+    # }
