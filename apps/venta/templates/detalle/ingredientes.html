@@ -13,9 +13,9 @@
       {% for d in object_list %}
       <tr {% if d.stock != 'suficiente' %}class="danger"{% endif %}>
         <td>{{forloop.counter}}</td>
-        <td>{{d.producto}}</td>
+        <td>{{d.producto}} (<i>{{d.producto.descripcion}}</i>)</td>
         <td>{{d.cantidad_total}} {{d.producto.unidad.simbolo}}</td>
-        <td>{{d.producto.cantidad }} {{d.producto.unidad.simbolo}}
+        <td>{{d.producto.stock }} {{d.producto.unidad.simbolo}}
           <span class="label label-{% if d.stock == 'suficiente'%}success{% else %}danger{% endif %}">{{d.stock}}</span>
         </td>
       </tr>

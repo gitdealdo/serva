@@ -46,7 +46,7 @@ class IngredienteListView(generic.ListView):
         for d in qs:
             cant_por_unidad = d.cantidad / receta.porcion
             d.cantidad_total = cant_por_unidad * int(porcion)
-            if d.producto.cantidad >= d.cantidad_total:
+            if d.producto.stock >= d.cantidad_total:
                 d.stock = "suficiente"
             else:
                 d.stock = "insuficiente"

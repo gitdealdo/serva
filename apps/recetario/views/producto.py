@@ -1,4 +1,3 @@
-import json
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext

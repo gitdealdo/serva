@@ -8,7 +8,7 @@ from .unidad import Unidad
 class Producto(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    nombre = models.CharField(max_length=30)
+    nombre = models.CharField(max_length=70)
     descripcion = models.TextField(u"Descripción", blank=True, null=True)
     stock_minimo = models.IntegerField(default=0)
     stock = models.IntegerField(default=0)
