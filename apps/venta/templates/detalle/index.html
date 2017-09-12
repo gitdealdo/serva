@@ -1,9 +1,5 @@
 {% extends 'base/base_back.html' %}
-{% comment %}
-  
-{% load i18n crispy_forms_tags %}
-{% load l10n %}
-{% endcomment %}
+{% load i18n l10n humanize %}
 
 {% block breadcrumbs %}
 <a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
@@ -42,7 +38,7 @@
       </div>
     </div>
 
-    <form action="javascript:agregar()" class="form-inline text-center" id="myform" role="form">
+    <form action="javascript:consultar()" class="form-inline text-center" id="myform" role="form">
       <div class="form-group">
         <label class="" for="receta">Recetas</label>
         <select name="receta" class="form-control select2" id="receta">
@@ -55,14 +51,23 @@
         <label class="sr-only" for="porcion">Porción</label>
         <input type="number" name="porcion" class="form-control" placeholder="Ingrese porción" required>
       </div>
-      <button type="submit" class="btn btn-primary"><i class="fa fa-download"></i>
-      <span class="hidden-xs"> Agregar</span></button>
+      <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
+      <span class="hidden-xs"> Consultar</span></button>
     </form>
   </div>
   <div class="panel-body">
   </div>
   <div class="panel-footer">
-    <button type="button" class="btn btn-success validar">Validar</button>
+
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default validar">
+        <i class="fa fa-check"></i> Validar</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default">Guardar</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -90,6 +95,35 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalagregar">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Agregar insumo</h4>
+      </div>
+      <form action="#" id="form_agregar" method="GET">
+      <div class="modal-body">
+        <div class="form-group">
+          <select name="producto" id="id_producto" class="form-control select2" style="width: 100%;" required>
+            {% for d in insumos %}
+              <option value="{{d.id}}">{{d.nombre}} <i>Stock:{{d.stock}} {{d.unidad.simbolo}}</i></option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="id_cantidad">Cantidad</label>
+          <input type="number" class="form-control" name="cantidad" id="id_cantidad" placeholder="Ingrese cantidad" step="any" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endblock content %}
 
 {% block extrajs %}    
@@ -99,28 +133,45 @@
 {% block customjs %}
   <script>
   var lista = [];
-  function agregar () {
+  function consultar () {
     var obj = getFormObj2('myform');
-    obj['receta_nombre'] = $("#receta option:selected").text();
+    // obj['receta_nombre'] = $("#receta option:selected").text();
     lista.push(obj);
     $.get('{% url "venta:filtrar_ingredientes" %}', obj, function(data) {
       $(".panel-body").html(data);
     });
     // listar(lista);
   }
+  $("#form_agregar").on('submit', function(e) {
+    e.preventDefault();
+    var obj = getFormObj2('form_agregar');
+    obj['nombre'] = $("#id_producto option:selected").text();
+    console.log(obj)
+    var tr = '<tr id="'+obj.producto+'" cantidad="'+obj.cantidad+'">';
+    tr += '<td></td><td>'+obj.nombre+'</td><td>'+obj.cantidad+'</td>';
+    tr += '<td onclick="$(this).parent().remove()"><a href="#"><i class="fa fa-remove"></i></a></td></tr>'
+    $("table tbody").append(tr);
+    $("#modalagregar").modal("hide");
+  });
 
-  function listar (list) {
-    var htm = '';
-    for (var i = 0; i < list.length; i++) {
-      htm += '<tr>'      
-      htm += '<td>'+(i+1)+'</td>';      
-      htm += '<td>'+list[i].receta_nombre+'</td>';      
-      htm += '<td>'+list[i].porcion+'</td>';      
-      htm += '<td><a href="javascript:quitar('+i+')"><i class="fa fa-remove fa-lg"></i></a></td>';      
-      htm += '</tr>'      
-    }
-    $("tbody").html(htm);
-  }
+  // function listar (list) {
+  //   var htm = '';
+  //   for (var i = 0; i < list.length; i++) {
+  //     htm += '<tr>'      
+  //     htm += '<td>'+(i+1)+'</td>';      
+  //     htm += '<td>'+list[i].receta_nombre+'</td>';      
+  //     htm += '<td>'+list[i].porcion+'</td>';      
+  //     htm += '<td><a href="javascript:quitar('+i+')"><i class="fa fa-remove fa-lg"></i></a></td>';      
+  //     htm += '</tr>'      
+  //   }
+  //   $("tbody").html(htm);
+  // }
+  $(".validar").on('click', function(e) {
+    e.preventDefault();
+    $("table tbody").find("tr").each(function(index, el) {
+      console.log({'producto':$(el).attr('id'), 'cantidad':$(el).attr('cantidad')});
+    });
+  });
 
   function crear_tipo_menu () {
     var data = getFormObj2('modal_form'); 
@@ -157,9 +208,6 @@
     return res;
   }
 /********Metodos*******/
-  $(".validar").on('click', function(e) {
-    e.preventDefault();
 
-  });
   </script>  
 {% endblock customjs %}

@@ -74,8 +74,7 @@ class RecetaCreateView(generic.CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        # self.object.costo = 0
+        self.object.autor = self.request.user
         msg = _(' %(name)s "%(obj)s" fue creado satisfactoriamente.') % {
             'name': capfirst(force_text(self.model._meta.verbose_name)),
             'obj': force_text(self.object)
@@ -138,7 +137,7 @@ class RecetaUpdateView(generic.UpdateView):
         self.success_url = reverse_lazy('recetario:receta_detail',
                                         kwargs={'pk': self.kwargs['pk']})
 
-        msg = _('%(name)s "%(obj)s" fue cambiado satisfactoriamente.') % {
+        msg = _('%(name)s "%(obj)s" fue actualizado satisfactoriamente.') % {
             'name': capfirst(force_text(self.model._meta.verbose_name)),
             'obj': force_text(self.object)
         }

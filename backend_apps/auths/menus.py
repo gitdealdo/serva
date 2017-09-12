@@ -57,7 +57,7 @@ class Menus:
                     'id').filter(user=user))
                 permission_list = Permission.objects.filter(
                     group__in=groups).distinct()
-                print(permission_list)
+                # print(permission_list)
 
             except:
                 print("Sede no seleccionado")

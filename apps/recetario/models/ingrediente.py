@@ -6,6 +6,12 @@ from .receta import Receta
 
 
 class Ingrediente(models.Model):
+    u"""Ingrediente
+        |id: identificador (uuid)
+        |producto: id del producto/insumo
+        |cantidad: cantidad del insumo
+        |receta: a la que pertenece este insumo
+    """
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     producto = models.ForeignKey(Producto)

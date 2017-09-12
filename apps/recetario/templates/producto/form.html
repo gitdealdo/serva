@@ -87,10 +87,10 @@
           data[field.name] = field.value;
       });
 
-      $.post("{% url 'recetario:crear_tipo_producto' %}", data, function(data, textStatus, xhr) {
+      $.post("{% url 'recetario:crear_categoria' %}", data, function(data, textStatus, xhr) {
         console.log(data);
         $("#modal-id").modal('hide');
-        $("#id_tipo").append('<option value="'+data.id+'" selected="">'+data.nombre+'</option>');
+        $("#id_categoria").append('<option value="'+data.id+'" selected="">'+data.nombre+'</option>');
         
       });
     }

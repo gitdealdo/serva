@@ -33,21 +33,21 @@ class MenuListView(generic.ListView):
             return None
         return generic.ListView.get_paginate_by(self, queryset)
 
-    def get_queryset(self):
-        self.o = empty(self.request, 'o', '-id')
-        self.f = empty(self.request, 'f', 'costo')
-        self.q = empty(self.request, 'q', '')
-        column_contains = u'%s__%s' % (self.f, 'contains')
-        return self.model.objects.filter(**{column_contains: self.q}).order_by(self.o)
+    # def get_queryset(self):
+    #     self.o = empty(self.request, 'o', '-id')
+    #     self.f = empty(self.request, 'f', 'fecha')
+    #     self.q = empty(self.request, 'q', '')
+    #     column_contains = u'%s__%s' % (self.f, 'contains')
+    #     return self.model.objects.filter(**{column_contains: self.q}).order_by(self.o)
 
     def get_context_data(self, **kwargs):
         context = super(MenuListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
         context['title'] = _('Select %s to change') % capfirst(self.model._meta.verbose_name)
         context['tipos'] = TipoMenu.objects.all()
-        context['o'] = self.o
-        context['f'] = self.f
-        context['q'] = self.q.replace('/', '-')
+        # context['o'] = self.o
+        # context['f'] = self.f
+        # context['q'] = self.q.replace('/', '-')
         return context
 
     def post(self, request, *args, **kwargs):

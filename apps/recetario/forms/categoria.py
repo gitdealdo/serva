@@ -5,12 +5,12 @@ from django import forms
 # # PrependedAppendedText, PrependedText
 
 # from backend_apps.utils.forms import smtSave, btnCancel, btnReset
-from ..models.tipo import Tipo
+from ..models.categoria import Categoria
 
 
-class TipoForm(forms.ModelForm):
+class CategoriaForm(forms.ModelForm):
     class Meta:
-        model = Tipo
+        model = Categoria
         fields = ('nombre',)
         widgets = {
             'nombre': forms.TextInput(

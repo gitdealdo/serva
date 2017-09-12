@@ -14,7 +14,7 @@ from backend_apps.utils.security import log_params, get_dep_objects  # , Securit
 # from decimal import Decimal
 # from ..utils import defaultencode
 from ..models.producto import Producto
-from ..models.tipo import Tipo
+from ..models.categoria import Categoria
 from ..models.unidad import Unidad
 from ..forms.producto import ProductoForm, UploadFileForm
 from pyexcel_xlsx import get_data
@@ -164,9 +164,9 @@ def upload_file(request):
                 if not d:
                     break
                 try:
-                    categoria = Tipo.objects.get(nombre=d[9])
+                    categoria = Categoria.objects.get(nombre=d[9])
                 except Exception:
-                    categoria = Tipo.objects.create(nombre=d[9])
+                    categoria = Categoria.objects.create(nombre=d[9])
                 try:
                     unidad = Unidad.objects.get(nombre=d[4])
                 except Exception:

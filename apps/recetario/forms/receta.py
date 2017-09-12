@@ -11,7 +11,7 @@ from ..models.receta import Receta
 class RecetaForm(forms.ModelForm):
     class Meta:
         model = Receta
-        exclude = ('user', 'costo',)
+        exclude = ('autor',)
 
     def __init__(self, *args, **kwargs):
         super(RecetaForm, self).__init__(*args, **kwargs)
@@ -20,7 +20,7 @@ class RecetaForm(forms.ModelForm):
             u' ')
         self.fields['porcion'].help_text = u'<small class="help-error"></small> %s' % (
             u' ')
-        self.fields['categoria'].help_text = u'<small class="help-error"></small> %s' % (
+        self.fields['tipo_receta'].help_text = u'<small class="help-error"></small> %s' % (
             u' ')
         self.fields['descripcion'].help_text = u'<small class="help-error"></small> %s' % (
             u' ')
@@ -28,8 +28,9 @@ class RecetaForm(forms.ModelForm):
             'placeholder': 'Ingrese nombre de la receta'}
         self.fields['porcion'].widget.attrs = {
             'placeholder': 'Ingrese porciones'}
-        self.fields['categoria'].label='Categoría de receta'
-        self.fields['descripcion'].widget.attrs = {'rows': 2, }
+        self.fields['tipo_receta'].label = 'Tipo de receta'
+        self.fields['descripcion'].widget.attrs = {
+            'rows': 2, 'placeholder': 'Ingrese una breve descripción', }
         self.fields['preparacion'].widget = SummernoteWidget(
             attrs={'width': '100%', 'height': '35em'})
 
@@ -43,13 +44,13 @@ class RecetaForm(forms.ModelForm):
                 Div(Field('nombre', css_class='input-required'),
                     Field('porcion', css_class='input-required'),
                     Field('descripcion', ),
-                    FieldWithButtons('categoria', 
-                        StrictButton("<i class='fa fa-plus'></i>", 
-                            css_class="btn-default", 
-                            rel="tooltip",
-                            title="Agregar categoria",
-                            data_toggle="modal", 
-                            data_target="#modal-id")),
+                    FieldWithButtons('tipo_receta',
+                                     StrictButton("<i class='fa fa-plus'></i>",
+                                                  css_class="btn-default",
+                                                  rel="tooltip",
+                                                  title="Agregar tipo receta",
+                                                  data_toggle="modal",
+                                                  data_target="#modal-id")),
                     Field('imagen', ),
                     css_class='col-md-6'),
                 Div(Field('preparacion', css_class="input-required"),

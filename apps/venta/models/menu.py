@@ -5,10 +5,13 @@ from .tipo_menu import TipoMenu
 
 
 class Menu(models.Model):
-
+    u"""Menu
+        |id: identificador (uuid)
+        |tipo_menu: (id) ejm: desayuno, almuerzo, cena
+        |fecha: para el momento en que se está programando el menu
+    """
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     tipo_menu = models.ForeignKey(TipoMenu)
-    costo = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     fecha = models.DateTimeField()
 
     class Meta:

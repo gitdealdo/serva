@@ -21,7 +21,7 @@
 
 <div class="btn-toolbar btn-toolbar-top">
   <div class="row">
-  {% if user.is_authenticated and receta.user == user %}
+  {% if user.is_authenticated and receta.autor == user %}
     <div class="btn-actions">
       <a href="{% url 'recetario:receta_edit' receta.pk %}" class="btn btn-primary text-bold" title="{% trans "Edit" %} {{opts.verbose_name}}">
         <i class="fa fa-pencil"></i>
@@ -47,7 +47,7 @@
       <div class="col-md-7">
         <p>{{ receta.descripcion }}</p>
         <h4 class="text-danger">{% trans "Ingredients" %} <span class="badge">{{receta.ingrediente_set.count}}</span>
-          {% if user.is_authenticated and receta.user == user %}
+          {% if user.is_authenticated and receta.autor == user %}
           <a href="#addform" data-toggle="modal" rel="tooltip" title="{% trans 'Add ingredients' %}">
             <span class="fa fa-plus"></span>
           </a>
@@ -60,7 +60,7 @@
               <td>{{d.producto}}</td>
               <td>{{d.cantidad}}</td>
               <td>{{d.producto.unidad.simbolo}}</td>
-              {% if user.is_authenticated and receta.user == user %}
+              {% if user.is_authenticated and receta.autor == user %}
               <td>
                 <a href="javascript:eliminar({'id':'{{d.id}}','nombre':'{{d.producto}}'})" 
                 class="text-bold" title="Eliminar {{d}}" rel="tooltip">
@@ -79,7 +79,7 @@
   </div>
   <div class="panel-footer">
     <h3 class="text-primary">{{receta}} <small>({% trans "Author" %}: {{receta.user.person}})</small>
-      {% if user.is_authenticated and receta.user == user %}
+      {% if user.is_authenticated and receta.autor == user %}
       <a href="{% url 'recetario:receta_delete' receta.id %}"class="btn btn-danger pull-right" rel="tooltip" title="{% trans 'Delete recipe' %}"><i class="fa fa-ban"></i> {% trans "Delete recipe" %}</a>
       {% endif %}
     </h3>

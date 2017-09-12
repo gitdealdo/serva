@@ -77,9 +77,9 @@
       $.each($('#modal_form').serializeArray(), function(i, field) {
           data[field.name] = field.value;
       });
-      $.post("{% url 'recetario:categoria_crear' %}", data, function(data, textStatus, xhr) {
+      $.post("{% url 'recetario:tipo_receta_crear' %}", data, function(data, textStatus, xhr) {
         $("#modal-id").modal('hide');
-        $("#id_categoria").append('<option value="'+data.id+'" selected="">'+data.nombre+'</option>');
+        $("#id_tipo_receta").append('<option value="'+data.id+'" selected="">'+data.nombre+'</option>');
       });
     }
   </script>

@@ -1,21 +1,29 @@
 from uuid import uuid4
 from django.db import models
 
-from .categoria import Categoria
+from .tipo_receta import TipoReceta
 from backend_apps.auths.models import User
 
 
 class Receta(models.Model):
-
+    u"""Receta
+        |id: identificador (uuid)
+        |nombre: receta
+        |tipo_ receta: (id) ejm: plato principal, entradas, etc
+        |descripcion: breve descripcion
+        |porcion: para cuantas personas es esta receta
+        |preparacion: paso a paso de la receta
+        |imagen: imagen de la receta
+        |autor: (id) autor/user
+    """
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     nombre = models.CharField(max_length=50)
-    categoria = models.ForeignKey(Categoria, verbose_name=u"Categoría")
+    tipo_receta = models.ForeignKey(TipoReceta, verbose_name=u"Categoría")
     descripcion = models.TextField(u"Descripción", blank=True, null=True)
     porcion = models.IntegerField(u"Porción")
     preparacion = models.TextField(u"Preparación")
-    imagen = models.ImageField(u'Imágen', upload_to='recetas', blank=True)
-    costo = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
-    user = models.ForeignKey(User)
+    imagen = models.ImageField(u'Imágen', upload_to='recetas/', blank=True, null=True)
+    autor = models.ForeignKey(User)
 
     class Meta:
         verbose_name = "Receta"

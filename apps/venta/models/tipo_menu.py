@@ -3,7 +3,10 @@ from django.db import models
 
 
 class TipoMenu(models.Model):
-
+    u"""TipoMenu
+        |id: identificador (uuid)
+        |nombre: ejm: desayuno, almuerzo, cena, etc
+    """
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     nombre = models.CharField(max_length=50)
 

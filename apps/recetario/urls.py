@@ -1,9 +1,9 @@
 from django.conf.urls import url
 from .views import producto
 from .views import receta as rec
-from .views import categoria
+from .views import tipo_receta
 from .views import unidad
-from .views import tipo
+from .views import categoria
 
 urlpatterns = [
 
@@ -25,13 +25,13 @@ urlpatterns = [
     url(r'^unidad/lista/$',
         unidad.UnidadListView.as_view(), name='unidad_list'),
     url(r'^unidad/ajaxcrear/$', unidad.crear_unidad, name='unidad_crear'),
-    url(r'^tipo/lista/$', tipo.TipoListView.as_view(), name='tipo_list'),
-    url(r'^tipo/ajaxcrear/$',
-        tipo.crear_tipo_producto, name='crear_tipo_producto'),
-    url(r'^categoria/lista/$', categoria.CategoriaListView.as_view(),
-        name='categoria_list'),
-    url(r'^categoria/ajaxcrear/$', categoria.crear_categoria,
-        name='categoria_crear'),
+    url(r'^categoria/lista/$', categoria.CategoriaListView.as_view(), name='tipo_list'),
+    url(r'^categoria/ajaxcrear/$',
+        categoria.crear_categoria, name='crear_categoria'),
+    url(r'^tiporeceta/lista/$', tipo_receta.TipoRecetaListView.as_view(),
+        name='tipo_receta_list'),
+    url(r'^tiporeceta/ajaxcrear/$', tipo_receta.crear_tipo_receta,
+        name='tipo_receta_crear'),
     url(r'^receta/lista/$', rec.RecetaListView.as_view(), name='receta_list'),
     url(r'^receta/crear/$', rec.RecetaCreateView.as_view(), name='receta_add'),
     url(r'^receta/(?P<pk>[^/]+)/$',

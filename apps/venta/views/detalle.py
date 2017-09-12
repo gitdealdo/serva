@@ -14,6 +14,7 @@ from backend_apps.utils.forms import empty
 # from decimal import Decimal
 from apps.recetario.models.receta import Receta
 from apps.recetario.models.ingrediente import Ingrediente
+from apps.recetario.models.producto import Producto
 
 from ..models.detalle import Detalle
 from ..models.tipo_menu import TipoMenu
@@ -30,6 +31,7 @@ class DetalleTemplateView(generic.TemplateView):
         context['opts'] = self.model._meta
         context['title'] = _('Crear un nuevo menu')
         context['recetas'] = Receta.objects.all()
+        context['insumos'] = Producto.objects.all()
         context['tipo_menus'] = TipoMenu.objects.all()
         return context
 
@@ -45,7 +47,7 @@ class IngredienteListView(generic.ListView):
         qs = qs.filter(receta=receta)
         for d in qs:
             cant_por_unidad = d.cantidad / receta.porcion
-            d.cantidad_total = cant_por_unidad * int(porcion)
+            d.cantidad_total = round((cant_por_unidad * int(porcion)), 2)
             if d.producto.stock >= d.cantidad_total:
                 d.stock = "suficiente"
             else:

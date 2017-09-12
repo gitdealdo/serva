@@ -1,33 +1,31 @@
-import json
-from django.core.urlresolvers import reverse_lazy, reverse
+from django.core.urlresolvers import reverse  # reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
 # from django.core import serializers
-from django.utils.encoding import force_text
+# from django.utils.encoding import force_text
 from backend_apps.utils.decorators import permission_resource_required
 from backend_apps.utils.forms import empty
-from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
+# from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
 # from decimal import Decimal
 
-from ..models.tipo import Tipo
-from ..forms.tipo import TipoForm
+from ..models.tipo_receta import TipoReceta
 
 
-class TipoListView(generic.ListView):
-    """TipoListView"""
+class TipoRecetaListView(generic.ListView):
+    """TipoRecetaListView"""
 
-    model = Tipo
-    template_name = 'tipo/list.html'
+    model = TipoReceta
+    template_name = 'tipo_receta/list.html'
     paginate_by = settings.PER_PAGE
 
     @method_decorator(permission_resource_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(TipoListView, self).dispatch(request, *args, **kwargs)
+        return super(TipoRecetaListView, self).dispatch(request, *args, **kwargs)
 
     def get_paginate_by(self, queryset):
         if 'all' in self.request.GET:
@@ -42,10 +40,10 @@ class TipoListView(generic.ListView):
         return self.model.objects.filter(**{column_contains: self.q}).order_by(self.o)
 
     def get_context_data(self, **kwargs):
-        context = super(TipoListView, self).get_context_data(**kwargs)
+        context = super(TipoRecetaListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
-        context['form'] = TipoForm
-        context['title'] = _('Select %s to change') % capfirst(self.model._meta.verbose_name)
+        context['title'] = _('Select %s to change') % capfirst(
+            self.model._meta.verbose_name)
         context['o'] = self.o
         context['f'] = self.f
         context['q'] = self.q.replace('/', '-')
@@ -55,29 +53,28 @@ class TipoListView(generic.ListView):
 
         if request.POST['delete']:
             print("Eliminando")
-            Tipo.objects.get(id=request.POST['delete']).delete()
-            msg = ('Tipo eliminado con éxito')
-        elif request.POST['id_tipo']:
+            TipoReceta.objects.get(id=request.POST['delete']).delete()
+            msg = ('TipoReceta eliminado con éxito')
+        elif request.POST['id_categoria']:
             """Actualizar"""
             print("Actualizando")
-            t = Tipo.objects.get(id=request.POST['id_tipo'])
+            t = TipoReceta.objects.get(id=request.POST['id_categoria'])
             t.nombre = request.POST['nombre']
             t.save()
-            msg = ('Tipo %s actualizado con éxito' % t)
+            msg = ('TipoReceta %s actualizado con éxito' % t)
         else:
             """Crear"""
-            t = Tipo(
+            t = TipoReceta(
                 nombre=request.POST['nombre']
             )
             t.save()
-            msg = ('Tipo %s creado con éxito' % t)
+            msg = ('TipoReceta %s creado con éxito' % t)
         messages.success(request, msg)
-        return HttpResponseRedirect(reverse('recetario:tipo_list'))
+        return HttpResponseRedirect(reverse('recetario:categoria_list'))
 
 
-def crear_tipo_producto(request):
-    """crear tipo producto por ajax"""
+def crear_tipo_receta(request):
     if request.method == 'POST':
-        tipo = Tipo.objects.create(nombre=request.POST.get('nombre'))
-        respuesta = {'id': tipo.id, 'nombre': tipo.nombre}
+        cat = TipoReceta.objects.create(nombre=request.POST.get('nombre'))
+        respuesta = {'id': cat.id, 'nombre': cat.nombre}
     return JsonResponse(respuesta)

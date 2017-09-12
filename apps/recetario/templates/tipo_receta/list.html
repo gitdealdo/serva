@@ -19,14 +19,14 @@
 $(function() {
     $('table').kgrid({
         form_data : ['{{f}}', '{{q}}'],
-        form_to   : '{% url "recetario:tipo_list" %}?f={{f}}&q={{q}}',
+        form_to   : '{% url "recetario:categoria_list" %}?f={{f}}&q={{q}}',
         order_attr: 'class=""',
-        order_to  : '{% url "recetario:tipo_list" %}?f={{f}}&q={{q}}',
+        order_to  : '{% url "recetario:categoria_list" %}?f={{f}}&q={{q}}',
     });
 });
 </script>
-<div class="modal fade" id="tipo_form">
-  <div class="modal-dialog modal-sm">
+<div class="modal fade" id="cat_form">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -34,11 +34,12 @@ $(function() {
       </div>
       <form action="" method="POST">
         {% csrf_token %}
-        <input type="hidden" name="id_tipo" id="id_tipo" value="">
+        <input type="hidden" name="id_categoria" id="id_categoria" value="">
         <input type="hidden" name="delete" id="delete" value="">
         <div class="modal-body">
-          <div class="form">
-            <p>{{form}}</p>
+          <div class="form-group form">
+            <label for="id_nombre">Nombre</label>
+            <input type="text" name="nombre" class="form-control" id="id_nombre" placeholder="Ingrese nombre">
           </div>
           <div class="msg-del">
           <p>Estás a punto de eliminar <strong class="regname"></strong>, este procedimiento es irreversible.</p>
@@ -53,11 +54,10 @@ $(function() {
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div class="btn-toolbar btn-toolbar-top">
     <div class="row">
         <div class="btn-actions">
-            <a href="#tipo_form" data-toggle="modal" class="btn
+            <a href="#cat_form" data-toggle="modal" class="btn
                 btn-primary text-bold" title="Agregar {{opts.verbose_name}}">
                 <i class="fa fa-plus">
                 </i>
@@ -89,8 +89,8 @@ $(function() {
                 </td>
                 <td>{{ d.nombre }}</td>
                 <td class="text-center">
-                  <a href="#tipo_form" data-toggle="modal" data-tipo="{{d.id}}" data-nombre="{{d.nombre}}" class="btn btn-info btn-sm text-bold" title="Cambiar tipo/categoria" rel="tooltip"><i class="btn-icon-only fa fa-edit"></i></a>
-                   <a href="#tipo_form" data-toggle="modal" data-quitar="{{d.id}}" data-nombre="{{d.nombre}}" class="btn btn-danger btn-sm text-bold" title="Eliminar tipo/categoria" rel="tooltip"><i class="btn-icon-only fa fa-trash-o"></i></a>
+                  <a href="#cat_form" data-toggle="modal" data-categoria="{{d.id}}" data-nombre="{{d.nombre}}" class="btn btn-info btn-sm text-bold" title="Cambiar categoría" rel="tooltip"><i class="btn-icon-only fa fa-edit"></i></a>
+                   <a href="#cat_form" data-toggle="modal" data-quitar="{{d.id}}" data-nombre="{{d.nombre}}" class="btn btn-danger btn-sm text-bold" title="Eliminar categoría" rel="tooltip"><i class="btn-icon-only fa fa-trash-o"></i></a>
                 </td>
 
             </tr>
@@ -121,23 +121,21 @@ $(function() {
 
 {% block customjs %}
 <script>
-  $('#tipo_form').on('show.bs.modal', function (event) {
+  $('#cat_form').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
-     
     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-sm flipInY animated');
-
-    var tipo = button.data('tipo')
+    var categoria = button.data('categoria')
     var nombre = button.data('nombre')
     var quitar = button.data('quitar')
     var modal = $(this)
-    modal.find('.modal-title').text('Formulario tipo/categoria ')
+    modal.find('.modal-title').text('Formulario categoría')
     modal.find('.modal-header').addClass('modal-header-primary')
     modal.find('.ok').removeClass('btn-danger').addClass('btn-primary');
     modal.find('.msg-del').hide();
-    modal.find('.form').show()    
+    modal.find('.form').show();
     modal.find('#delete').val("");
     if (quitar) {
-      console.log("Quitar");
+      $('.modal .modal-dialog').attr('class', 'modal-dialog modal-sm flipInX animated');
       modal.find('.form').hide()
       modal.find('.msg-del').show()
       modal.find('.modal-title').html('<i class="glyphicon glyphicon-info-sign"></i> Confirme eliminar')
@@ -147,15 +145,15 @@ $(function() {
       modal.find('.regname').text(nombre);
       modal.find('#delete').val(quitar);
       modal.find('.modal-body #id_nombre').val(nombre);
-    }else if(tipo && nombre){
+    }else if(categoria && nombre){
       console.log("Editar");
       modal.find('.ok').text('Actualizar')
-      modal.find('#id_tipo').val(tipo);
+      modal.find('#id_categoria').val(categoria);
       modal.find('.modal-body #id_nombre').val(nombre);
     }else{
       console.log("Crear");
       modal.find('.ok').text('Guardar')
-      modal.find('#id_tipo').val("");
+      modal.find('#id_categoria').val("");
       modal.find('.modal-body #id_nombre').val("");
     }
   });
