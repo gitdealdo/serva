@@ -60,7 +60,7 @@ class MenuCreateView(generic.CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.user = self.request.user
+        self.object.usuario = self.request.user
         msg = ('El %(name)s "%(obj)s" fue agregado satisfactoriamente') % {
             'name': self.model._meta.verbose_name,
             'obj': self.object

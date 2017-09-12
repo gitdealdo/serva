@@ -44,7 +44,8 @@
       <tr>
         <th>#</th>
         <th class="" data-search="tipo_menu__nombre" data-order="tipo_menu__nombre">Menu</th>
-        <th class="" data-search="fecha" data-order="fecha">Fecha</th>
+        <th class="" data-search="fecha" data-order="fecha">Fecha <i>(YYYY-MM-DD)</i></th>
+        <th class="" data-search="usuario__first_name">Usuario</th>
         <th class="btn-actions col-block text-center">Acción</th>
       </tr>
     </thead>
@@ -58,10 +59,15 @@
             {{ forloop.counter }}
           {% endif %}
         </td>
-        <td>{{ d.tipo_menu }}</td>
+        <td>
+          <a href="{% url 'venta:menu_edit' d.pk %}" class="editar">
+            {{ d.tipo_menu }}
+          </a>
+        </td>
         <td>{{ d.fecha }}</td>
+        <td>{{ d.usuario }}</td>
         <td class="text-center">
-           <a href="{% url 'venta:menu_edit' d.pk %}" class="btn btn-info btn-sm text-bold editar" title="Editar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-edit"></i></a>
+           <a href="{% url 'venta:menu_edit' d.pk %}" class="btn btn-info btn-sm text-bold configurar" title="Configurar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-cog"></i></a>
            <a href="{% url 'venta:menu_delete' d.pk %}"
              class="btn btn-danger btn-sm js-confirm text-bold"
              msg-title="Eliminar Plan?."
@@ -96,16 +102,9 @@
 <div class="modal fade" id="modalform">
   <div class="modal-dialog flipInY animated">
     <div class="modal-content">
-      <div class="modal-header modal-header-primary">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><i class="fa fa-info"></i> Formulario {{opts.verbose_name}}</h4>
-      </div>
-      <div class="body">
-      </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 {% endblock %}
 {% block extrajs %}    
@@ -118,7 +117,7 @@
     e.preventDefault();
     var _url = $(this).attr('href');
     $.get(_url, function(data) {
-      $('#modalform').find('.body').html(data);
+      $('#modalform').find('.modal-content').html(data);
       $('#modalform').find('form').attr('action', _url);
       $('#modalform').modal('show');
       $('#id_fecha').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});

@@ -1,6 +1,7 @@
 from uuid import uuid4
 from django.db import models
 
+from backend_apps.auths.models import User
 from .tipo_menu import TipoMenu
 
 
@@ -13,6 +14,7 @@ class Menu(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     tipo_menu = models.ForeignKey(TipoMenu)
     fecha = models.DateTimeField()
+    usuario = models.ForeignKey(User)
 
     class Meta:
         verbose_name = "Menu"

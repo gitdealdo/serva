@@ -11,7 +11,7 @@ from ..models.menu import Menu
 class MenuForm(forms.ModelForm):
     class Meta:
         model = Menu
-        exclude = ('',)
+        exclude = ('usuario',)
 
     def __init__(self, *args, **kwargs):
         super(MenuForm, self).__init__(*args, **kwargs)
@@ -26,6 +26,13 @@ class MenuForm(forms.ModelForm):
         self.helper.form_id = 'form'
 
         self.helper.layout = Layout(
+            Div(
+                HTML('<button type="button" class="close" data-dismiss="modal" \
+                aria-hidden="true">&times;</button>\
+                <h4 class="modal-title"><i class="fa fa-info"></i>\
+                Formulario menu</h4>'),
+                css_class="modal-header modal-header-primary",
+            ),
             Div(
                 Field('tipo_menu', css_class='input-required'),
                 Field('fecha', css_class='input-required'),
