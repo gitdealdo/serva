@@ -4,12 +4,12 @@ from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 # from django.contrib import messages
 from django.views import generic
-from django.http import HttpResponseRedirect  # , HttpResponse
-from django.conf import settings
+from django.http import JsonResponse  # HttpResponseRedirect , HttpResponse
+# from django.conf import settings
 # from django.core import serializers
 # from django.utils.encoding import force_text
-from backend_apps.utils.decorators import permission_resource_required
-from backend_apps.utils.forms import empty
+# from backend_apps.utils.decorators import permission_resource_required
+# from backend_apps.utils.forms import empty
 # from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
 # from decimal import Decimal
 from apps.recetario.models.receta import Receta
@@ -18,6 +18,8 @@ from apps.recetario.models.producto import Producto
 
 from ..models.detalle import Detalle
 from ..models.tipo_menu import TipoMenu
+from ..models.menu import Menu
+
 
 
 class DetalleTemplateView(generic.TemplateView):
@@ -53,3 +55,18 @@ class IngredienteListView(generic.ListView):
             else:
                 d.stock = "insuficiente"
         return qs
+
+
+def crear_detalle(request):
+    if request.method == 'POST':
+        print("***********")
+        print(request.POST)
+        # menu = Menu()
+        # menu.tipo_menu = TipoMenu.objects.get(id=request.POST['tipo_menu'])
+
+        # detalle = Detalle()
+        # detalle.receta = Receta.objects.get(id=request.POST['receta'])
+        # detalle.porcion = int(request.POST['porcion'])
+        # detalle.costo = 0
+        # detalle.menu = id
+    return JsonResponse({})

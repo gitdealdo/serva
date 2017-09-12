@@ -10,11 +10,13 @@ urlpatterns = [
     url(r'^tipomenu/ajaxcrear/$', tipo_menu.crear_tipo_menu,
         name='crear_tipo_menu'),
     url(r'^menu/lista/$', menu.MenuListView.as_view(), name='menu_list'),
+    url(r'^menu/crear/$', menu.MenuCreateView.as_view(), name='menu_create'),
+    url(r'^menu/(?P<pk>[^/]+)/editar/$', menu.MenuUpdateView.as_view(), name='menu_edit'),
+    url(r'^menu/(?P<pk>[^/]+)/eliminar/$', menu.MenuDeleteView.as_view(), name='menu_delete'),
     url(r'^detalle/index/$', detalle.DetalleTemplateView.as_view(),
         name='detalle_index'),
     url(r'^detalle/ingredientes/$', detalle.IngredienteListView.as_view(),
         name='filtrar_ingredientes'),
-
-    # url(r'^receta/editar/(?P<pk>[^/]+)/$', rec.RecetaUpdateView.as_view(),
-    # name = 'receta_edit'),
+    url(r'^detalle/creardetalle/$', detalle.crear_detalle,
+        name='crear_detalle'),
 ]

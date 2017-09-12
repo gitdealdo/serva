@@ -15,27 +15,6 @@
 {% endblock content_title %}
 
 {% block content %}
-<style>
-  .loader {
-    border: 10px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 10px solid #0100CD;
-    width: 40px;
-    height: 40px;
-    -webkit-animation: spin 1s linear infinite;
-    animation: spin 1s linear infinite;
-  }
-
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-</style>
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
@@ -52,9 +31,6 @@
               <i class="fa fa-plus"></i>
             </button>
           </span>
-        </div>
-        <div class="input-group">
-          <label>Fecha<input type="text" id="id_fecha" class="dateinput form-control" value=""></label>
         </div>
       </div>
       <div class="col-md-8">
@@ -81,10 +57,10 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-8" id="insumos">        
+      <div class="col-md-8" id="insumos">
+        
       </div>
       <div class="col-md-4">
-
         <ul class="list-group">
           <li class="list-group-item">
             <span class="badge">5</span>
@@ -99,7 +75,6 @@
             Item 3
           </li>
         </ul>        
-        <div align="center" class="loader"></div>
       </div>
     </div>
   </div>
@@ -142,7 +117,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="modal_agregar">
+<div class="modal fade" id="modalagregar">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header modal-header-primary">
@@ -175,29 +150,25 @@
 
 {% block extrajs %}    
     {{ block.super }}
-  <script type="text/javascript">
-    $(function () {
-      $('#id_fecha').datetimepicker({format: 'YYYY-MM-DD'});
-    });
-  </script>
 {% endblock extrajs %}
 
 {% block customjs %}
-<script>
+  <script>
   var lista = [];
-  $(".loader").hide();
   function consultar () {
     var obj = getFormObj2('myform');
     // obj['receta_nombre'] = $("#receta option:selected").text();
+    lista.push(obj);
     $.get('{% url "venta:filtrar_ingredientes" %}', obj, function(data) {
       $("#insumos").html(data);
     });
+    // listar(lista);
   }
   $("#form_agregar").on('submit', function(e) {
     e.preventDefault();
     var obj = getFormObj2('form_agregar');
     obj['nombre'] = $("#id_producto option:selected").text();
-    // console.log(obj)
+    console.log(obj)
     var tr = '<tr id="'+obj.producto+'" cantidad="'+obj.cantidad+'">';
     tr += '<td></td><td>'+obj.nombre+'</td><td>'+obj.cantidad+'</td>';
     tr += '<td onclick="$(this).parent().remove()"><a href="#"><i class="fa fa-remove"></i></a></td></tr>'
@@ -205,26 +176,23 @@
     $("#modal_agregar").modal("hide");
   });
 
-
+  // function listar (list) {
+  //   var htm = '';
+  //   for (var i = 0; i < list.length; i++) {
+  //     htm += '<tr>'      
+  //     htm += '<td>'+(i+1)+'</td>';      
+  //     htm += '<td>'+list[i].receta_nombre+'</td>';      
+  //     htm += '<td>'+list[i].porcion+'</td>';      
+  //     htm += '<td><a href="javascript:quitar('+i+')"><i class="fa fa-remove fa-lg"></i></a></td>';      
+  //     htm += '</tr>'      
+  //   }
+  //   $("tbody").html(htm);
+  // }
   $(".guardar").on('click', function(e) {
     e.preventDefault();
-    $(".loader").show();
     var insumos = [];
     $("table tbody").find("tr").each(function(index, el) {
-      if ($(el).attr('id')) {
-        insumos.push({'producto':$(el).attr('id'), 'cantidad':$(el).attr('cantidad')});
-      }
-    });
-    console.log(insumos);
-    var data = getFormObj2('myform');
-    data['insumos'] = JSON.stringify(insumos);
-    data['csrfmiddlewaretoken'] = '{{csrf_token}}';
-    data['tipo_menu'] = $("#tipo_menu").val();
-    data['fecha'] = $("#id_fecha").val();
-
-    $.post('{% url "venta:crear_detalle" %}', data, function(data, textStatus, xhr) {
-      console.log(data);
-      $(".loader").hide();
+      insumos.push({'producto':$(el).attr('id'), 'cantidad':$(el).attr('cantidad')});
     });
   });
 
@@ -236,6 +204,25 @@
     });
   }
 
+  function quitar (i) {
+    lista.splice(i, 1);
+    listar(lista);
+  }
+/********Metodos*******/
+/*  function getFormObj(formId) {
+    var formParams = {};
+    $('#' + formId)
+      .serializeArray()
+      .forEach(function(item) {
+        if (formParams[item.name]) {
+          formParams[item.name] = [formParams[item.name]];
+          formParams[item.name].push(item.value)
+        } else {
+          formParams[item.name] = item.value
+        }
+      });
+    return formParams;
+  }*/
   function getFormObj2(formId) {
     var res = {};
     $("#"+formId+" input, #"+formId+" select, #"+formId+" textarea").each(function(i, obj) {
@@ -243,5 +230,7 @@
     })
     return res;
   }
-</script>  
+/********Metodos*******/
+
+  </script>  
 {% endblock customjs %}
