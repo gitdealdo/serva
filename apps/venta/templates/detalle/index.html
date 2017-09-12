@@ -56,17 +56,39 @@
     </form>
   </div>
   <div class="panel-body">
+    <div class="row">
+      <div class="col-md-8" id="insumos">
+        
+      </div>
+      <div class="col-md-4">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="badge">5</span>
+            Item 1
+          </li>
+          <li class="list-group-item">
+            <span class="badge">10</span>
+            Item 2
+          </li>
+          <li class="list-group-item">
+            <span class="badge">15</span>
+            Item 3
+          </li>
+        </ul>        
+      </div>
+    </div>
   </div>
   <div class="panel-footer">
-
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
       <div class="btn-group" role="group">
-        <button type="button" class="btn btn-default validar">
-        <i class="fa fa-check"></i> Validar</button>
+        <button type="button" class="btn btn-default guardar">
+        <i class="fa fa-check"></i> Guardar</button>
       </div>
+      {% comment %}
       <div class="btn-group" role="group">
         <button type="button" class="btn btn-default">Guardar</button>
       </div>
+      {% endcomment %}
     </div>
   </div>
 </div>
@@ -138,7 +160,7 @@
     // obj['receta_nombre'] = $("#receta option:selected").text();
     lista.push(obj);
     $.get('{% url "venta:filtrar_ingredientes" %}', obj, function(data) {
-      $(".panel-body").html(data);
+      $("#insumos").html(data);
     });
     // listar(lista);
   }
@@ -151,7 +173,7 @@
     tr += '<td></td><td>'+obj.nombre+'</td><td>'+obj.cantidad+'</td>';
     tr += '<td onclick="$(this).parent().remove()"><a href="#"><i class="fa fa-remove"></i></a></td></tr>'
     $("table tbody").append(tr);
-    $("#modalagregar").modal("hide");
+    $("#modal_agregar").modal("hide");
   });
 
   // function listar (list) {
@@ -166,10 +188,11 @@
   //   }
   //   $("tbody").html(htm);
   // }
-  $(".validar").on('click', function(e) {
+  $(".guardar").on('click', function(e) {
     e.preventDefault();
+    var insumos = [];
     $("table tbody").find("tr").each(function(index, el) {
-      console.log({'producto':$(el).attr('id'), 'cantidad':$(el).attr('cantidad')});
+      insumos.push({'producto':$(el).attr('id'), 'cantidad':$(el).attr('cantidad')});
     });
   });
 
