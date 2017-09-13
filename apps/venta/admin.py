@@ -9,7 +9,7 @@ class DetalleAdmin(admin.ModelAdmin):
     '''
         Admin View for Detalle
     '''
-    list_display = ('menu', 'receta')
+    list_display = ('menu', 'receta', 'porcion', 'costo')
     search_fields = ('receta',)
 
 

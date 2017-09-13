@@ -41,7 +41,8 @@ class MenuForm(forms.ModelForm):
             Div(
                 FormActions(
                     smtSave(),
-                    Button('cancel', 'Cancel', data_dismiss="modal", css_class="btn-default")
+                    Button('cancel', 'Cancel',
+                           data_dismiss="modal", css_class="btn-default")
                 ),
                 css_class='modal-footer'
             )

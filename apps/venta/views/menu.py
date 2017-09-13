@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse_lazy  # , reverse
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
@@ -56,7 +56,10 @@ class MenuCreateView(generic.CreateView):
     model = Menu
     form_class = MenuForm
     template_name = "menu/form.html"
-    success_url = reverse_lazy('venta:menu_list')
+    # success_url = reverse_lazy('venta:menu_list')
+
+    def get_success_url(self):
+        return reverse('venta:detalle_menu', kwargs={'menu': self.object.pk})
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

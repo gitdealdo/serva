@@ -1,12 +1,15 @@
 <div class="table-responsive">
   <table class="table table-hover">
-    <caption>Ingredientes</caption>
+    <caption><strong>Ingredientes</strong></caption>
     <thead class="panel-footer">
       <tr>
         <th>N°</th>
         <th>Producto</th>
         <th>Cantidad</th>
         <th>Stok</th>
+        <th>
+          <a type="button" class="btn btn-info btn-sm" data-toggle="modal" href='#modal_agregar'><i class="fa fa-download"></i> Agregar más</a>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -15,12 +18,11 @@
         <td>{{forloop.counter}}</td>
         <td>{{d.producto}} (<i>{{d.producto.descripcion}}</i>)</td>
         <td>{{d.cantidad_total}} {{d.producto.unidad.simbolo}}</td>
-        <td>{{d.producto.stock }} {{d.producto.unidad.simbolo}}
+        <td colspan="2">{{d.producto.stock }} {{d.producto.unidad.simbolo}}
           <span class="label label-{% if d.stock == 'suficiente'%}success{% else %}danger{% endif %}">{{d.stock}}</span>
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
-  <button type="button" class="btn btn-large btn-block btn-default" data-toggle="modal" href='#modalagregar'><i class="fa fa-download"></i> Agregar insumo</button>
 </div>

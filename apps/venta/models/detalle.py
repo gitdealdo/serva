@@ -25,4 +25,4 @@ class Detalle(models.Model):
         verbose_name_plural = "Detalles"
 
     def __str__(self):
-        return "detalle"
+        return self.receta.nombre

@@ -7,11 +7,11 @@
 &rsaquo;
 <a href="{% url 'recetario:receta_list' %}">{{ opts.verbose_name_plural }}</a>
 {% endcomment %}
-&rsaquo; {{ title }}
+&rsaquo; {{ menu }}
 {% endblock breadcrumbs %}
 
 {% block content_title %}
-      {{ opts.verbose_name |capfirst }} de menu | <small>{{ title }}</small>
+      {{ opts.verbose_name |capfirst }} de menu | <small>{{ menu }}</small>
 {% endblock content_title %}
 
 {% block content %}
@@ -39,26 +39,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-md-2">
-        <div class="input-group">
-          <label class="sr-only" for="tipo_menu">Tipo de menu</label>
-          <select class="form-control" id="tipo_menu">
-            {% for d in tipo_menus %}
-              <option value="{{d.id}}">{{d.nombre}}</option>
-            {% endfor %}
-          </select>
-          <span class="input-group-btn">
-            <button type="button" class="btn text-primary" rel="tooltip" data-toggle="modal" data-target="#modal-id" title="Crear nuevo tipo menu">
-              <i class="fa fa-plus"></i>
-            </button>
-          </span>
-        </div>
-        <div class="input-group">
-          <label>Fecha<input type="text" id="id_fecha" class="dateinput form-control" value=""></label>
-        </div>
-      </div>
-      <div class="col-md-8">
-        <h4 class="text-center">Formulario menu</h4>
+      <div class="col-md-offset-2 col-md-8">
+        <h4 class="text-center text-primary">Configurar <strong>{{menu.tipo_menu}}</strong> de {{menu.fecha}}</h4>
       </div>
     </div>
 
@@ -81,40 +63,32 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-8" id="insumos">        
+      <div class="col-md-8">
+        <div id="insumos"></div>
+        <button type="button" class="btn btn-block btn-default guardar">Guardar <i class="fa fa-arrow-right"></i></button>
       </div>
       <div class="col-md-4">
-
-        <ul class="list-group">
-          <li class="list-group-item">
-            <span class="badge">5</span>
-            Item 1
+        <h5 class="text-info text-center">Detalles</h5>
+        <ul class="list-group detalles">
+          <li class="list-group-item list-group-item-info">
+            <span class="badge">Porción</span>
+            <strong>Receta</strong>
           </li>
+          {% for d in detalles %}
           <li class="list-group-item">
-            <span class="badge">10</span>
-            Item 2
+            <span class="badge">{{d.porcion}}</span>
+            {{d.receta}}
           </li>
-          <li class="list-group-item">
-            <span class="badge">15</span>
-            Item 3
-          </li>
-        </ul>        
-        <div align="center" class="loader"></div>
+          {% endfor %}
+        </ul>
+        <div align="center">
+          <div class="loader"></div>
+        </div>
+        <a href="{% url 'venta:detalle_list' menu.id %}" class="btn btn-block btn-primary"><i class="fa fa-eye"></i> Ver detalles</a>
       </div>
     </div>
   </div>
   <div class="panel-footer">
-    <div class="btn-group btn-group-justified" role="group" aria-label="...">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-default guardar">
-        <i class="fa fa-check"></i> Guardar</button>
-      </div>
-      {% comment %}
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-default">Guardar</button>
-      </div>
-      {% endcomment %}
-    </div>
   </div>
 </div>
 
@@ -175,24 +149,22 @@
 
 {% block extrajs %}    
     {{ block.super }}
-  <script type="text/javascript">
-    $(function () {
-      $('#id_fecha').datetimepicker({format: 'YYYY-MM-DD'});
-    });
-  </script>
 {% endblock extrajs %}
 
 {% block customjs %}
 <script>
   var lista = [];
   $(".loader").hide();
-  function consultar () {
+  $(".guardar").hide();
+  function consultar() {
     var obj = getFormObj2('myform');
     // obj['receta_nombre'] = $("#receta option:selected").text();
     $.get('{% url "venta:filtrar_ingredientes" %}', obj, function(data) {
       $("#insumos").html(data);
+      $(".guardar").show();
     });
   }
+
   $("#form_agregar").on('submit', function(e) {
     e.preventDefault();
     var obj = getFormObj2('form_agregar');
@@ -205,7 +177,6 @@
     $("#modal_agregar").modal("hide");
   });
 
-
   $(".guardar").on('click', function(e) {
     e.preventDefault();
     $(".loader").show();
@@ -215,18 +186,30 @@
         insumos.push({'producto':$(el).attr('id'), 'cantidad':$(el).attr('cantidad')});
       }
     });
-    console.log(insumos);
     var data = getFormObj2('myform');
     data['insumos'] = JSON.stringify(insumos);
     data['csrfmiddlewaretoken'] = '{{csrf_token}}';
-    data['tipo_menu'] = $("#tipo_menu").val();
-    data['fecha'] = $("#id_fecha").val();
-
+    data['menu'] = '{{menu.id}}';
+    console.log(data);
     $.post('{% url "venta:crear_detalle" %}', data, function(data, textStatus, xhr) {
-      console.log(data);
+      var htm = '';
+      htm += '<li class="list-group-item">';
+      htm += '<span class="badge">'+data.porcion+'</span>'+data.receta+'</li>';
+      $(".detalles").append(htm)
       $(".loader").hide();
+      $("#myform").trigger('reset'); // $("#myform")[0].reset();
+      $("#insumos").html('');
+      $(".guardar").hide();
     });
   });
+
+  // jQuery('<div/>', {
+  //   id: 'foo',
+  //   href: 'http://google.com',
+  //   title: 'Become a Googler',
+  //   rel: 'external',
+  //   text: 'Go to Google!'
+  // }).appendTo('#mySelector');
 
   function crear_tipo_menu () {
     var data = getFormObj2('modal_form'); 
