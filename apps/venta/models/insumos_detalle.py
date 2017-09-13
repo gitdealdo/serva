@@ -13,7 +13,7 @@ class InsumosDetalle(models.Model):
         |cantidad: cantidad
     """
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    detalle = models.ForeignKey(Detalle, on_delete=models.SET_NULL, blank=True, null=True)
+    detalle = models.ForeignKey(Detalle, on_delete=models.CASCADE)
     insumo = models.ForeignKey(Producto)
     cantidad = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
 

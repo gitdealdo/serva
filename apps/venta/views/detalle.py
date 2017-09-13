@@ -1,17 +1,16 @@
-from django.core.urlresolvers import reverse  # reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
-# from django.contrib import messages
+from django.contrib import messages
 from django.views import generic
-from django.http import JsonResponse  # HttpResponseRedirect , HttpResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 # from django.conf import settings
 # from django.core import serializers
-# from django.utils.encoding import force_text
+from django.utils.encoding import force_text
 # from backend_apps.utils.decorators import permission_resource_required
 # from backend_apps.utils.forms import empty
-# from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
-# from decimal import Decimal
+from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
 from apps.recetario.models.receta import Receta
 from apps.recetario.models.ingrediente import Ingrediente
 from apps.recetario.models.producto import Producto
@@ -93,3 +92,42 @@ class DetalleListView(generic.ListView):
 
     def get_queryset(self):
         return self.model.objects.filter(menu=self.kwargs['menu'])
+
+
+class DetalleDeleteView(generic.DeleteView):
+    model = Detalle
+    success_url = reverse_lazy('venta:detalle_list')
+
+    def delete(self, request, *args, **kwargs):
+        d = self.get_object()
+        # Eliminando dependencia
+        d.insumosdetalle_set.all().delete()
+        try:
+            deps, msg = get_dep_objects(d)
+            print(deps)
+            if deps:
+                messages.warning(
+                    self.request,
+                    ('No se puede eliminar %(name)s') %
+                    {
+                        "name": capfirst(force_text(
+                            self.model._meta.verbose_name)
+                        ) + '"' + force_text(d) + '"'
+                    })
+                raise Exception(msg)
+            d.delete()
+            msg = (' %(name)s "%(obj)s" fue eliminado satisfactoriamente.') % {
+                'name': capfirst(force_text(self.model._meta.verbose_name)),
+                'obj': force_text(d)
+            }
+            if not d.id:
+                messages.success(self.request, msg)
+
+        except Exception as e:
+            messages.error(request, e)
+
+        self.success_url = reverse_lazy('venta:detalle_list', kwargs={'menu': d.menu.pk})
+        return HttpResponseRedirect(self.success_url)
+
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)

@@ -21,4 +21,6 @@ urlpatterns = [
         name='crear_detalle'),
     url(r'^detalle/(?P<menu>[^/]+)/lista/$', detalle.DetalleListView.as_view(),
         name='detalle_list'),
+    url(r'^detalle/(?P<pk>[^/]+)/eliminar/$', detalle.DetalleDeleteView.as_view(),
+        name='detalle_delete'),
 ]

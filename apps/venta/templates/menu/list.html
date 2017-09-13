@@ -67,7 +67,8 @@
         <td>{{ d.fecha }}</td>
         <td>{{ d.usuario }}</td>
         <td class="text-center">
-           <a href="{% url 'venta:detalle_menu' d.pk %}" class="btn btn-info btn-sm text-bold configurar" title="Configurar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-cog"></i></a>
+           <a href="{% url 'venta:detalle_menu' d.pk %}" class="btn btn-info btn-sm text-bold" title="Configurar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-cog"></i></a>
+           <a href="{% url 'venta:detalle_list' d.pk %}" class="btn btn-info btn-sm text-bold" title="Ver {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-eye"></i></a>
            <a href="{% url 'venta:menu_delete' d.pk %}"
              class="btn btn-danger btn-sm js-confirm text-bold"
              msg-title="Eliminar Plan?."
