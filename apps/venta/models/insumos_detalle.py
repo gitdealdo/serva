@@ -14,12 +14,12 @@ class InsumosDetalle(models.Model):
     """
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     detalle = models.ForeignKey(Detalle, on_delete=models.CASCADE)
-    insumo = models.ForeignKey(Producto)
+    insumo = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
 
     class Meta:
-        verbose_name = "InsumosDetalle"
-        verbose_name_plural = "InsumosDetalles"
+        verbose_name = "Insumos Detalle"
+        verbose_name_plural = "Insumos Detalles"
 
     def __str__(self):
-        return "detalle"
+        return self.insumo.nombre

@@ -2,6 +2,7 @@ from django.conf.urls import url
 from .views import tipo_menu
 from .views import menu
 from .views import detalle
+from .views import insumos_detalle as det
 
 urlpatterns = [
 
@@ -23,4 +24,8 @@ urlpatterns = [
         name='detalle_list'),
     url(r'^detalle/(?P<pk>[^/]+)/eliminar/$', detalle.DetalleDeleteView.as_view(),
         name='detalle_delete'),
+    url(r'^insumosdetalle/(?P<detalle>[^/]+)/crear/$', det.InsumosDetalleCreateView.as_view(),
+        name='insumosdetalle_crear'),
+    url(r'^insumosdetalle/(?P<pk>[^/]+)/eliminar/$', det.InsumosDetalleDeleteView.as_view(),
+        name='insumosdetalle_delete'),
 ]

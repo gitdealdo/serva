@@ -22,30 +22,47 @@
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{d.id}}" aria-expanded="true" aria-controls="{{d.id}}">
-          {{d.receta}} <span class="badge">Porción: {{d.porcion}}</span> <span class="badge">Costo: {{d.costo}}</span>
+          {{d.receta}} <span class="badge">Porción: {{d.porcion}}</span> <span class="badge">Costo: {{d.costo}} S/.</span>
         </a>
         <a href="{% url 'venta:detalle_delete' d.pk %}"
-             class="js-confirm text-bold"
-             msg-title="Eliminar Plan?."
-             msg="Estás a punto de eliminar <b>{{d.receta}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
-             title="Eliminar {{opts.verbose_name}}" rel="tooltip">
-              <i class="btn-icon-only fa fa-trash-o"></i>
-          </a>
+           class="js-confirm text-danger pull-right"
+           msg-title="Eliminar {{opts.verbose_name}}?."
+           msg="Estás a punto de eliminar <b>{{d.receta}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
+           title="Eliminar {{opts.verbose_name}}" rel="tooltip">
+            <i class="btn-icon-only fa fa-trash-o"></i>
+        </a>
+        <a href="{% url 'venta:insumosdetalle_crear' d.pk %}"
+           class="text-primary pull-right agregar"
+           title="Agregar insumo" rel="tooltip">
+            <i class="btn-icon-only fa fa-plus"></i>
+        </a>
       </h4>
     </div>
     <div id="{{d.id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <table class="table table-hover">
         <thead>
           <tr>
+            <th>#</th>
             <th>Insumo</th>
             <th>Cantidad</th>
+            <th>Opción</th>
           </tr>
         </thead>
         <tbody>
           {% for e in d.insumosdetalle_set.all %}
           <tr>
+            <td>{{forloop.counter}}</td>
             <td>{{e.insumo}}</td>
-            <td>{{e.cantidad}}{{e.unidad.simbolo}}</td>
+            <td>{{e.cantidad}} {{e.insumo.unidad.simbolo}}</td>
+            <td>
+              <a href="{% url 'venta:insumosdetalle_delete' e.pk %}"
+                 class="js-confirm text-danger"
+                 msg-title="Eliminar {{e.insumo}}?."
+                 msg="Estás a punto de eliminar <b>{{e.insumo}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
+                 title="Eliminar {{e.insumo}}" rel="tooltip">
+                  <i class="btn-icon-only fa fa-remove"></i>
+              </a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -55,6 +72,13 @@
   {% endfor %}
 </div>
 
+<div class="modal fade" id="modalform">
+  <div class="modal-dialog flipInY animated">
+    <div class="modal-content">
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 {% endblock content %}
 
 {% block extrajs %}    
@@ -62,4 +86,16 @@
 {% endblock extrajs %}
 
 {% block customjs %}
+<script>
+  $(".agregar").on('click', function(e) {
+    e.preventDefault();
+    var _url = $(this).attr('href');
+    $.get(_url, function(data) {
+      $('#modalform').find('.modal-content').html(data);
+      $('#modalform').find('form').attr('action', _url);
+      $('#modalform').modal('show');
+      $(".select2").select2();
+    });
+  });
+</script>
 {% endblock customjs %}

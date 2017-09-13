@@ -100,9 +100,9 @@ class DetalleDeleteView(generic.DeleteView):
 
     def delete(self, request, *args, **kwargs):
         d = self.get_object()
-        # Eliminando dependencia
-        d.insumosdetalle_set.all().delete()
         try:
+            # Eliminando dependencia
+            d.insumosdetalle_set.all().delete()
             deps, msg = get_dep_objects(d)
             print(deps)
             if deps:

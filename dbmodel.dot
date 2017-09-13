@@ -1,6 +1,6 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2017-08-10 16:44
+  // Created: 2017-09-13 15:29
   // Cli Options: -a --settings=config.settings.local
 
   fontname = "Helvetica"
@@ -19,7 +19,7 @@ digraph model_graph {
   ]
 
   // Labels
-  subgraph cluster_django_contrib_admin_models {
+  subgraph cluster_django_contrib_admin {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -91,7 +91,7 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_django_contrib_auth_models {
+  subgraph cluster_django_contrib_auth {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -161,7 +161,7 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_django_contrib_contenttypes_models {
+  subgraph cluster_django_contrib_contenttypes {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -203,7 +203,7 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_django_contrib_sessions_models {
+  subgraph cluster_django_contrib_sessions {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -267,7 +267,7 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_django_summernote_models {
+  subgraph cluster_django_summernote {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -343,7 +343,7 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_backend_apps_auths_models {
+  subgraph cluster_backend_apps_auths {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -482,9 +482,9 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">photo</FONT>
+      <FONT FACE="Helvetica ">photo</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">ImageField</FONT>
+      <FONT FACE="Helvetica ">ImageField</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
@@ -573,6 +573,12 @@ digraph model_graph {
       <FONT FACE="Helvetica Italic">password</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Helvetica Italic">CharField</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Helvetica ">theme</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Helvetica ">CharField</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
@@ -667,7 +673,7 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_apps_blog_models {
+  subgraph cluster_apps_blog {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -773,7 +779,7 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_apps_recetario_models {
+  subgraph cluster_apps_recetario {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -786,11 +792,11 @@ digraph model_graph {
     color=olivedrab4
     style="rounded"
   
-    apps_recetario_models_tipo_Tipo [label=<
+    apps_recetario_models_categoria_Categoria [label=<
       <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
       <FONT FACE="Helvetica Bold" COLOR="white">
-      Tipo
+      Categoria
       </FONT></TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
@@ -850,7 +856,7 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">tipo</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">categoria</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ForeignKey (id)</FONT>
       </TD></TR>
@@ -859,12 +865,6 @@ digraph model_graph {
       <FONT FACE="Helvetica Bold">unidad</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica ">cantidad</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica ">IntegerField</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
@@ -885,14 +885,26 @@ digraph model_graph {
       <FONT FACE="Helvetica ">CharField</FONT>
       </TD></TR>
     
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Helvetica ">stock</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Helvetica ">IntegerField</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Helvetica ">stock_minimo</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Helvetica ">IntegerField</FONT>
+      </TD></TR>
+    
       </TABLE>
       >]
   
-    apps_recetario_models_categoria_Categoria [label=<
+    apps_recetario_models_tipo_receta_TipoReceta [label=<
       <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
       <FONT FACE="Helvetica Bold" COLOR="white">
-      Categoria
+      TipoReceta
       </FONT></TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
@@ -924,21 +936,15 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">categoria</FONT>
+      <FONT FACE="Helvetica Bold">autor</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">user</FONT>
+      <FONT FACE="Helvetica Bold">tipo_receta</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica ">costo</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica ">DecimalField</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
@@ -994,22 +1000,22 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">receta</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">receta</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ForeignKey (id)</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Helvetica ">cantidad</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica ">IntegerField</FONT>
+      <FONT FACE="Helvetica ">DecimalField</FONT>
       </TD></TR>
     
       </TABLE>
       >]
 
   }
-  subgraph cluster_apps_venta_models {
+  subgraph cluster_apps_venta {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
@@ -1064,9 +1070,9 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica ">costo</FONT>
+      <FONT FACE="Helvetica Bold">usuario</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica ">DecimalField</FONT>
+      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
@@ -1104,15 +1110,49 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">user</FONT>
+      <FONT FACE="Helvetica ">costo</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
+      <FONT FACE="Helvetica ">DecimalField</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Helvetica ">porcion</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Helvetica ">IntegerField</FONT>
+      </TD></TR>
+    
+      </TABLE>
+      >]
+  
+    apps_venta_models_insumos_detalle_InsumosDetalle [label=<
+      <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
+      <FONT FACE="Helvetica Bold" COLOR="white">
+      InsumosDetalle
+      </FONT></TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Helvetica Bold">id</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Helvetica Bold">UUIDField</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Helvetica Bold">detalle</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Helvetica Bold">insumo</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Helvetica ">cantidad</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Helvetica ">DecimalField</FONT>
       </TD></TR>
     
       </TABLE>
@@ -1124,22 +1164,27 @@ digraph model_graph {
   // Relations
 
   django_contrib_admin_models_LogEntry -> backend_apps_auths_models_User
-  [label="user (b&#39;logentry&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="user (logentry)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   django_contrib_admin_models_LogEntry -> django_contrib_contenttypes_models_ContentType
-  [label="content_type (b&#39;logentry&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="content_type (logentry)"] [arrowhead=none, arrowtail=dot, dir=both];
+
 
   django_contrib_auth_models_Permission -> django_contrib_contenttypes_models_ContentType
-  [label="content_type (b&#39;permission&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="content_type (permission)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   django_contrib_auth_models_Group -> django_contrib_auth_models_Permission
-  [label="permissions (b&#39;group&#39;)"] [arrowhead=dot arrowtail=dot, dir=both];
+  [label="permissions (group)"] [arrowhead=dot arrowtail=dot, dir=both];
+
+
 
   django_contrib_sessions_models_Session -> django_contrib_sessions_base_session_AbstractBaseSession
   [label="abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
+
   django_summernote_models_Attachment -> django_summernote_models_AbstractAttachment
   [label="abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
+
   django_contrib_auth_base_user_AbstractBaseUser [label=<
   <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
   <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
@@ -1160,58 +1205,68 @@ digraph model_graph {
   [label="abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
   backend_apps_auths_models_User -> backend_apps_auths_models_Person
-  [label="person (b&#39;user&#39;)"] [arrowhead=none, arrowtail=none, dir=both];
+  [label="person (user)"] [arrowhead=none, arrowtail=none, dir=both];
 
   backend_apps_auths_models_User -> django_contrib_auth_models_Group
-  [label="groups (b&#39;user&#39;)"] [arrowhead=dot arrowtail=dot, dir=both];
+  [label="groups (user)"] [arrowhead=dot arrowtail=dot, dir=both];
 
   backend_apps_auths_models_User -> django_contrib_auth_models_Permission
-  [label="user_permissions (b&#39;user&#39;)"] [arrowhead=dot arrowtail=dot, dir=both];
+  [label="user_permissions (user)"] [arrowhead=dot arrowtail=dot, dir=both];
 
   backend_apps_auths_models_User -> django_contrib_auth_models_AbstractUser
   [label="abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
   backend_apps_auths_models_Menu -> django_contrib_auth_models_Permission
-  [label="permission (b&#39;menu&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="permission (menu)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   backend_apps_auths_models_Menu -> backend_apps_auths_models_Menu
-  [label="parent (b&#39;menu&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="parent (menu)"] [arrowhead=none, arrowtail=dot, dir=both];
+
 
   apps_blog_models_post_Post -> backend_apps_auths_models_User
-  [label="user (b&#39;post&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="user (post)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   apps_blog_models_comment_Comment -> apps_blog_models_post_Post
-  [label="post (b&#39;comment&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="post (comment)"] [arrowhead=none, arrowtail=dot, dir=both];
 
-  apps_recetario_models_producto_Producto -> apps_recetario_models_tipo_Tipo
-  [label="tipo (b&#39;producto&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  apps_recetario_models_producto_Producto -> apps_recetario_models_categoria_Categoria
+  [label="categoria (producto)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   apps_recetario_models_producto_Producto -> apps_recetario_models_unidad_Unidad
-  [label="unidad (b&#39;producto&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="unidad (producto)"] [arrowhead=none, arrowtail=dot, dir=both];
 
-  apps_recetario_models_receta_Receta -> apps_recetario_models_categoria_Categoria
-  [label="categoria (b&#39;receta&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  apps_recetario_models_receta_Receta -> apps_recetario_models_tipo_receta_TipoReceta
+  [label="tipo_receta (receta)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   apps_recetario_models_receta_Receta -> backend_apps_auths_models_User
-  [label="user (b&#39;receta&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="autor (receta)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   apps_recetario_models_ingrediente_Ingrediente -> apps_recetario_models_producto_Producto
-  [label="producto (b&#39;ingrediente&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="producto (ingrediente)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   apps_recetario_models_ingrediente_Ingrediente -> apps_recetario_models_receta_Receta
-  [label="receta (b&#39;ingrediente&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="receta (ingrediente)"] [arrowhead=none, arrowtail=dot, dir=both];
+
 
   apps_venta_models_menu_Menu -> apps_venta_models_tipo_menu_TipoMenu
-  [label="tipo_menu (b&#39;menu&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="tipo_menu (menu)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  apps_venta_models_menu_Menu -> backend_apps_auths_models_User
+  [label="usuario (menu)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   apps_venta_models_detalle_Detalle -> apps_venta_models_menu_Menu
-  [label="menu (b&#39;detalle&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="menu (detalle)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   apps_venta_models_detalle_Detalle -> apps_recetario_models_receta_Receta
-  [label="receta (b&#39;detalle&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  [label="receta (detalle)"] [arrowhead=none, arrowtail=dot, dir=both];
 
-  apps_venta_models_detalle_Detalle -> backend_apps_auths_models_User
-  [label="user (b&#39;detalle&#39;)"] [arrowhead=none, arrowtail=dot, dir=both];
+  apps_venta_models_insumos_detalle_InsumosDetalle -> apps_venta_models_detalle_Detalle
+  [label="detalle (insumosdetalle)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  apps_venta_models_insumos_detalle_InsumosDetalle -> apps_recetario_models_producto_Producto
+  [label="insumo (insumosdetalle)"] [arrowhead=none, arrowtail=dot, dir=both];
+
 
 }
 
