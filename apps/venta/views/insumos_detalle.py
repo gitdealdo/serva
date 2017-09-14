@@ -1,15 +1,15 @@
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _  # , ungettext
+# from django.utils.decorators import method_decorator
+# from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
 from django.http import HttpResponseRedirect  # , HttpResponse
-from django.conf import settings
+# from django.conf import settings
 # from django.core import serializers
 from django.utils.encoding import force_text
-from backend_apps.utils.decorators import permission_resource_required
-from backend_apps.utils.forms import empty
+# from backend_apps.utils.decorators import permission_resource_required
+# from backend_apps.utils.forms import empty
 from backend_apps.utils.security import get_dep_objects  # log_params, SecurityKey, UserToken
 # from decimal import Decimal
 
@@ -23,7 +23,6 @@ class InsumosDetalleCreateView(generic.CreateView):
     form_class = InsumosDetalleForm
     template_name = "menu/form.html"
     # template_name = "insumos_detalle/form.html"
-    success_url = reverse_lazy('venta:detalle_list')
 
     def get_success_url(self):
         return reverse('venta:detalle_list', kwargs={'menu': self.object.detalle.menu.pk})
@@ -43,6 +42,9 @@ class InsumosDetalleCreateView(generic.CreateView):
         costo += self.object.insumo.costo * self.object.cantidad
         self.object.detalle.costo = costo
         self.object.detalle.save()
+        # Actualizando stock de insumo
+        self.object.insumo.stock -= self.object.cantidad
+        self.object.insumo.save()
         msg = ('%(name)s "%(obj)s" fue agregado satisfactoriamente') % {
             'name': self.model._meta.verbose_name,
             'obj': self.object
@@ -60,12 +62,14 @@ class InsumosDetalleDeleteView(generic.DeleteView):
             d = self.get_object()
             self.success_url = reverse('venta:detalle_list', kwargs={'menu': d.detalle.menu.pk})
             deps, msg = get_dep_objects(d)
-            print(deps)
             # actualizando costo de detalle
             costo = d.insumo.costo * d.cantidad
             d.detalle.costo = d.detalle.costo - costo
             d.detalle.save()
-            # actualizando costo de detalle
+            # actualizando stock de insumo
+            d.insumo.stock += d.cantidad
+            d.insumo.save()
+            print(deps)
             if deps:
                 messages.warning(
                     self.request,

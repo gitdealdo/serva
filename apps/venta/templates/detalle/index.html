@@ -3,10 +3,8 @@
 
 {% block breadcrumbs %}
 <a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
-{% comment %}
 &rsaquo;
-<a href="{% url 'recetario:receta_list' %}">{{ opts.verbose_name_plural }}</a>
-{% endcomment %}
+<a href="{% url 'venta:menu_list' %}">Menus</a>
 &rsaquo; {{ menu }}
 {% endblock breadcrumbs %}
 
@@ -55,7 +53,7 @@
       </div>
       <div class="form-group">
         <label class="sr-only" for="porcion">Porción</label>
-        <input type="number" name="porcion" class="form-control" placeholder="Ingrese porción" required>
+        <input type="number" name="porcion" class="form-control" placeholder="Ingrese cantidad platos" required>
       </div>
       <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
       <span class="hidden-xs"> Consultar</span></button>
@@ -179,28 +177,30 @@
 
   $(".guardar").on('click', function(e) {
     e.preventDefault();
-    $(".loader").show();
-    var insumos = [];
-    $("table tbody").find("tr").each(function(index, el) {
-      if ($(el).attr('id')) {
-        insumos.push({'producto':$(el).attr('id'), 'cantidad':$(el).attr('cantidad')});
-      }
-    });
-    var data = getFormObj2('myform');
-    data['insumos'] = JSON.stringify(insumos);
-    data['csrfmiddlewaretoken'] = '{{csrf_token}}';
-    data['menu'] = '{{menu.id}}';
-    console.log(data);
-    $.post('{% url "venta:crear_detalle" %}', data, function(data, textStatus, xhr) {
-      var htm = '';
-      htm += '<li class="list-group-item">';
-      htm += '<span class="badge">'+data.porcion+'</span>'+data.receta+'</li>';
-      $(".detalles").append(htm)
-      $(".loader").hide();
-      $("#myform").trigger('reset'); // $("#myform")[0].reset();
-      $("#insumos").html('');
-      $(".guardar").hide();
-    });
+    if (confirm("Confirme por favor!")) {
+      $(".loader").show();
+      var insumos = [];
+      $("table tbody").find("tr").each(function(index, el) {
+        if ($(el).attr('id')) {
+          insumos.push({'producto':$(el).attr('id'), 'cantidad':$(el).attr('cantidad')});
+        }
+      });
+      var data = getFormObj2('myform');
+      data['insumos'] = JSON.stringify(insumos);
+      data['csrfmiddlewaretoken'] = '{{csrf_token}}';
+      data['menu'] = '{{menu.id}}';
+      // console.log(data);
+      $.post('{% url "venta:crear_detalle" %}', data, function(data, textStatus, xhr) {
+        var htm = '';
+        htm += '<li class="list-group-item">';
+        htm += '<span class="badge">'+data.porcion+'</span>'+data.receta+'</li>';
+        $(".detalles").append(htm)
+        $(".loader").hide();
+        $("#myform").trigger('reset'); // $("#myform")[0].reset();
+        $("#insumos").html('');
+        $(".guardar").hide();
+      });
+    }
   });
 
   // jQuery('<div/>', {

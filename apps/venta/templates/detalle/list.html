@@ -3,10 +3,8 @@
 
 {% block breadcrumbs %}
 <a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
-{% comment %}
 &rsaquo;
-<a href="{% url 'recetario:receta_list' %}">{{ opts.verbose_name_plural }}</a>
-{% endcomment %}
+<a href="{% url 'venta:menu_list' %}">Menus</a>
 &rsaquo; {{ menu }}
 {% endblock breadcrumbs %}
 
@@ -52,14 +50,17 @@
           {% for e in d.insumosdetalle_set.all %}
           <tr>
             <td>{{forloop.counter}}</td>
+            {% comment %}
+            <td>{{e.insumo.nombre}}</td>
+            {% endcomment %}
             <td>{{e.insumo}}</td>
             <td>{{e.cantidad}} {{e.insumo.unidad.simbolo}}</td>
             <td>
               <a href="{% url 'venta:insumosdetalle_delete' e.pk %}"
                  class="js-confirm text-danger"
-                 msg-title="Eliminar {{e.insumo}}?."
-                 msg="Estás a punto de eliminar <b>{{e.insumo}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
-                 title="Eliminar {{e.insumo}}" rel="tooltip">
+                 msg-title="Eliminar {{e.insumo.nombre}}?."
+                 msg="Estás a punto de eliminar <b>{{e.insumo.nombre}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
+                 title="Eliminar {{e.insumo.nombre}}" rel="tooltip">
                   <i class="btn-icon-only fa fa-remove"></i>
               </a>
             </td>

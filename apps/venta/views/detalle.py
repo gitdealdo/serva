@@ -17,10 +17,10 @@ from apps.recetario.models.producto import Producto
 
 from ..models.detalle import Detalle
 from ..models.insumos_detalle import InsumosDetalle
-from ..models.tipo_menu import TipoMenu
+# from ..models.tipo_menu import TipoMenu
 from ..models.menu import Menu
 import json
-
+import decimal
 
 class DetalleTemplateView(generic.TemplateView):
     """DetalleTemplateView"""
@@ -50,9 +50,10 @@ class IngredienteListView(generic.ListView):
             cant_por_unidad = d.cantidad / receta.porcion
             d.cantidad_total = round((cant_por_unidad * int(porcion)), 2)
             if d.producto.stock >= d.cantidad_total:
-                d.stock = "suficiente"
+                d.msg = "suficiente"
             else:
-                d.stock = "insuficiente"
+                diferencia = d.cantidad_total - d.producto.stock
+                d.msg = "insuficiente| diferencia %s" % (round(diferencia, 2))
         return qs
 
 
@@ -66,13 +67,20 @@ def crear_detalle(request):
         detalle.menu = menu
         insumos = json.loads(request.POST['insumos'])
         costo = 0
+
         for d in insumos:
+            cant = float(d['cantidad'])
             producto = Producto.objects.get(id=d['producto'])
-            costo += producto.costo * int(request.POST['porcion'])
+            resto = producto.stock - cant
+            cantidad = cant if cant < producto.stock else producto.stock
+            # Actualizado producto
+            producto.stock = resto if resto > 0 else 0
+            producto.save()
+            costo += producto.costo * decimal.Decimal(cantidad)
             insumodet = InsumosDetalle()
             insumodet.detalle = detalle
             insumodet.insumo = producto
-            insumodet.cantidad = d['cantidad']
+            insumodet.cantidad = cantidad
             insumodet.save()
         detalle.costo = costo
         detalle.save()
@@ -101,8 +109,12 @@ class DetalleDeleteView(generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         d = self.get_object()
         try:
-            # Eliminando dependencia
-            d.insumosdetalle_set.all().delete()
+            # d.insumosdetalle_set.all().delete()  # Eliminando dependencia
+            for x in d.insumosdetalle_set.all():
+                # Actualizado stock insumos
+                x.insumo.stock += x.cantidad
+                x.insumo.save()
+                x.delete()
             deps, msg = get_dep_objects(d)
             print(deps)
             if deps:
