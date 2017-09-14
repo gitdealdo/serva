@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
-from django.http import HttpResponseRedirect  # , HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
 # from django.core import serializers
 from django.utils.encoding import force_text
@@ -37,11 +37,12 @@ class RecetaListView(generic.ListView):
         return generic.ListView.get_paginate_by(self, queryset)
 
     def get_queryset(self):
+        qs = self.model.objects.filter(publicar=True)
         self.o = empty(self.request, 'o', '-id')
         self.f = empty(self.request, 'f', 'nombre')
         self.q = empty(self.request, 'q', '')
         column_contains = u'%s__%s' % (self.f, 'contains')
-        return self.model.objects.filter(**{column_contains: self.q}).order_by(self.o)
+        return qs.filter(**{column_contains: self.q}).order_by(self.o)
 
     def get_context_data(self, **kwargs):
         context = super(RecetaListView, self).get_context_data(**kwargs)
@@ -94,6 +95,8 @@ class RecetaDetailView(generic.DetailView):
         context['opts'] = self.model._meta
         context['title'] = _('Detalle %s') % (self.model._meta.verbose_name)
         context['productos'] = Producto.objects.all()
+        context['label_info'] = 'label-success' if self.object.publicar else 'label-warning'
+        context['label_msg'] = 'Publicado' if self.object.publicar else 'Aún no publicado'
         return context
 
     def post(self, request, *args, **kwargs):
@@ -150,19 +153,20 @@ class RecetaDeleteView(generic.DeleteView):
     model = Receta
     success_url = reverse_lazy('recetario:receta_list')
 
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
+    # @method_decorator(permission_resource_required)
+    # def dispatch(self, request, *args, **kwargs):
 
-        try:
-            self.get_object()
-        except Exception as e:
-            messages.error(self.request, e)
-            return HttpResponseRedirect(self.success_url)
-        return super(RecetaDeleteView, self).dispatch(request, *args, **kwargs)
+    #     try:
+    #         self.get_object()
+    #     except Exception as e:
+    #         messages.error(self.request, e)
+    #         return HttpResponseRedirect(self.success_url)
+    #     return super(RecetaDeleteView, self).dispatch(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         try:
             d = self.get_object()
+            d.ingrediente_set.all().delete()
             deps, msg = get_dep_objects(d)
             print(deps)
             if deps:

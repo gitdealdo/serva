@@ -41,7 +41,8 @@
         <span class="label label-info">Sin imagen aún</span>
         {% endif %}
         <h5>
-          <span class="label label-primary">{{receta.porcion}} Porciones</span>
+        <span class="label label-primary">{{receta.porcion}} Porciones</span>
+        <span class="label {{label_info}}">{{label_msg}}</span>
         </h5>
       </div>
       <div class="col-md-7">
@@ -78,9 +79,15 @@
     </div>
   </div>
   <div class="panel-footer">
-    <h3 class="text-primary">{{receta}} <small>({% trans "Author" %}: {{receta.user.person}})</small>
+    <h3 class="text-primary">{{receta}} <small>({% trans "Author" %}: {{receta.autor.person}})</small>
       {% if user.is_authenticated and receta.autor == user %}
-      <a href="{% url 'recetario:receta_delete' receta.id %}"class="btn btn-danger pull-right" rel="tooltip" title="{% trans 'Delete recipe' %}"><i class="fa fa-ban"></i> {% trans "Delete recipe" %}</a>
+      <a href="{% url 'recetario:receta_delete' receta.id %}" 
+        class="btn btn-danger btn-sm js-confirm pull-right text-bold" 
+        msg-title="Eliminar receta?."
+        msg="Estás a punto de eliminar <b>{{d.receta}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
+        title="Eliminar {{opts.verbose_name}}" rel="tooltip">
+          <i class="fa fa-ban"></i> {% trans "Delete recipe" %}
+      </a>
       {% endif %}
     </h3>
   </div>
@@ -154,6 +161,5 @@
     $('#delete_id').val(arg.id);
     $('.regname').text(arg.nombre);
   }
-
 </script>
 {% endblock customjs %}

@@ -14,6 +14,7 @@ class Receta(models.Model):
         |porcion: para cuantas personas es esta receta
         |preparacion: paso a paso de la receta
         |imagen: imagen de la receta
+        |publicar: para colocarlos al público
         |autor: (id) autor/user
     """
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)

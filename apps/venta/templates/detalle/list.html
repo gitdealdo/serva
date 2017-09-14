@@ -14,6 +14,12 @@
 
 {% block content %}
 
+<style type="text/css" media="print">
+   @media print {
+      @page { margin: 0; }
+      body { margin: 1.2cm; }
+    }
+</style>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   {% for d in object_list %}
   <div class="panel panel-default">
@@ -23,7 +29,7 @@
           <i class="fa fa-angle-down"></i>
         </a>
         {{d.receta}} 
-        <span class="badge">Porción: {{d.porcion}}</span> <span class="badge">Costo: {{d.costo}} S/.</span>
+        <span class="badge">Porción: {{d.porcion}}</span> <span class="hidden-print badge">Costo: {{d.costo}} S/.</span>
         <a href="{% url 'venta:detalle_delete' d.pk %}"
            class="js-confirm text-danger pull-right"
            msg-title="Eliminar {{opts.verbose_name}}?."
@@ -52,10 +58,7 @@
           {% for e in d.insumosdetalle_set.all %}
           <tr>
             <td>{{forloop.counter}}</td>
-            {% comment %}
             <td>{{e.insumo.nombre}}</td>
-            {% endcomment %}
-            <td>{{e.insumo}}</td>
             <td>{{e.cantidad}} {{e.insumo.unidad.simbolo}}</td>
             <td>
               <a href="{% url 'venta:insumosdetalle_delete' e.pk %}"

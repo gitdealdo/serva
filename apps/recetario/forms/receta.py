@@ -52,6 +52,7 @@ class RecetaForm(forms.ModelForm):
                                                   data_toggle="modal",
                                                   data_target="#modal-id")),
                     Field('imagen', ),
+                    Field('publicar', ),
                     css_class='col-md-6'),
                 Div(Field('preparacion', css_class="input-required"),
                     css_class='col-md-6'),
