@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^menu/crear/$', menu.MenuCreateView.as_view(), name='menu_create'),
     url(r'^menu/(?P<pk>[^/]+)/editar/$', menu.MenuUpdateView.as_view(), name='menu_edit'),
     url(r'^menu/(?P<pk>[^/]+)/eliminar/$', menu.MenuDeleteView.as_view(), name='menu_delete'),
+    url(r'^menu/marcar/$', menu.marcar_menu, name='marcar_menu'),
     url(r'^detalle/(?P<menu>[^/]+)/configurar/$', detalle.DetalleTemplateView.as_view(),
         name='detalle_menu'),
     url(r'^detalle/ingredientes/$', detalle.IngredienteListView.as_view(),

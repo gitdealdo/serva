@@ -46,12 +46,15 @@
         <th class="" data-search="tipo_menu__nombre" data-order="tipo_menu__nombre">Menu</th>
         <th class="" data-search="fecha" data-order="fecha">Fecha <i>(YYYY-MM-DD)</i></th>
         <th class="" data-search="usuario__first_name">Usuario</th>
+        <th>Atendido</th>
+        <th>Creado</th>
+        <th>Actualizado</th>
         <th class="btn-actions col-block text-center">Acción</th>
       </tr>
     </thead>
     <tbody>
       {% for d in object_list %}
-      <tr>
+      <tr class="{% if d.atendido %}success{% endif %}">
         <td>
           {% if is_paginated %}
             {{ page_obj.start_index|add:forloop.counter0 }}
@@ -66,6 +69,11 @@
         </td>
         <td>{{ d.fecha }}</td>
         <td>{{ d.usuario }}</td>
+        <td align="center">
+          <i class="fa {% if d.atendido %}fa-check-square-o{% else %}fa-square-o{% endif %} fa-lg"></i>
+        </td>
+        <td>{{ d.created_at }}</td>
+        <td>{{ d.updated_at }}</td>
         <td class="text-center">
            <a href="{% url 'venta:detalle_menu' d.pk %}" class="btn btn-info btn-sm text-bold" title="Configurar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-cog"></i></a>
            <a href="{% url 'venta:detalle_list' d.pk %}" class="btn btn-info btn-sm text-bold" title="Ver detalles" rel="tooltip"><i class="btn-icon-only fa fa-eye"></i></a>

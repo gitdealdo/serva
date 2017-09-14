@@ -23,7 +23,11 @@ class Receta(models.Model):
     porcion = models.IntegerField(u"Porción")
     preparacion = models.TextField(u"Preparación")
     imagen = models.ImageField(u'Imágen', upload_to='recetas/', blank=True, null=True)
+    publicar = models.BooleanField(default=False)
     autor = models.ForeignKey(User)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Receta"

@@ -5,11 +5,11 @@
 <a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
 &rsaquo;
 <a href="{% url 'venta:menu_list' %}">Menus</a>
-&rsaquo; {{ menu }}
+&rsaquo;{{ menu }}
 {% endblock breadcrumbs %}
 
 {% block content_title %}
-      {{ opts.verbose_name |capfirst }} de menu | <small>{{ menu }} {{menu.fecha}}</small>
+      {{ opts.verbose_name |capfirst }} de menu | <small>{{ menu }} {{menu.fecha}}</small> <a href="#" onclick="window.print();"><i class="fa fa-print"></i></a> 
 {% endblock content_title %}
 
 {% block content %}
@@ -20,8 +20,10 @@
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{d.id}}" aria-expanded="true" aria-controls="{{d.id}}">
-          {{d.receta}} <span class="badge">Porción: {{d.porcion}}</span> <span class="badge">Costo: {{d.costo}} S/.</span>
+          <i class="fa fa-angle-down"></i>
         </a>
+        {{d.receta}} 
+        <span class="badge">Porción: {{d.porcion}}</span> <span class="badge">Costo: {{d.costo}} S/.</span>
         <a href="{% url 'venta:detalle_delete' d.pk %}"
            class="js-confirm text-danger pull-right"
            msg-title="Eliminar {{opts.verbose_name}}?."
@@ -43,7 +45,7 @@
             <th>#</th>
             <th>Insumo</th>
             <th>Cantidad</th>
-            <th>Opción</th>
+            <th class="hidden-print">Opción</th>
           </tr>
         </thead>
         <tbody>
@@ -73,6 +75,8 @@
   {% endfor %}
 </div>
 
+<button class="btn btn-large btn-block {{btn_info}} atendido" href="#" type="button"><i class="fa fa-check"></i> {{btn_msg}}</button>
+
 <div class="modal fade" id="modalform">
   <div class="modal-dialog flipInY animated">
     <div class="modal-content">
@@ -97,6 +101,19 @@
       $('#modalform').modal('show');
       $(".select2").select2();
     });
+  });
+
+  $(".atendido").on('click', function(e) {
+    e.preventDefault();
+    var btn = $(this);
+    if (confirm("!Confirme por favor!")) {
+      $.get('{% url "venta:marcar_menu" %}',{'menu':'{{menu.pk}}'}, function(data) {
+        console.log(data);
+        btn.removeClass("btn-success, btn-warning");
+        btn.addClass(data.btn_info);
+        btn.text(data.btn_msg);
+      });
+    }
   });
 </script>
 {% endblock customjs %}

@@ -4,7 +4,7 @@ from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
-from django.http import HttpResponseRedirect  # , HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
 # from django.core import serializers
 from django.utils.encoding import force_text
@@ -123,3 +123,13 @@ class MenuDeleteView(generic.DeleteView):
 
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+
+def marcar_menu(request):
+    print(request.GET)
+    menu = Menu.objects.get(id=request.GET.get('menu'))
+    menu.atendido = False if menu.atendido else True
+    menu.save()
+    btn_info = 'btn-success' if menu.atendido else 'btn-warning'
+    btn_msg = 'Antendido' if menu.atendido else 'Marcar como atendido'
+    return JsonResponse({'btn_info': btn_info, 'btn_msg': btn_msg})

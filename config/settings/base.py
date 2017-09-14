@@ -47,7 +47,6 @@ BACKEND_APPS = [
 ]
 
 LOCAL_APPS = [
-    'apps.blog.apps.BlogConfig',
     'apps.recetario.apps.RecetarioConfig',
     'apps.venta.apps.VentaConfig',
 ]

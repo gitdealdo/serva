@@ -95,7 +95,8 @@ class DetalleListView(generic.ListView):
         context = super(DetalleListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
         context['menu'] = Menu.objects.get(id=self.kwargs['menu'])
-        # context['insumos'] = Producto.objects.all()
+        context['btn_info'] = 'btn-success' if context['menu'].atendido else 'btn-warning'
+        context['btn_msg'] = 'Antendido' if context['menu'].atendido else 'Marcar como atendido'
         return context
 
     def get_queryset(self):

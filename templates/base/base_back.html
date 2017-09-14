@@ -28,7 +28,7 @@
 
 {% block rootcontainer %}
     <div id="shell-load">
-        <div class="breadcrumbs">
+        <div class="breadcrumbs hidden-print">
             {% block breadcrumbs %}
 
             {% endblock breadcrumbs %}
@@ -39,7 +39,7 @@
 
 
                 <div class="page-header">
-                    <h3>{% block content_title %}{% endblock content_title %} <small class="pull-right">{% now "D d M, Y" %}</small></h3>
+                    <h3>{% block content_title %}{% endblock content_title %} <small class="pull-right hidden-print">{% now "D d M, Y" %}</small></h3>
 
                 </div>
                 {% block messages %}

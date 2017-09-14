@@ -1,6 +1,6 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2017-09-13 15:29
+  // Created: 2017-09-14 09:23
   // Cli Options: -a --settings=config.settings.local
 
   fontname = "Helvetica"
@@ -673,112 +673,6 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_apps_blog {
-    label=<
-          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
-          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
-          <FONT FACE="Helvetica Bold" COLOR="Black" POINT-SIZE="12">
-          apps.blog
-          </FONT>
-          </TD></TR>
-          </TABLE>
-          >
-    color=olivedrab4
-    style="rounded"
-  
-    apps_blog_models_post_Post [label=<
-      <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
-      <FONT FACE="Helvetica Bold" COLOR="white">
-      Post
-      </FONT></TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">id</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica Bold">UUIDField</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">user</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica ">body</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica ">TextField</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">created_at</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">state</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">BooleanField</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica ">title</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica ">CharField</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">updated_at</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
-      </TD></TR>
-    
-      </TABLE>
-      >]
-  
-    apps_blog_models_comment_Comment [label=<
-      <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
-      <FONT FACE="Helvetica Bold" COLOR="white">
-      Comment
-      </FONT></TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">id</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica Bold">AutoField</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">post</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica ">body</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica ">TextField</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">created_at</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
-      </TD></TR>
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">updated_at</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
-      </TD></TR>
-    
-      </TABLE>
-      >]
-
-  }
   subgraph cluster_apps_recetario {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
@@ -948,6 +842,12 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">created_at</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT COLOR="#7B7B7B" FACE="Helvetica ">descripcion</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT COLOR="#7B7B7B" FACE="Helvetica ">TextField</FONT>
@@ -975,6 +875,18 @@ digraph model_graph {
       <FONT FACE="Helvetica ">preparacion</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Helvetica ">TextField</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">publicar</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">BooleanField</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">updated_at</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
       </TD></TR>
     
       </TABLE>
@@ -1070,15 +982,33 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica Bold">usuario</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">usuario</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ForeignKey (id)</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">atendido</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">BooleanField</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">created_at</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Helvetica ">fecha</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Helvetica ">DateTimeField</FONT>
+      </TD></TR>
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">updated_at</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
       </TD></TR>
     
       </TABLE>
@@ -1221,13 +1151,6 @@ digraph model_graph {
 
   backend_apps_auths_models_Menu -> backend_apps_auths_models_Menu
   [label="parent (menu)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-
-  apps_blog_models_post_Post -> backend_apps_auths_models_User
-  [label="user (post)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-  apps_blog_models_comment_Comment -> apps_blog_models_post_Post
-  [label="post (comment)"] [arrowhead=none, arrowtail=dot, dir=both];
 
 
   apps_recetario_models_producto_Producto -> apps_recetario_models_categoria_Categoria

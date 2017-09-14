@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^access/', include('backend_apps.access.urls', namespace='access')),
     # url(r'^$', home, name='home'),
 
-    url(r'^blog/', include('apps.blog.urls', namespace='blog')),
+    # url(r'^blog/', include('apps.blog.urls', namespace='blog')),
     url(r'^recetario/', include('apps.recetario.urls', namespace='recetario')),
     url(r'^venta/', include('apps.venta.urls', namespace='venta')),
     url(r'^$', RecetaListView.as_view(), name='home')

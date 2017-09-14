@@ -14,7 +14,11 @@ class Menu(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     tipo_menu = models.ForeignKey(TipoMenu)
     fecha = models.DateTimeField()
-    usuario = models.ForeignKey(User)
+    atendido = models.BooleanField(default=False)
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Menu"
