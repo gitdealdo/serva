@@ -51,7 +51,7 @@
             <th>#</th>
             <th>Insumo</th>
             <th>Cantidad</th>
-            <th class="hidden-print">Opción</th>
+            <th class="hidden-print opcion">Opción</th>
           </tr>
         </thead>
         <tbody>
@@ -60,7 +60,7 @@
             <td>{{forloop.counter}}</td>
             <td>{{e.insumo.nombre}}</td>
             <td>{{e.cantidad}} {{e.insumo.unidad.simbolo}}</td>
-            <td>
+            <td class="hidden-print opcion">
               <a href="{% url 'venta:insumosdetalle_delete' e.pk %}"
                  class="js-confirm text-danger"
                  msg-title="Eliminar {{e.insumo.nombre}}?."
@@ -78,7 +78,7 @@
   {% endfor %}
 </div>
 
-<button class="btn btn-large btn-block {{btn_info}} atendido" href="#" type="button"><i class="fa fa-check"></i> {{btn_msg}}</button>
+<button class="btn btn-large btn-block {{btn_info}} atendido" type="button"><i class="fa fa-check"></i><span>{{btn_msg}}</span></button>
 
 <div class="modal fade" id="modalform">
   <div class="modal-dialog flipInY animated">
@@ -95,6 +95,12 @@
 
 {% block customjs %}
 <script>
+  $(function() {
+    if ('{{menu.atendido}}' == 'True') {
+      $(".panel-group a").addClass('hidden');
+      $(".panel-group .opcion").addClass('hidden');
+    }
+  });
   $(".agregar").on('click', function(e) {
     e.preventDefault();
     var _url = $(this).attr('href');
@@ -106,16 +112,19 @@
     });
   });
 
+
   $(".atendido").on('click', function(e) {
     e.preventDefault();
     var btn = $(this);
     if (confirm("!Confirme por favor!")) {
       $.get('{% url "venta:marcar_menu" %}',{'menu':'{{menu.pk}}'}, function(data) {
-        console.log(data);
+        // console.log(data);
         btn.removeClass("btn-success, btn-warning");
         btn.addClass(data.btn_info);
-        btn.text(data.btn_msg);
+        btn.children('span').text(data.btn_msg);
       });
+      $(".panel-group a").toggleClass('hidden');
+      $(".panel-group .opcion").toggleClass('hidden');
     }
   });
 </script>

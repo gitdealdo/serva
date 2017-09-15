@@ -43,7 +43,8 @@ class InsumosDetalleCreateView(generic.CreateView):
         self.object.detalle.costo = costo
         self.object.detalle.save()
         # Actualizando stock de insumo
-        self.object.insumo.stock -= self.object.cantidad
+        resto = self.object.insumo.stock - self.object.cantidad
+        self.object.insumo.stock = resto if resto > 0 else 0
         self.object.insumo.save()
         msg = ('%(name)s "%(obj)s" fue agregado satisfactoriamente') % {
             'name': self.model._meta.verbose_name,
