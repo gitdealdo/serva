@@ -10,7 +10,8 @@ from django.conf import settings
 from django.utils.encoding import force_text
 from backend_apps.utils.decorators import permission_resource_required
 from backend_apps.utils.forms import empty
-from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
+# , SecurityKey, UserToken
+from backend_apps.utils.security import log_params, get_dep_objects
 # from decimal import Decimal
 # from ..utils import defaultencode
 from ..models.producto import Producto
@@ -47,7 +48,8 @@ class ProductoListView(generic.ListView):
         context = super(ProductoListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
         context['form'] = UploadFileForm()
-        context['title'] = _('Select %s to change') % capfirst(self.model._meta.verbose_name)
+        context['title'] = _('Select %s to change') % capfirst(
+            self.model._meta.verbose_name)
         context['o'] = self.o
         context['f'] = self.f
         context['q'] = self.q.replace('/', '-')
@@ -192,5 +194,6 @@ def upload_file(request):
                     p.unidad = unidad
                     p.costo = d[7]
                     p.save()
-            messages.success(request, "Insumos registrados y actualizados con éxito!")
+            messages.success(
+                request, "Insumos registrados y actualizados con éxito!")
             return HttpResponseRedirect(reverse('recetario:producto_list'))

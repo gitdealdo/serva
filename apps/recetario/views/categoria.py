@@ -11,7 +11,8 @@ from django.conf import settings
 from django.utils.encoding import force_text
 from backend_apps.utils.decorators import permission_resource_required
 from backend_apps.utils.forms import empty
-from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
+# , SecurityKey, UserToken
+from backend_apps.utils.security import log_params, get_dep_objects
 # from decimal import Decimal
 
 from ..models.categoria import Categoria
@@ -45,7 +46,8 @@ class CategoriaListView(generic.ListView):
         context = super(CategoriaListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
         context['form'] = CategoriaForm
-        context['title'] = _('Select %s to change') % capfirst(self.model._meta.verbose_name)
+        context['title'] = _('Select %s to change') % capfirst(
+            self.model._meta.verbose_name)
         context['o'] = self.o
         context['f'] = self.f
         context['q'] = self.q.replace('/', '-')
@@ -72,7 +74,7 @@ class CategoriaListView(generic.ListView):
             t.save()
             msg = ('Categoria %s creado con éxito' % t)
         messages.success(request, msg)
-        return HttpResponseRedirect(reverse('recetario:tipo_list'))
+        return HttpResponseRedirect(reverse('recetario:categoria_list'))
 
 
 def crear_categoria(request):

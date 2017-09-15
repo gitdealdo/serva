@@ -70,7 +70,7 @@ class TipoRecetaListView(generic.ListView):
             t.save()
             msg = ('TipoReceta %s creado con éxito' % t)
         messages.success(request, msg)
-        return HttpResponseRedirect(reverse('recetario:categoria_list'))
+        return HttpResponseRedirect(reverse('recetario:tipo_receta_list'))
 
 
 def crear_tipo_receta(request):
