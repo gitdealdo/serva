@@ -23,7 +23,7 @@ class Receta(models.Model):
     descripcion = models.TextField(u"Descripción", blank=True, null=True)
     porcion = models.IntegerField(u"Porción")
     preparacion = models.TextField(u"Preparación", blank=True, null=True)
-    imagen = models.ImageField(u'Imágen', upload_to='recetas/', blank=True, null=True)
+    imagen = models.ImageField(u'Imágen', upload_to='recetas', blank=True, null=True)
     publicar = models.BooleanField(default=False)
     autor = models.ForeignKey(User)
 
