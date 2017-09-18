@@ -24,12 +24,8 @@ class RecetaListView(generic.ListView):
     """RecetaListView"""
 
     model = Receta
-    template_name = 'receta/list.html'
+    template_name = 'receta/index.html'
     paginate_by = settings.PER_PAGE
-
-    # @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(RecetaListView, self).dispatch(request, *args, **kwargs)
 
     def get_paginate_by(self, queryset):
         if 'all' in self.request.GET:
@@ -151,7 +147,7 @@ class RecetaUpdateView(generic.UpdateView):
 
 class RecetaDeleteView(generic.DeleteView):
     model = Receta
-    success_url = reverse_lazy('recetario:receta_list')
+    success_url = reverse_lazy('recetario:mis_recetas')
 
     # @method_decorator(permission_resource_required)
     # def dispatch(self, request, *args, **kwargs):
@@ -175,7 +171,6 @@ class RecetaDeleteView(generic.DeleteView):
                      "' + force_text(d) + '"'
                 })
                 raise Exception(msg)
-
             d.delete()
             msg = _(' %(name)s "%(obj)s" fue eliminado satisfactorialmente.') % {
                 'name': capfirst(force_text(self.model._meta.verbose_name)),
@@ -189,3 +184,31 @@ class RecetaDeleteView(generic.DeleteView):
 
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+
+class MiRecetaListView(generic.ListView):
+    model = Receta
+    template_name = "receta/list.html"
+
+    def get_paginate_by(self, queryset):
+        if 'all' in self.request.GET:
+            return None
+        return generic.ListView.get_paginate_by(self, queryset)
+
+    def get_queryset(self):
+        qs = self.model.objects.filter(autor=self.request.user)
+        self.o = empty(self.request, 'o', '-id')
+        self.f = empty(self.request, 'f', 'nombre')
+        self.q = empty(self.request, 'q', '')
+        column_contains = u'%s__%s' % (self.f, 'contains')
+        return qs.filter(**{column_contains: self.q}).order_by(self.o)
+
+    def get_context_data(self, **kwargs):
+        context = super(MiRecetaListView, self).get_context_data(**kwargs)
+        context['opts'] = self.model._meta
+        context['title'] = _('Select %s to change') % capfirst(
+            self.model._meta.verbose_name)
+        context['o'] = self.o
+        context['f'] = self.f
+        context['q'] = self.q.replace('/', '-')
+        return context

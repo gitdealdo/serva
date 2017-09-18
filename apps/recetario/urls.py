@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^tiporeceta/ajaxcrear/$', tipo_receta.crear_tipo_receta,
         name='tipo_receta_crear'),
     url(r'^receta/lista/$', rec.RecetaListView.as_view(), name='receta_list'),
+    url(r'^receta/misrecetas/$', rec.MiRecetaListView.as_view(), name='mis_recetas'),
     url(r'^receta/crear/$', rec.RecetaCreateView.as_view(), name='receta_add'),
     url(r'^receta/(?P<pk>[^/]+)/$',
         rec.RecetaDetailView.as_view(), name='receta_detail'),

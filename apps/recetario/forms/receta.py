@@ -31,6 +31,7 @@ class RecetaForm(forms.ModelForm):
         self.fields['tipo_receta'].label = 'Tipo de receta'
         self.fields['descripcion'].widget.attrs = {
             'rows': 2, 'placeholder': 'Ingrese una breve descripción', }
+        self.fields['preparacion'].initial='Preparación'
         self.fields['preparacion'].widget = SummernoteWidget(
             attrs={'width': '100%', 'height': '35em'})
 

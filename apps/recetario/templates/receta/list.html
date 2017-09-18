@@ -6,7 +6,7 @@
 
 {% block breadcrumbs %}
   <a href="{% url 'home' %}"><i class="fa fa-home fa-lg"></i> Home</a>
-  &rsaquo; {{opts.verbose_name_plural}}
+  &rsaquo; Mis {{opts.verbose_name_plural}}
 {% endblock breadcrumbs %}
 
 {% block content_title %}
@@ -16,82 +16,71 @@
 {% block content %}
 
 <script type="text/javascript">
-// $(function() {
-//     $('#table').kgrid({
-//         form_data : ['{{f}}', '{{q}}'],
-//         form_to   : '{% url "recetario:receta_list" %}?f={{f}}&q={{q}}',
-//     });
-// });
+$(function() {
+    $('table').kgrid({
+        form_data : ['{{f}}', '{{q}}'],
+        form_to   : '{% url "recetario:mis_recetas" %}?f={{f}}&q={{q}}',
+        order_attr: 'class=""',
+        order_to  : '{% url "recetario:mis_recetas" %}?f={{f}}&q={{q}}',
+    });
+});
 </script>
 
 <div class="btn-toolbar btn-toolbar-top">
   <div class="row">
   {% if user.is_authenticated %}      
     <div class="btn-actions">
-      <a href="{% url 'recetario:receta_add' %}" class="btn btn-primary text-bold" title="Agregar {{opts.verbose_name}}">
+      <a href="{% url 'recetario:receta_add' %}" class="btn btn-primary text-bold" title="Crear {{opts.verbose_name}}">
         <i class="fa fa-plus"></i>
-        <span class="hidden-xs"> Agregar {{opts.verbose_name}}</span>
+        <span class="hidden-xs"> {% trans "Create" %} {{opts.verbose_name}}</span>
       </a>
     </div>
   {% endif %}
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    {% for d in object_list %}
-      <div class="col-xs-6 col-md-2">
-        <div class="thumbnail">
-        {% if d.imagen %}
-          <img src="{{d.imagen.url}}" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="{{d.nombre}}" data-content="{{d.descripcion}}" data-placement="bottom" alt="{{d.nombre}}">
-        {% endif %}
-          <div class="caption">
-            <h3>
-            <a href="{% url 'recetario:receta_detail' d.pk %}">{{d.nombre}}</a>
-            </h3>
-          </div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-    {% comment %}  
-    <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th class="" data-search="nombre" data-order="nombre">Nombre</th>
-                <th>Stok</th>
-                <th>Unidad</th>
-                <th>Costo/Unidad</th>
-                <th class="btn-actions col-block text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for d in object_list %}
-            <tr>
-                <td>
-                    {% if is_paginated %}
-                        {{ page_obj.start_index|add:forloop.counter0 }}
-                    {% else %}
-                        {{ forloop.counter }}
-                    {% endif %}
-                </td>
-                <td>{{ d.nombre }}</td>
-                <td>{{ d.cantidad }}</td>
-                <td>{{ d.unidad }}</td>
-                <td>{{ d.costo }}</td>
-                <td class="text-center">
-                    <a href="{% url 'recetario:receta_edit' d.pk %}" class="btn btn-info btn-sm text-bold" title="Cambiar producto" rel="tooltip"><i class="btn-icon-only fa fa-edit"></i></a>
-                    <a href="{% url 'recetario:receta_delete' d.pk %}" class="btn btn-danger btn-sm js-confirm text-bold" msg-title="Eliminar producto?." msg="Estas seguro que quiere eliminar <br/> Recuerde que esta acción no se puede deshacer." title="Eliminar producto" rel="tooltip"><i class="btn-icon-only fa fa-trash-o"></i></a>
-                </td>
-
-            </tr>
-            {% endfor %}
-            
-        </tbody>
-    </table>
-    {% endcomment %}
-</div>
+  <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th class="" data-search="nombre" data-order="nombre">Nombre</th>
+              <th class="" data-search="tipo_receta__nombre" data-order="tipo_receta__nombre">Tipo receta</th>
+              <th>Porción</th>
+              <th>Publicado</th>
+              <th>Actualizado</th>
+              <th class="btn-actions col-block text-center">Acciones</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for d in object_list %}
+          <tr class="{% if d.publicar %}success{% endif %}">
+              <td>
+                  {% if is_paginated %}
+                      {{ page_obj.start_index|add:forloop.counter0 }}
+                  {% else %}
+                      {{ forloop.counter }}
+                  {% endif %}
+              </td>
+              <td>{{ d.nombre }}</td>
+              <td>{{ d.tipo_receta }}</td>
+              <td>{{ d.porcion }}</td>
+              <td>
+                {% if d.publicar %}
+                  <span class="label label-success">Publicado</span>
+                {% else %}
+                  <span class="label label-warning">Aún no publicado</span>
+                {% endif %}
+              </td>
+              <td>{{ d.updated_at }}</td>
+              <td class="text-center">
+                  <a href="{% url 'recetario:receta_detail' d.pk %}" class="btn btn-default btn-sm text-bold" title="Ver {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-eye"></i></a>
+                  <a href="{% url 'recetario:receta_edit' d.pk %}" class="btn btn-info btn-sm text-bold" title="Editar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-edit"></i></a>
+                  <a href="{% url 'recetario:receta_delete' d.pk %}" class="btn btn-danger btn-sm js-confirm text-bold" msg-title="Eliminar {{d.nombre}}?." msg="Estas seguro que quiere eliminar <b>{{d.nombre}}</b><br/> Recuerde que esta acción no se puede deshacer." title="Eliminar {{opts.verbose_name}}" rel="tooltip"><i class="btn-icon-only fa fa-trash-o"></i></a>
+              </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
    <div  class="row" >
     {% if is_paginated %}
     {% load paginator %}
