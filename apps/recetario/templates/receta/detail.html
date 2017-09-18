@@ -43,7 +43,7 @@
     <div class="row">
       <div class="col-md-5 text-center">
         {% if receta.imagen %}
-        <img src="{{receta.imagen.url}}" alt="{{receta}}" width="400px" height="400px" class="img-thumbnail img-responsive">
+        <img src="{{receta.imagen.url}}" alt="{{receta}}" width="450px" height="450px" class="img-thumbnail img-responsive">
         {% else %}
         <span class="label label-info">Sin imagen aún</span>
         {% endif %}
@@ -93,7 +93,7 @@
       <a href="{% url 'recetario:receta_delete' receta.id %}" 
         class="btn btn-danger btn-sm js-confirm pull-right text-bold" 
         msg-title="Eliminar receta?."
-        msg="Estás a punto de eliminar <b>{{d.receta}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
+        msg="Estás a punto de eliminar <b>{{receta}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
         title="Eliminar {{opts.verbose_name}}" rel="tooltip">
           <i class="fa fa-ban"></i> {% trans "Delete recipe" %}
       </a>

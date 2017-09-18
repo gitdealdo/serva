@@ -19,9 +19,9 @@
 $(function() {
     $('table').kgrid({
         form_data : ['{{f}}', '{{q}}'],
-        form_to   : '{% url "recetario:tipo_list" %}?f={{f}}&q={{q}}',
+        form_to   : '{% url "recetario:categoria_list" %}?f={{f}}&q={{q}}',
         order_attr: 'class=""',
-        order_to  : '{% url "recetario:tipo_list" %}?f={{f}}&q={{q}}',
+        order_to  : '{% url "recetario:categoria_list" %}?f={{f}}&q={{q}}',
     });
 });
 </script>

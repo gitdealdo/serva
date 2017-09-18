@@ -62,7 +62,7 @@ $(function() {
             </thead>
             <tbody>
                 {% for d in object_list %}
-                <tr>
+                <tr class="{% if d.stock <= d.stock_minimo %}danger{% endif %}">
                     <td>
                         {% if is_paginated %}
                             {{ page_obj.start_index|add:forloop.counter0 }}
