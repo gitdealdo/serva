@@ -16,7 +16,7 @@
       {% for d in object_list %}
       <tr id="{{d.producto.id}}" cantidad="{{d.cantidad_total}}" {% if d.msg != 'suficiente' %}class="danger"{% endif %}>
         <td>{{forloop.counter}}</td>
-        <td>{{d.producto}} (<i>{{d.producto.descripcion}}</i>)</td>
+        <td>{{d.producto.nombre }}</td>
         <td>{{d.cantidad_total}} {{d.producto.unidad.simbolo}}</td>
         <td colspan="2">{{d.producto.stock }} {{d.producto.unidad.simbolo}}
           <span class="label label-{% if d.msg == 'suficiente'%}success{% else %}danger{% endif %}">{{d.msg}}</span>

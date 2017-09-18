@@ -48,12 +48,13 @@ class IngredienteListView(generic.ListView):
         qs = qs.filter(receta=receta)
         for d in qs:
             cant_por_unidad = d.cantidad / receta.porcion
-            d.cantidad_total = round((cant_por_unidad * int(porcion)), 2)
+            d.cantidad_total = cant_por_unidad * int(porcion)
             if d.producto.stock >= d.cantidad_total:
                 d.msg = "suficiente"
             else:
                 diferencia = d.cantidad_total - d.producto.stock
                 d.msg = "insuficiente| diferencia %s" % (round(diferencia, 2))
+            d.cantidad_total = "%0.2f" % (d.cantidad_total)
         return qs
 
 
@@ -68,8 +69,8 @@ def crear_detalle(request):
         insumos = json.loads(request.POST['insumos'])
         print(insumos)
         costo = 0
-
         for d in insumos:
+            # print(float(d['cantidad']))
             cant = float(d['cantidad'])
             producto = Producto.objects.get(id=d['producto'])
             resto = producto.stock - cant
