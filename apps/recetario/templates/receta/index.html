@@ -10,7 +10,10 @@
 {% endblock breadcrumbs %}
 
 {% block content_title %}
-{{ opts.verbose_name_plural|capfirst }} | <small>{{ title }}</small>
+{{ opts.verbose_name_plural|capfirst }} 
+{% if user.is_authenticated %}
+  | <small>{{ title }}</small>
+{% endif %}
 {% endblock content_title %}
 
 {% block content %}
