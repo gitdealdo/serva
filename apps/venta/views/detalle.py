@@ -66,6 +66,7 @@ def crear_detalle(request):
         detalle.porcion = int(request.POST['porcion'])
         detalle.menu = menu
         insumos = json.loads(request.POST['insumos'])
+        print(insumos)
         costo = 0
 
         for d in insumos:
