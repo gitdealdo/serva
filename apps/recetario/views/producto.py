@@ -6,7 +6,8 @@ from django.views import generic
 from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 from django.utils.encoding import force_text
-from backend_apps.utils.decorators import LoginRequiredMixin, ResourcePermissionMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from backend_apps.utils.decorators import ResourcePermissionMixin
 from backend_apps.utils.forms import empty
 from backend_apps.utils.security import log_params, get_dep_objects
 from ..models.producto import Producto

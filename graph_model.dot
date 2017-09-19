@@ -1,6 +1,6 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2017-09-14 09:23
+  // Created: 2017-09-19 17:00
   // Cli Options: -a --settings=config.settings.local
 
   fontname = "Helvetica"
@@ -872,9 +872,9 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Helvetica ">preparacion</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">preparacion</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Helvetica ">TextField</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Helvetica ">TextField</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
@@ -912,9 +912,9 @@ digraph model_graph {
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">receta</FONT>
+      <FONT FACE="Helvetica Bold">receta</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ForeignKey (id)</FONT>
+      <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
       </TD></TR>
     
       <TR><TD ALIGN="LEFT" BORDER="0">

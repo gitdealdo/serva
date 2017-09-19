@@ -192,13 +192,6 @@ def permission_resource_required_decorator(template_name='mod_backend/base_mod_b
     return decorator
 
 
-class LoginRequiredMixin(object):
-    """LoginRequiredMixin"""
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
-
-
 class ResourcePermissionMixin(object):
     """ResourcePermissionMixin"""
     @method_decorator(permission_resource_required)

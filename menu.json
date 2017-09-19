@@ -67,8 +67,8 @@
   "model": "auths.menu",
   "pk": "31502a2c-a846-4a79-9f9d-8c10e9cfa4d1",
   "fields": {
-    "title": "Tipo",
-    "url": "recetario/tipo/lista",
+    "title": "Tipo receta",
+    "url": "recetario/tiporeceta/lista",
     "pos": 3,
     "icon": "fa fa-bars",
     "is_active": true,
@@ -76,7 +76,7 @@
     "permission": 69,
     "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
     "created_at": "2017-07-30T01:00:54.386Z",
-    "updated_at": "2017-07-30T01:24:49.176Z"
+    "updated_at": "2017-09-11T17:29:42.700Z"
   }
 },
 {
@@ -125,22 +125,6 @@
     "parent": "a60d15a3-c2b1-42ba-8d6d-6b99ebbaf582",
     "created_at": "2017-07-30T00:44:27.480Z",
     "updated_at": "2017-07-30T01:25:20.836Z"
-  }
-},
-{
-  "model": "auths.menu",
-  "pk": "67806e8d-f4db-4c67-9e3b-263c056cf40a",
-  "fields": {
-    "title": "Venta",
-    "url": "venta/detalle/index",
-    "pos": 3,
-    "icon": "fa fa-lemon-o",
-    "is_active": true,
-    "description": "",
-    "permission": 72,
-    "parent": "2023351a-30a8-4840-ae50-3a7254ec43f9",
-    "created_at": "2017-07-30T03:25:22.433Z",
-    "updated_at": "2017-07-30T03:25:22.653Z"
   }
 },
 {

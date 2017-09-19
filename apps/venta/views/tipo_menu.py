@@ -4,7 +4,7 @@ from django.utils.text import capfirst  # , get_text_list
 from django.views import generic
 from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
-from backend_apps.utils.decorators import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from backend_apps.utils.forms import empty
 from ..models.tipo_menu import TipoMenu
 

@@ -6,7 +6,7 @@ from django.views import generic
 from django.http import HttpResponseRedirect, JsonResponse
 from django.conf import settings
 # from django.utils.encoding import force_text
-from backend_apps.utils.decorators import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from backend_apps.utils.forms import empty
 
 from ..models.categoria import Categoria

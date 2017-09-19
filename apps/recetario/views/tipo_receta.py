@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
 # from django.core import serializers
 # from django.utils.encoding import force_text
-from backend_apps.utils.decorators import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from backend_apps.utils.forms import empty
 # from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
 # from decimal import Decimal

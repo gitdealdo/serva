@@ -182,5 +182,29 @@
     "app_label": "backend",
     "model": "user"
   }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 24,
+  "fields": {
+    "app_label": "recetario",
+    "model": "tiporeceta"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 25,
+  "fields": {
+    "app_label": "django_summernote",
+    "model": "attachment"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 26,
+  "fields": {
+    "app_label": "venta",
+    "model": "insumosdetalle"
+  }
 }
 ]
