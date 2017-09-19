@@ -42,8 +42,8 @@ class RecetaListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(RecetaListView, self).get_context_data(**kwargs)
         context['opts'] = self.model._meta
-        context['title'] = _('Select %s to change') % capfirst(
-            self.model._meta.verbose_name)
+        # context['title'] = _('Select %s to change') % capfirst(
+            # self.model._meta.verbose_name)
         context['o'] = self.o
         context['f'] = self.f
         context['q'] = self.q.replace('/', '-')
