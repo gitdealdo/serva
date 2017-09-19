@@ -1,6 +1,5 @@
 # import json
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
@@ -9,11 +8,10 @@ from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
 # from django.core import serializers
 from django.utils.encoding import force_text
-from backend_apps.utils.decorators import permission_resource_required
+from backend_apps.utils.decorators import LoginRequiredMixin, ResourcePermissionMixin
 from backend_apps.utils.forms import empty
 # , SecurityKey, UserToken, log_params,
 from backend_apps.utils.security import get_dep_objects
-# from decimal import Decimal
 from ..models.receta import Receta
 from ..forms.receta import RecetaForm
 from ..models.producto import Producto
@@ -51,14 +49,10 @@ class RecetaListView(generic.ListView):
         return context
 
 
-class RecetaCreateView(generic.CreateView):
+class RecetaCreateView(LoginRequiredMixin, generic.CreateView):
     model = Receta
     form_class = RecetaForm
     template_name = 'receta/form.html'
-
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(RecetaCreateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('recetario:receta_detail', kwargs={'pk': self.object.pk})
@@ -116,14 +110,10 @@ class RecetaDetailView(generic.DetailView):
         return HttpResponseRedirect(request.path)
 
 
-class RecetaUpdateView(generic.UpdateView):
+class RecetaUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Receta
     template_name = 'receta/form.html'
     form_class = RecetaForm
-
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(RecetaUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(RecetaUpdateView, self).get_context_data(**kwargs)
@@ -145,19 +135,9 @@ class RecetaUpdateView(generic.UpdateView):
         return super(RecetaUpdateView, self).form_valid(form)
 
 
-class RecetaDeleteView(generic.DeleteView):
+class RecetaDeleteView(ResourcePermissionMixin, generic.DeleteView):
     model = Receta
     success_url = reverse_lazy('recetario:mis_recetas')
-
-    # @method_decorator(permission_resource_required)
-    # def dispatch(self, request, *args, **kwargs):
-
-    #     try:
-    #         self.get_object()
-    #     except Exception as e:
-    #         messages.error(self.request, e)
-    #         return HttpResponseRedirect(self.success_url)
-    #     return super(RecetaDeleteView, self).dispatch(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         try:
@@ -186,7 +166,7 @@ class RecetaDeleteView(generic.DeleteView):
         return self.delete(request, *args, **kwargs)
 
 
-class MiRecetaListView(generic.ListView):
+class MiRecetaListView(LoginRequiredMixin, generic.ListView):
     model = Receta
     template_name = "receta/list.html"
 

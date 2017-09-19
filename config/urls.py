@@ -34,16 +34,14 @@ urlpatterns = [
     url(r'^backend/', include('backend_apps.auths.urls', namespace='backend')),
     url(r'^access/', include('backend_apps.access.urls', namespace='access')),
     # url(r'^$', home, name='home'),
-
     # url(r'^blog/', include('apps.blog.urls', namespace='blog')),
     url(r'^recetario/', include('apps.recetario.urls', namespace='recetario')),
     url(r'^venta/', include('apps.venta.urls', namespace='venta')),
-    url(r'^$', RecetaListView.as_view(), name='home')
-
-
+    url(r'^$', RecetaListView.as_view(), name='home'),
 ]
 urlpatterns = urlpatterns + \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 if settings.DEBUG:
     import debug_toolbar

@@ -1,19 +1,14 @@
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
 from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
-# from django.core import serializers
 from django.utils.encoding import force_text
-from backend_apps.utils.decorators import permission_resource_required
+from backend_apps.utils.decorators import LoginRequiredMixin, ResourcePermissionMixin
 from backend_apps.utils.forms import empty
-# , SecurityKey, UserToken
 from backend_apps.utils.security import log_params, get_dep_objects
-# from decimal import Decimal
-# from ..utils import defaultencode
 from ..models.producto import Producto
 from ..models.categoria import Categoria
 from ..models.unidad import Unidad
@@ -21,16 +16,12 @@ from ..forms.producto import ProductoForm, UploadFileForm
 from pyexcel_xlsx import get_data
 
 
-class ProductoListView(generic.ListView):
+class ProductoListView(LoginRequiredMixin, generic.ListView):
     """ProductoListView"""
 
     model = Producto
     template_name = 'producto/list.html'
     paginate_by = settings.PER_PAGE
-
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ProductoListView, self).dispatch(request, *args, **kwargs)
 
     def get_paginate_by(self, queryset):
         if 'all' in self.request.GET:
@@ -56,18 +47,11 @@ class ProductoListView(generic.ListView):
         return context
 
 
-class ProductoCreateView(generic.CreateView):
+class ProductoCreateView(ResourcePermissionMixin, generic.CreateView):
     model = Producto
     form_class = ProductoForm
     template_name = 'producto/form.html'
     success_url = reverse_lazy('recetario:producto_list')
-
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ProductoCreateView, self).dispatch(request, *args, **kwargs)
-
-    # def get_success_url(self):
-    #     return reverse('icontrol:detalle_producto_add', kwargs={'pk': self.object.pk})
 
     def get_context_data(self, **kwargs):
         context = super(ProductoCreateView, self).get_context_data(**kwargs)
@@ -86,15 +70,11 @@ class ProductoCreateView(generic.CreateView):
         return super(ProductoCreateView, self).form_valid(form)
 
 
-class ProductoUpdateView(generic.UpdateView):
+class ProductoUpdateView(ResourcePermissionMixin, generic.UpdateView):
     model = Producto
     template_name = 'producto/form.html'
     form_class = ProductoForm
     success_url = reverse_lazy('recetario:producto_list')
-
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ProductoUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(ProductoUpdateView, self).get_context_data(**kwargs)
@@ -114,19 +94,9 @@ class ProductoUpdateView(generic.UpdateView):
         return super(ProductoUpdateView, self).form_valid(form)
 
 
-class ProductoDeleteView(generic.DeleteView):
+class ProductoDeleteView(ResourcePermissionMixin, generic.DeleteView):
     model = Producto
     success_url = reverse_lazy('recetario:producto_list')
-
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-
-        try:
-            self.get_object()
-        except Exception as e:
-            messages.error(self.request, e)
-            return HttpResponseRedirect(self.success_url)
-        return super(ProductoDeleteView, self).dispatch(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         try:

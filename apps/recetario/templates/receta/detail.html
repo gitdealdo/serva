@@ -25,13 +25,13 @@
       {% if user.is_authenticated and receta.autor == user %}
       <a href="{% url 'recetario:receta_edit' receta.pk %}" class="btn btn-primary text-bold" title="{% trans "Edit" %} {{opts.verbose_name}}">
         <i class="fa fa-pencil"></i>
-        <span class="hidden-xs"> {% trans "Edit" %} {{ opts.verbose_name }}</span>
+        <span class="hidden-xs">Editar {{ opts.verbose_name }}</span>
       </a>
       {% endif %}
       {% if user.is_authenticated %}
       <a href="{% url 'recetario:receta_add' %}" class="btn btn-primary text-bold" title="Crear {{opts.verbose_name}}">
         <i class="fa fa-plus"></i>
-        <span class="hidden-xs"> {% trans "Create" %} {{opts.verbose_name}}</span>
+        <span class="hidden-xs">Crear {{opts.verbose_name}}</span>
       </a>
       <a href="{% url 'recetario:mis_recetas' %}" class="btn">Ir a mis recetas</a>
       {% endif %}
@@ -56,7 +56,7 @@
       </div>
       <div class="col-md-7">
         <p>{{ receta.descripcion }}</p>
-        <h4 class="text-danger">{% trans "Ingredients" %} <span class="badge">{{receta.ingrediente_set.count}}</span>
+        <h4 class="text-danger">Ingredientes <span class="badge">{{receta.ingrediente_set.count}}</span>
           {% if user.is_authenticated and receta.autor == user %}
           <a href="#addform" data-toggle="modal" rel="tooltip" title="{% trans 'Add ingredients' %}">
             <span class="fa fa-plus"></span>
@@ -82,20 +82,20 @@
             {% endfor %}
           </tbody>
         </table>
-        <h4 class="text-danger">{% trans "Preparation" %} </h4>
+        <h4 class="text-danger">Preparación </h4>
         <p>{{receta.preparacion | safe}}</p>
       </div>
     </div>
   </div>
   <div class="panel-footer">
-    <h3 class="text-primary">{{receta}} <small>({% trans "Author" %}: {{receta.autor.person}})</small>
+    <h3 class="text-primary">{{receta}} <small>({% trans "Autor" %}: {{receta.autor.person}})</small>
       {% if user.is_authenticated and receta.autor == user %}
       <a href="{% url 'recetario:receta_delete' receta.id %}" 
         class="btn btn-danger btn-sm js-confirm pull-right text-bold" 
         msg-title="Eliminar receta?."
         msg="Estás a punto de eliminar <b>{{receta}}</b> este procedimiento es irreversible.<br/>¿Quieres proceder?"
         title="Eliminar {{opts.verbose_name}}" rel="tooltip">
-          <i class="fa fa-ban"></i> {% trans "Delete recipe" %}
+          <i class="fa fa-ban"></i> Eliminar {{opts.verbose_name}}
       </a>
       {% endif %}
     </h3>

@@ -38,12 +38,13 @@
       {% endcomment %}
       {% else %}
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Wellcome" %}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bienvenido
           <img src="{{MEDIA_URL}}{{user.person.photo}}" width="20" height="20" alt="{{ user }}" class="img-circle"> {{ user }} <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
           <li class="divider"></li>
-          <li><a href="{% url 'backend:user_profile' %}">{% trans "My profile" %}</a></li>
-          <li><a href="{% url 'recetario:mis_recetas' %}">{% trans "My recipes" %}</a></li>
+          <li><a href="{% url 'backend:user_profile' %}">
+            {% blocktrans %} My profile {% endblocktrans %}</a></li>
+          <li><a href="{% url 'recetario:mis_recetas' %}">{{_("My recipes")}}</a></li>
           <li class="divider"></li>
           <li><a href="{% url 'access:logout' %}">{% trans "Log out" %}</a></li>
         </ul>
@@ -55,7 +56,10 @@
       {% csrf_token %}
       <label for="inputTheme">{% trans "Theme" %}</label>
       <select name="theme" class="form-control" id="inputTheme" onchange="$(this).closest('form').submit()">
-        <option value="default">{% trans "Default" %}</option>
+        <option>----------</option>
+        <option value="default">
+          {% blocktrans %}  default {% endblocktrans %}
+        </option>
         <option value="inverse">{% trans "Inverse" %}</option>
         <option value="darkblue">{% trans "Darkblue" %}</option>
         <option value="darkgreen">{% trans "Darkgreen" %}</option>

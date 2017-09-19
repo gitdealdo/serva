@@ -1,15 +1,11 @@
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
-# from django.conf import settings
-# from django.core import serializers
 from django.utils.encoding import force_text
-# from backend_apps.utils.decorators import permission_resource_required
-# from backend_apps.utils.forms import empty
+from backend_apps.utils.decorators import ResourcePermissionMixin
 from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
 from apps.recetario.models.receta import Receta
 from apps.recetario.models.ingrediente import Ingrediente
@@ -22,7 +18,8 @@ from ..models.menu import Menu
 import json
 import decimal
 
-class DetalleTemplateView(generic.TemplateView):
+
+class DetalleTemplateView(ResourcePermissionMixin, generic.TemplateView):
     """DetalleTemplateView"""
     model = Detalle
     template_name = 'detalle/index.html'
@@ -37,7 +34,7 @@ class DetalleTemplateView(generic.TemplateView):
         return context
 
 
-class IngredienteListView(generic.ListView):
+class IngredienteListView(ResourcePermissionMixin, generic.ListView):
     model = Ingrediente
     template_name = "detalle/ingredientes.html"
 
@@ -89,7 +86,7 @@ def crear_detalle(request):
     return JsonResponse({'receta': receta.nombre, 'porcion': request.POST['porcion']})
 
 
-class DetalleListView(generic.ListView):
+class DetalleListView(ResourcePermissionMixin, generic.ListView):
     model = Detalle
     template_name = "detalle/list.html"
 
@@ -105,7 +102,7 @@ class DetalleListView(generic.ListView):
         return self.model.objects.filter(menu=self.kwargs['menu'])
 
 
-class DetalleDeleteView(generic.DeleteView):
+class DetalleDeleteView(ResourcePermissionMixin, generic.DeleteView):
     model = Detalle
     success_url = reverse_lazy('venta:detalle_list')
 

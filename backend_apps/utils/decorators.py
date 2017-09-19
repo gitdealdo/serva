@@ -11,24 +11,19 @@ Descripcion: Decorador para validar los permisos de los usuarios
 from django.utils.translation import ugettext as _  # , ungettext
 from functools import wraps
 from django.utils.decorators import available_attrs
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.shortcuts import render_to_response
+# from django.shortcuts import render_to_response
 from django.contrib import messages
 from django.template.context import RequestContext
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse, HttpResponseRedirect
-#from django.utils.decorators import method_decorator
-#from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.core.urlresolvers import resolve
-from django.http import HttpResponseRedirect, Http404
 from django.conf import settings
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.exceptions import ValidationError
 
 
@@ -56,7 +51,10 @@ def is_admin(view_func):
     return _wrapped_view_func
 
 
-def permission_resource_required(function=None, template_name='mod_backend/base_mod_backend.html', login_url=None, redirect_field_name=REDIRECT_FIELD_NAME):
+def permission_resource_required(function=None,
+                                 template_name='mod_backend/base_mod_backend.html',
+                                 login_url=None,
+                                 redirect_field_name=REDIRECT_FIELD_NAME):
     """
     Verifica si el usuario tiene permiso para acceder al recurso actual (request.path)
 
@@ -87,7 +85,9 @@ def permission_resource_required(function=None, template_name='mod_backend/base_
     return actual_decorator
 
 
-def permission_resource_required_decorator(template_name='mod_backend/base_mod_backend.html', login_url=None, redirect_field_name=REDIRECT_FIELD_NAME):
+def permission_resource_required_decorator(template_name='mod_backend/base_mod_backend.html',
+                                           login_url=None,
+                                           redirect_field_name=REDIRECT_FIELD_NAME):
     """
     Implementa el docorador permission_resource_required
     """
@@ -101,7 +101,7 @@ def permission_resource_required_decorator(template_name='mod_backend/base_mod_b
             from django.shortcuts import resolve_url
 
             path = request.build_absolute_uri()
-                # urlparse chokes on lazy objects in Python 3, force to str
+            # urlparse chokes on lazy objects in Python 3, force to str
             resolved_login_url = force_str(
                 resolve_url(login_url or settings.LOGIN_URL))
             # If the login url is the same scheme and net location then just
@@ -109,7 +109,7 @@ def permission_resource_required_decorator(template_name='mod_backend/base_mod_b
             login_scheme, login_netloc = urlparse(resolved_login_url)[:2]
             current_scheme, current_netloc = urlparse(path)[:2]
             if ((not login_scheme or login_scheme == current_scheme) and
-               (not login_netloc or login_netloc == current_netloc)):
+                    (not login_netloc or login_netloc == current_netloc)):
                 path = request.get_full_path()
             from django.contrib.auth.views import redirect_to_login
 
@@ -123,7 +123,7 @@ def permission_resource_required_decorator(template_name='mod_backend/base_mod_b
                 return redirect_to_login(path, resolved_login_url, redirect_field_name)
 
             #path += '&PermissionDenied'
-            #print path
+            # print path
             permiso = ''
             recurso = '/'
 
@@ -167,7 +167,7 @@ def permission_resource_required_decorator(template_name='mod_backend/base_mod_b
             else:
 
                 messages.warning(
-                    request, _('Permission denied. You don\'t have permission to %s.') % (recurso) )
+                    request, _('Permission denied. You don\'t have permission to %s.') % (recurso))
                 #raise PermissionDenied
                 # return HttpResponseRedirect('/%s'%path_c) # bucle
                 # return render_to_response(template_name, {'': ''},
@@ -185,8 +185,22 @@ def permission_resource_required_decorator(template_name='mod_backend/base_mod_b
 
                 # return view_func(request, *args, **kwargs)
 
-                #raise ValidationError(
+                # raise ValidationError(
                 #    ('Tu no posees permisos para acceder a <b>%(route)s</b>') % {'route': recurso})
 
         return _wrapped_view
     return decorator
+
+
+class LoginRequiredMixin(object):
+    """LoginRequiredMixin"""
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class ResourcePermissionMixin(object):
+    """ResourcePermissionMixin"""
+    @method_decorator(permission_resource_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ResourcePermissionMixin, self).dispatch(request, *args, **kwargs)

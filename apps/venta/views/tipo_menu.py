@@ -1,31 +1,20 @@
 from django.core.urlresolvers import reverse  # reverse_lazy
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
-# from django.contrib import messages
 from django.views import generic
 from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
-# from django.core import serializers
-# from django.utils.encoding import force_text
-from backend_apps.utils.decorators import permission_resource_required
+from backend_apps.utils.decorators import LoginRequiredMixin
 from backend_apps.utils.forms import empty
-# from backend_apps.utils.security import log_params, get_dep_objects  # , SecurityKey, UserToken
-# from decimal import Decimal
-
 from ..models.tipo_menu import TipoMenu
 
 
-class TipoMenuListView(generic.ListView):
+class TipoMenuListView(LoginRequiredMixin, generic.ListView):
     """TipoMenuListView"""
 
     model = TipoMenu
     template_name = 'tipo_menu/list.html'
     paginate_by = settings.PER_PAGE
-
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(TipoMenuListView, self).dispatch(request, *args, **kwargs)
 
     def get_paginate_by(self, queryset):
         if 'all' in self.request.GET:

@@ -1,33 +1,26 @@
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _  # , ungettext
 from django.utils.text import capfirst  # , get_text_list
 from django.contrib import messages
 from django.views import generic
 from django.http import HttpResponseRedirect, JsonResponse  # , HttpResponse
 from django.conf import settings
-# from django.core import serializers
 from django.utils.encoding import force_text
-from backend_apps.utils.decorators import permission_resource_required
+from backend_apps.utils.decorators import ResourcePermissionMixin, LoginRequiredMixin
 from backend_apps.utils.forms import empty
 from backend_apps.utils.security import get_dep_objects  # log_params, SecurityKey, UserToken
-# from decimal import Decimal
 
 from ..models.menu import Menu
 from ..forms.menu import MenuForm
 from ..models.tipo_menu import TipoMenu
 
 
-class MenuListView(generic.ListView):
+class MenuListView(LoginRequiredMixin, generic.ListView):
     """MenuListView"""
 
     model = Menu
     template_name = 'menu/list.html'
     paginate_by = settings.PER_PAGE
-
-    @method_decorator(permission_resource_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(MenuListView, self).dispatch(request, *args, **kwargs)
 
     def get_paginate_by(self, queryset):
         if 'all' in self.request.GET:
@@ -52,7 +45,7 @@ class MenuListView(generic.ListView):
         return context
 
 
-class MenuCreateView(generic.CreateView):
+class MenuCreateView(ResourcePermissionMixin, generic.CreateView):
     model = Menu
     form_class = MenuForm
     template_name = "menu/form.html"
@@ -72,7 +65,7 @@ class MenuCreateView(generic.CreateView):
         return super(MenuCreateView, self).form_valid(form)
 
 
-class MenuUpdateView(generic.UpdateView):
+class MenuUpdateView(ResourcePermissionMixin, generic.UpdateView):
     model = Menu
     form_class = MenuForm
     template_name = "menu/form.html"
@@ -89,7 +82,7 @@ class MenuUpdateView(generic.UpdateView):
         return super(MenuUpdateView, self).form_valid(form)
 
 
-class MenuDeleteView(generic.DeleteView):
+class MenuDeleteView(ResourcePermissionMixin, generic.DeleteView):
     model = Menu
     success_url = reverse_lazy('venta:menu_list')
 
