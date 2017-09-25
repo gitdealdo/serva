@@ -42,9 +42,8 @@
           <img src="{{MEDIA_URL}}{{user.person.photo}}" width="20" height="20" alt="{{ user }}" class="img-circle"> {{ user }} <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
           <li class="divider"></li>
-          <li><a href="{% url 'backend:user_profile' %}">
-            {% blocktrans %} My profile {% endblocktrans %}</a></li>
-          <li><a href="{% url 'recetario:mis_recetas' %}">{{_("My recipes")}}</a></li>
+          <li><a href="{% url 'backend:user_profile' %}">Mi perfil</a></li>
+          <li><a href="{% url 'recetario:mis_recetas' %}">Mis recetas</a></li>
           <li class="divider"></li>
           <li><a href="{% url 'access:logout' %}">{% trans "Log out" %}</a></li>
         </ul>
