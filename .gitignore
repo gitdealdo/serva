@@ -72,6 +72,8 @@ fabric.properties
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
+*.html.py
+*.txt.py
 
 # C extensions
 *.so

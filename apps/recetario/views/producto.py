@@ -126,7 +126,7 @@ class ProductoDeleteView(ResourcePermissionMixin, generic.DeleteView):
         return self.delete(request, *args, **kwargs)
 
 
-def upload_file(request):
+def importar_producto(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -152,7 +152,7 @@ def upload_file(request):
                 if producto:
                     producto.descripcion = d[3]
                     producto.stock_minimo = d[5]
-                    producto.stock = d[6]
+                    producto.stock += d[6]
                     producto.costo = d[7]
                     producto.save()
                 else:

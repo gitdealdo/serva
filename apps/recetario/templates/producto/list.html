@@ -37,7 +37,7 @@ $(function() {
                     </span>
                 </a>
                 
-                <a class="btn btn-primary" data-toggle="modal" href='#modal-id'>
+                <a class="btn btn-primary" data-toggle="modal" href='#modal-id' title="Importar y actualizar stock">
                     <i class="fa fa-upload"></i> Importar
                 </a>
 
@@ -50,13 +50,13 @@ $(function() {
             <thead>
                 <tr>
                     <th>#</th>
-                    <th class="" data-search="nombre" data-order="nombre">Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Stok minimo</th>
-                    <th>Stok</th>
-                    <th>Unidad</th>
-                    <th>Precio Unitario</th>
-                    <th class="" data-search="categoria__nombre">Categoria</th>
+                    <th class="col-hidden" data-search="nombre" data-order="nombre">Nombre</th>
+                    <th class="col-hidden">Descripcion</th>
+                    <th class="col-hidden">Stok minimo</th>
+                    <th class="col-hidden">Stok</th>
+                    <th class="col-hidden">Unidad</th>
+                    <th class="col-hidden">Precio Unitario</th>
+                    <th class="col-hidden" data-search="categoria__nombre">Categoria</th>
                     <th class="btn-actions col-block text-center">Acciones</th>
                 </tr>
             </thead>
@@ -93,12 +93,13 @@ $(function() {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Importar insumos</h4>
+                <h4 class="modal-title">Importar y actualizar stock</h4>
             </div>
-            <form action="{% url 'recetario:upload_file' %}" method="POST" role="form" enctype="multipart/form-data">
+            <form action="{% url 'recetario:importar_producto' %}" method="POST" role="form" enctype="multipart/form-data">
             <div class="modal-body">
                 {% csrf_token %}
                 {{form.as_p}}
+                <span>El archivo excel a importar debe tener el siguiente formato: <a href="https://docs.google.com/spreadsheets/d/1rZB53shMYV_e-eYtdKom_1TFOBjckVROap6JT3WsbNI/edit?usp=sharing">Ir a plantilla</a></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
