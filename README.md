@@ -1,6 +1,7 @@
-#Sistema de información para servicios de alimentación
+# Sistema de información para servicios de alimentación
 Gestión de insumos basado en la formulación de menús
-###Requerimientos
+
+### Requerimientos
 
 - Django==1.11
 - Pillow==4.1.0
@@ -9,7 +10,8 @@ Gestión de insumos basado en la formulación de menús
 - pyexcel-xlsx==0.5.0.1
 - psycopg2==2.6.2 # para  postgress
 
-###Instalación
+### Instalación
+
 `git clone https://github.com/gitdealdo/serva.git`
 `cd serva`
 `virtualenv --python=python3 env`
