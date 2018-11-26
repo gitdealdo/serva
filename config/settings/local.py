@@ -17,15 +17,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
-    'auth': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'backend_auth',
-        'USER': 'postgres',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
 }
+
+DEBUG = True
 
 if DEBUG:
 
@@ -39,6 +33,8 @@ if DEBUG:
     }
 
 STATIC_URL = '/static/'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 

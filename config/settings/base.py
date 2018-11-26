@@ -43,7 +43,6 @@ BACKEND_APPS = [
     'backend_apps.utils',
     'backend_apps.auths',
     'backend_apps.access',
-
 ]
 
 LOCAL_APPS = [

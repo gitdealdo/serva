@@ -7,6 +7,7 @@
 __pycache__/
 local_settings.py
 db.*
+db.sqlite3
 media
 temp
 ### PyCharm ###
@@ -153,7 +154,7 @@ celerybeat-schedule
 
 # virtualenv
 .venv
-venv/
+venv
 ENV/
 
 # Spyder project settings
